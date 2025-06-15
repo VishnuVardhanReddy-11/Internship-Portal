@@ -52,7 +52,20 @@ npm run dev
 ⚠️ Notes
 Ensure .env is not pushed to GitHub (already listed in .gitignore)
 
-All team members should create and work on separate branches, not main
+All team members have their own branches with thier name, so comit the code there only no one should should commit their code in the main branch.
+after proper testing if the code the branches will be merged to main. Below is step-by-step to merge .
+
+✅ Step-by-step Git Merge
+
+1. First, switch to the main branch
+	git switch main
+
+2. Pull latest changes (optional but recommended)
+   Make sure your main is up to date:
+	git pull origin main
+
+3. Merge the yash branch into main
+	git merge you-branch-name
 
 
 
