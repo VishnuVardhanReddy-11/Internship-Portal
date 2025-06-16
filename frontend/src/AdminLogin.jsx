@@ -21,7 +21,6 @@ const AdminLogin = () => {
                 <span className="forgot">
                   <a href="/admin/forgot-password">Forgot Password?</a>
                 </span>
-
                 {/* Optional: Switch to student login */}
                 <SwitchFormText
                   question="Not an admin?"
