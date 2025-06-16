@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const verifyToken= require('./middlewares/auth');
 const db= require('./config/mongoose-connection'); 
 const client  = require('./config/twilio'); 
-const User = require('./models/user');
 // const twilio = require('twilio');
 const authRoutes = require('./routes/authRoutes');
 

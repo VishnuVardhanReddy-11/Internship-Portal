@@ -1,9 +1,10 @@
-const User = require('../models/user');
+const User = require('../models/userModel');
 const  client  = require("../config/twilio");
 const  hash    = require('../utils/hashPassword');
 const { generateToken } = require('../utils/generateToken');
 const { comparePassword } = require('../utils/comparePassword');
 const { sendWelcomeEmail } = require('../utils/sendEmail');
+const Notification=require('../models/notificationModel');
 
 
 // const generateToken = require('../utils/generateToken');
@@ -30,6 +31,8 @@ const { sendWelcomeEmail } = require('../utils/sendEmail');
 
 const twilioServiceSid=process.env.TWILIO_SERVICE_SID;
  
+
+// user register and login using otp
 const sendOtp =(mode)=>{
   return async (req, res) => {
     console.log("yaha aayi");
@@ -56,6 +59,12 @@ const sendOtp =(mode)=>{
       channel: "sms",
     });
 
+    await Notification.create({
+        userId: existingUser?._id || null, // null in case of new user
+        type: "otp",
+        content: `OTP sent to ${phone} for ${mode === 'register' ? 'registration' : 'login'}.`,
+      });
+
     return res.status(200).json({ message: "OTP sent successfully", otpResponse });
   } catch (error) {
     console.error("OTP sending error:", error);
@@ -68,7 +77,8 @@ const sendOtp =(mode)=>{
 // Verify OTP and Register
 const verifyOtp =(mode)=>{
  return  async (req, res) => {
-  const { name, email, phone, password, otp } = req.body;
+  const { otp } = req.body;
+
 
   try {
     const verificationCheck = await client.verify.v2.services(twilioServiceSid).verificationChecks.create({
@@ -92,6 +102,12 @@ const verifyOtp =(mode)=>{
       const newUser = new User({ name, email, phone, password: hashedPassword });
       console.log(newUser);
       await newUser.save();
+
+      await Notification.create({
+          userId: newUser._id,
+          type: "welcome",
+          content: `Welcome to the platform, ${name}!`
+        });
 
       await sendWelcomeEmail(email, name);
 
