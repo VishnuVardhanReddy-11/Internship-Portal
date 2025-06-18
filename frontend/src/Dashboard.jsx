@@ -1,22 +1,9 @@
 import React, { useState } from 'react';
 import {
-  User,
-  BookOpen,
-  Award,
-  TrendingUp,
-  Clock
+  User, BookOpen, Award, TrendingUp, Clock , ClipboardList
 } from 'lucide-react';
 import './Dashboard.css';
 
-// Components
-/*
-import DashboardHeader from './components/DashboardHeader';
-import DashboardStats from './components/DashboardStats';
-import CourseList from './components/CourseList';
-import CertificationList from './components/CertificationList';
-import EnrollmentForm from './components/EnrollmentForm';
-*/
-// Imported Helper functions
 import {
   formatDate,
   getProgressColor,
@@ -140,10 +127,10 @@ const Dashboard = () => {
   const handleEnroll = () => {
     if (selectedProject) {
       alert(`You have enrolled in: ${selectedProject.name}`);
-      setEnrolledCourses(prevCourses => [
-        ...prevCourses,
+      setEnrolledCourses(prev => [
+        ...prev,
         {
-          id: prevCourses.length + 1,
+          id: prev.length + 1,
           title: selectedProject.name,
           domain: selectedDomain,
           progress: 0,
@@ -157,6 +144,7 @@ const Dashboard = () => {
       setSelectedProject(null);
     }
   };
+
   return (
     <div className="container">
       {/* Header */}
@@ -179,18 +167,31 @@ const Dashboard = () => {
 
       {/* Stats */}
       <div className="stats-grid">
+        {/* Active Courses */}
         <div className="stat-card">
           <div className="stat-header">
             <div className="stat-icon blue">
               <BookOpen color="white" className="icon" />
             </div>
-            <div className="stat-number">{enrolledCourses.length}</div>
+            <div className="stat-number">{enrolledCourses.filter(c => c.status !== 'Enrolled').length}</div>
           </div>
           <div className="stat-label-small">Active Courses</div>
           <p className="stat-title">Courses Enrolled</p>
           <p className="stat-subtitle">Currently active</p>
         </div>
-
+        {/* Learning Time */}
+        <div className="stat-card">
+          <div className="stat-header">
+            <div className="stat-icon purple">
+              <ClipboardList color="white" className="icon" />
+            </div>
+            <div className="stat-number">1</div>
+          </div>
+          <div className="stat-label-small">Active Projects</div>
+          <p className="stat-title">Projects Enrolled</p>
+          <p className="stat-subtitle">Currently active</p>
+        </div>
+        {/* Certifications */}
         <div className="stat-card">
           <div className="stat-header">
             <div className="stat-icon yellow">
@@ -203,6 +204,7 @@ const Dashboard = () => {
           <p className="stat-subtitle">Completed successfully</p>
         </div>
 
+        {/* Performance */}
         <div className="stat-card">
           <div className="stat-header">
             <div className="stat-icon green">
@@ -213,18 +215,6 @@ const Dashboard = () => {
           <div className="stat-label-small">Average Score</div>
           <p className="stat-title">Performance</p>
           <p className="stat-subtitle">Overall progress</p>
-        </div>
-
-        <div className="stat-card">
-          <div className="stat-header">
-            <div className="stat-icon purple">
-              <Clock color="white" className="icon" />
-            </div>
-            <div className="stat-number">247h</div>
-          </div>
-          <div className="stat-label-small">This Month</div>
-          <p className="stat-title">Learning Time</p>
-          <p className="stat-subtitle">Total study hours</p>
         </div>
       </div>
 
@@ -237,10 +227,10 @@ const Dashboard = () => {
               <div className="section-icon blue">
                 <BookOpen color="white" className="icon" />
               </div>
-              Enrolled Courses & Projects
+              Enrolled Courses
             </div>
             <div className="course-grid">
-              {enrolledCourses.map(course => (
+              {enrolledCourses.filter(c => c.status !== 'Enrolled').map(course => (
                 <div key={course.id} className="course-card">
                   <div className="course-header">
                     <div>
@@ -256,10 +246,44 @@ const Dashboard = () => {
                       <span className="progress-percent">{course.progress}%</span>
                     </div>
                     <div className="progress-bar">
-                      <div
-                        className={`progress-fill ${getProgressColor(course.progress)}`}
-                        style={{ width: `${course.progress}%` }}
-                      />
+                      <div className={`progress-fill ${getProgressColor(course.progress)}`} style={{ width: `${course.progress}%` }} />
+                    </div>
+                  </div>
+                  <div className="course-footer">
+                    <span className="time-remaining">{getRandomTimeRemaining()}</span>
+                    <button className="continue-btn">Continue</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Enrolled Projects */}
+          <div className="section-card">
+            <div className="section-header">
+              <div className="section-icon green">
+                <BookOpen color="white" className="icon" />
+              </div>
+              Enrolled Projects
+            </div>
+            <div className="course-grid">
+              {enrolledCourses.filter(p => p.status === 'Enrolled').map(project => (
+                <div key={project.id} className="course-card">
+                  <div className="course-header">
+                    <div>
+                      <h3 className="course-title">{project.title}</h3>
+                      <div className="course-domain">{project.domain}</div>
+                      <div className="course-date">Enrolled on {formatDate(project.enrolledDate)}</div>
+                    </div>
+                    <div className={`status-badge ${getStatusClass(project.status)}`}>{project.status}</div>
+                  </div>
+                  <div className="progress-section">
+                    <div className="progress-info">
+                      <span>{project.completedLessons}/{project.totalLessons} Lessons</span>
+                      <span className="progress-percent">{project.progress}%</span>
+                    </div>
+                    <div className="progress-bar">
+                      <div className={`progress-fill ${getProgressColor(project.progress)}`} style={{ width: `${project.progress}%` }} />
                     </div>
                   </div>
                   <div className="course-footer">
@@ -303,7 +327,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Right Column */}
+        {/* Enrollment Form */}
         <div>
           <div className="section-card enrollment-section">
             <div className="section-header">
