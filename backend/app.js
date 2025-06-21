@@ -4,7 +4,7 @@ const cors= require('cors');
 const cookieParser = require('cookie-parser');
 const verifyToken= require('./middlewares/auth');
 const db= require('./config/mongoose-connection'); 
-const client  = require('./config/twilio'); 
+const client  = require('./config/emailConfig'); 
 // const twilio = require('twilio');
 const authRoutes = require('./routes/authRoutes');
 

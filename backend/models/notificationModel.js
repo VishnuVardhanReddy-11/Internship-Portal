@@ -4,7 +4,6 @@ const NotificationSchema = new mongoose.Schema({
 
   userId: {
     type: mongoose.Schema.Types.ObjectId, ref: "Users",
-    required: true 
     },
   type: { 
     type: String, enum: ["welcome", "otp", "offerLetter", "feedback", "completion"], 
