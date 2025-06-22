@@ -109,9 +109,16 @@ const sendOtp = (mode) => {
         content: `OTP sent to ${phone} for ${mode === "register" ? "registration" : "login"}.`,
       });
 
+        const userInfo = mode === "login" ? {
+        name: existingUser.username,
+        phone: existingUser.phone,
+        // password: existingUser.password
+      } : null;
+
       return res.status(200).json({
         message: "OTP sent successfully",
-        sessionId: sessionId,
+        sessionId,
+        user: userInfo,
       });
     } catch (error) {
       console.error("OTP sending error:", error.response?.data || error.message);
@@ -205,8 +212,15 @@ const sendOtp = (mode) => {
 
 const verifyOtp = (mode) => {
   return async (req, res) => {
-    const { name, otp, phone, email, password, sessionId } = req.body;
-
+    const { username, otp, phone, email, password, sessionId } = req.body;
+    console.log("req.body", req.body);
+    console.log("mode:-", mode);
+    console.log("email", email);
+    
+    
+    
+    
+``
     try {
       // 🔍 Verify OTP using 2Factor
       const verifyUrl = `https://2factor.in/API/V1/${process.env.OTP_API}/SMS/VERIFY/${sessionId}/${otp}`;
@@ -218,6 +232,8 @@ const verifyOtp = (mode) => {
       }
 
       const existingUser = await User.findOne({ email });
+      console.log("existingUser:- ", existingUser);
+      
 
       // 🔹 Register flow
       if (mode === "register") {
@@ -226,20 +242,20 @@ const verifyOtp = (mode) => {
         }
 
         const hashedPassword = await hash(password);
-        const newUser = new User({ name, email, phone, password: hashedPassword });
+        const newUser = new User({ name: username, email, phone, password: hashedPassword });
         await newUser.save();
 
         await Notification.create({
           userId: newUser._id,
           type: "welcome",
-          content: `Welcome to the platform, ${name}!`,
+          content: `Welcome to the platform, ${username}!`,
         });
 
         await sendEmail(
           email,
           "Welcome to Our Platform!",
-          `Hi ${name}, welcome aboard!`,
-          `<strong>Hi ${name},</strong><br/><br/>Welcome to our platform! We're excited to have you on board.`
+          `Hi ${username}, welcome aboard!`,
+          `<strong>Hi ${username},</strong><br/><br/>Welcome to our platform! We're excited to have you on board.`
         );
 
         const token = generateToken(newUser);
@@ -251,10 +267,15 @@ const verifyOtp = (mode) => {
       // 🔹 Login flow
       if (mode === "login") {
         if (!existingUser) {
+          console.log("maa chud gyi");
           return res.status(400).json({ message: "User not found." });
         }
-
+        console.log("fist maa chud gyi 1");
+        console.log("password:- ", password);
+        console.log("existingUser.password:- ", existingUser.password);
+        
         const isPasswordValid = await comparePassword(password, existingUser.password);
+        console.log("fist maa chud gyi 2");
         if (!isPasswordValid) {
           return res.status(400).json({ message: "Invalid password." });
         }

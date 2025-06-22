@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { data, useNavigate } from 'react-router-dom';
 import './OtpVerification.css';
 
 const OtpVerification = () => {
+  const navigate = useNavigate();
   // create 6 refs instead of 4
   const otpRefs = Array.from({ length: 6 }, () => useRef(null));
 
@@ -23,24 +25,110 @@ const OtpVerification = () => {
     }
   };
 
-  const handleVerify = (e) => {
-    e.preventDefault();
-    const otp = otpRefs.map((ref) => ref.current.value).join('');
+ const handleVerify = async (e) => {
+  e.preventDefault();
+  const otp = otpRefs.map((ref) => ref.current.value).join('');
 
-    if (otp.length !== 6) {
-      alert('Please enter the complete 6-digit OTP');
-      return;
+  if (otp.length !== 6) {
+    alert('Please enter the complete 6-digit OTP');
+    return;
+  }
+// const data= localStorage.getItem("userData");
+// const mode= localStorage.getItem("mode");
+// const sessionId= localStorage.getItem("sessionId");
+// console.log(data);
+// console.log(mode);
+// console.log(sessionId);
+ 
+
+  // Read userData and mode from localStorage
+  const storedUserData = JSON.parse(localStorage.getItem("userData"));
+  const mode = localStorage.getItem("mode");
+  const sessionId = localStorage.getItem("sessionId");
+
+  console.log("storedUserData:", storedUserData);
+  console.log("mode:", mode);
+  console.log("sessionId:", sessionId);
+
+  if (!storedUserData || !mode) {
+    alert("Something went wrong. Please try again.");
+    return;
+  }
+
+  // Prepare request payload
+  const payload = {
+    ...storedUserData,
+    otp,
+    sessionId
+  };
+
+  console.log("Payload:", payload);
+  
+
+  try {
+    const response = await fetch(`http://localhost:3000/user/${mode}/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json();
+    console.log("backend res:", result);
+    
+
+    if (!response.ok) {
+      throw new Error(result.message || "OTP verification failed");
     }
 
-    alert('OTP Verified Successfully!');
-    // TODO: send OTP to backend here
-  };
+    alert("OTP Verified Successfully!");
+    navigate('/dashboard');
+    // You can redirect the user or proceed accordingly here
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
-  const handleResend = () => {
-    otpRefs.forEach((ref) => (ref.current.value = ''));
-    otpRefs[0].current.focus();
-    alert('A new OTP has been sent to your phone number');
-  };
+
+ const handleResend = async () => {
+  // Clear OTP boxes
+  otpRefs.forEach((ref) => (ref.current.value = ''));
+  otpRefs[0].current.focus();
+
+  const storedUserData = JSON.parse(localStorage.getItem("userData"));
+  const mode = localStorage.getItem("mode");
+
+  console.log("storedUserData:", storedUserData);
+  console.log("mode:", mode);
+  
+
+  if (!storedUserData || !mode) {
+    alert("User data missing. Please register/login again.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:3000/user/${mode}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(storedUserData),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(result.message || "Failed to resend OTP");
+    }
+
+    alert("A new OTP has been sent to your phone number.");
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
 
   const handleExit = () => {
     if (window.confirm('Are you sure you want to close?')) {
