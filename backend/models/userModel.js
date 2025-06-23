@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Enrollments' }],
     default: []
   },
+  enrolledProjects: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Projects' }],
+    default: []
+  },
   profileInfo: {
     address: String,
     bio: String

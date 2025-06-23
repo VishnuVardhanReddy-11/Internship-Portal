@@ -23,6 +23,7 @@ app.use(cookieParser());
 // Allow specific origin (e.g., Vite dev server)
 app.use(cors({
   origin: 'http://localhost:5173', // Replace with your frontend URL
+  credentials: true,  
 }));
 app.use("/user", authRoutes)
 

@@ -33,12 +33,6 @@ const OtpVerification = () => {
     alert('Please enter the complete 6-digit OTP');
     return;
   }
-// const data= localStorage.getItem("userData");
-// const mode= localStorage.getItem("mode");
-// const sessionId= localStorage.getItem("sessionId");
-// console.log(data);
-// console.log(mode);
-// console.log(sessionId);
  
 
   // Read userData and mode from localStorage
@@ -71,6 +65,7 @@ const OtpVerification = () => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(payload),
     });
 
@@ -83,8 +78,11 @@ const OtpVerification = () => {
     }
 
     alert("OTP Verified Successfully!");
+    if(mode === "register"){
+      navigate('/');
+    }
     navigate('/dashboard');
-    // You can redirect the user or proceed accordingly here
+
   } catch (err) {
     alert(err.message);
   }

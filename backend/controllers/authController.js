@@ -216,11 +216,7 @@ const verifyOtp = (mode) => {
     console.log("req.body", req.body);
     console.log("mode:-", mode);
     console.log("email", email);
-    
-    
-    
-    
-``
+
     try {
       // 🔍 Verify OTP using 2Factor
       const verifyUrl = `https://2factor.in/API/V1/${process.env.OTP_API}/SMS/VERIFY/${sessionId}/${otp}`;
@@ -258,8 +254,8 @@ const verifyOtp = (mode) => {
           `<strong>Hi ${username},</strong><br/><br/>Welcome to our platform! We're excited to have you on board.`
         );
 
-        const token = generateToken(newUser);
-        res.cookie("token", token);
+        // const token = generateToken(newUser);
+        // res.cookie("token", token);
 
         return res.status(201).json({ message: "User registered successfully!", user: newUser });
       }
@@ -267,7 +263,6 @@ const verifyOtp = (mode) => {
       // 🔹 Login flow
       if (mode === "login") {
         if (!existingUser) {
-          console.log("maa chud gyi");
           return res.status(400).json({ message: "User not found." });
         }
         console.log("fist maa chud gyi 1");
@@ -281,9 +276,13 @@ const verifyOtp = (mode) => {
         }
 
         const token = generateToken(existingUser);
+        console.log("token:- ", token);
+        
         res.cookie("token", token);
+        res.clearCookie("token");
 
-        return res.status(200).json({ message: "Login successful via OTP!", user: existingUser });
+        return res.status(200).json({ message: "Login successful via OTP!",
+            user: existingUser, token });
       }
 
       return res.status(400).json({ message: "Invalid mode." });
