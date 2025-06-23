@@ -598,3 +598,75 @@ body {
         font-size: 2rem;
     }
 }
+
+
+.logout-btn-animated {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 70px;
+  height: 70px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: white;
+}
+
+.logout-sign {
+  width: 100%;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-sign svg {
+  width: 25px;
+}
+
+.logout-sign svg path {
+  fill: black;
+}
+
+.logout-text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+
+.logout-btn-animated:hover {
+  background-color: black;
+  width: 145px;
+  border-radius: 40px;
+  transition-duration: 0.3s;
+}
+
+.logout-btn-animated:hover .logout-sign {
+  width: 30%;
+  transition-duration: 0.3s;
+  padding-left: 20px;
+}
+
+.logout-btn-animated:hover .logout-sign svg path {
+  fill: white;
+}
+
+.logout-btn-animated:hover .logout-text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
+}
+
+.logout-btn-animated:active {
+  transform: translate(2px, 2px);
+}
