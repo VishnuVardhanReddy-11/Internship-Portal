@@ -1,132 +1,134 @@
-import React, { useRef, useState } from 'react';
-import { data, useNavigate } from 'react-router-dom';
+import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthData, setError, setLoading } from './store/authSlice';
 import './OtpVerification.css';
 
 const OtpVerification = () => {
   const navigate = useNavigate();
-  // create 6 refs instead of 4
+  const dispatch = useDispatch();
+  const { loading, error, message } = useSelector((state) => state.auth);
+
   const otpRefs = Array.from({ length: 6 }, () => useRef(null));
 
   const handleOtpInput = (e, index) => {
     const { value } = e.target;
-    // allow only a single digit
-    if (!/^\d?$/.test(value)) return;
-
-    // move focus to the next box if a digit is typed
+    if (!/^[0-9]?$/.test(value)) return;
     if (value && index < otpRefs.length - 1) {
       otpRefs[index + 1].current.focus();
     }
   };
 
   const handleBackspace = (e, index) => {
-    // on backspace, move focus to previous box if current is empty
     if (e.key === 'Backspace' && !e.target.value && index > 0) {
       otpRefs[index - 1].current.focus();
     }
   };
 
- const handleVerify = async (e) => {
-  e.preventDefault();
-  const otp = otpRefs.map((ref) => ref.current.value).join('');
+  const handleVerify = async (e) => {
+    e.preventDefault();
+    dispatch(setLoading());
 
-  if (otp.length !== 6) {
-    alert('Please enter the complete 6-digit OTP');
-    return;
-  }
- 
+    const otp = otpRefs.map((ref) => ref.current.value).join('');
+    if (otp.length !== 6) {
+      dispatch(setError('Please enter the complete 6-digit OTP'));
+      return;
+    }
 
-  // Read userData and mode from localStorage
-  const storedUserData = JSON.parse(localStorage.getItem("userData"));
-  const mode = localStorage.getItem("mode");
-  const sessionId = localStorage.getItem("sessionId");
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    const mode = localStorage.getItem("mode");
+    const sessionId = localStorage.getItem("sessionId");
 
-  console.log("storedUserData:", storedUserData);
-  console.log("mode:", mode);
-  console.log("sessionId:", sessionId);
+    if (!storedUserData || !mode || !sessionId) {
+      dispatch(setError("Something went wrong. Please try again."));
+      return;
+    }
 
-  if (!storedUserData || !mode) {
-    alert("Something went wrong. Please try again.");
-    return;
-  }
+    const payload = {
+      ...storedUserData,
+      otp,
+      sessionId,
+    };
 
-  // Prepare request payload
-  const payload = {
-    ...storedUserData,
-    otp,
-    sessionId
+    try {
+      const response = await fetch(`http://localhost:3000/user/${mode}/verify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "OTP verification failed");
+      }
+
+      localStorage.setItem("userData", JSON.stringify({ ...result.user }));
+
+      dispatch(setAuthData({
+        user: result.user,
+        message: result.message || "OTP Verified Successfully!",
+      }));
+
+      if (mode === "register") {
+       \setTimeout(() => {
+         navigate("/");
+       }, 2000);
+      } else {
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 2000);
+      }
+    } catch (err) {
+      dispatch(setError(err.message));
+    }
   };
 
-  console.log("Payload:", payload);
-  
+  const handleResend = async () => {
+    otpRefs.forEach((ref) => (ref.current.value = ''));
+    otpRefs[0].current.focus();
 
-  try {
-    const response = await fetch(`http://localhost:3000/user/${mode}/verify`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(payload),
-    });
+    const storedUserData = JSON.parse(localStorage.getItem("userData"));
+    const mode = localStorage.getItem("mode");
 
-    const result = await response.json();
-    console.log("backend res:", result);
-    
-
-    if (!response.ok) {
-      throw new Error(result.message || "OTP verification failed");
+    if (!storedUserData || !mode) {
+      dispatch(setError("User data missing. Please register/login again."));
+      return;
     }
 
-    alert("OTP Verified Successfully!");
-    if(mode === "register"){
-      navigate('/');
+    dispatch(setLoading());
+
+    try {
+      const response = await fetch(`http://localhost:3000/user/${mode}?resend=true`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(storedUserData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to resend OTP");
+      }
+
+      if (result.sessionId) {
+        localStorage.setItem("sessionId", result.sessionId);
+      }
+
+      dispatch(setAuthData({
+        user: storedUserData,
+        message: "A new OTP has been sent to your phone number."
+      }));
+
+    } catch (err) {
+      dispatch(setError(err.message));
     }
-    navigate('/dashboard');
-
-  } catch (err) {
-    alert(err.message);
-  }
-};
-
-
- const handleResend = async () => {
-  // Clear OTP boxes
-  otpRefs.forEach((ref) => (ref.current.value = ''));
-  otpRefs[0].current.focus();
-
-  const storedUserData = JSON.parse(localStorage.getItem("userData"));
-  const mode = localStorage.getItem("mode");
-
-  console.log("storedUserData:", storedUserData);
-  console.log("mode:", mode);
-  
-
-  if (!storedUserData || !mode) {
-    alert("User data missing. Please register/login again.");
-    return;
-  }
-
-  try {
-    const response = await fetch(`http://localhost:3000/user/${mode}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(storedUserData),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || "Failed to resend OTP");
-    }
-
-    alert("A new OTP has been sent to your phone number.");
-  } catch (err) {
-    alert(err.message);
-  }
-};
-
+  };
 
   const handleExit = () => {
     if (window.confirm('Are you sure you want to close?')) {
@@ -137,9 +139,7 @@ const OtpVerification = () => {
   return (
     <div className="otp-page">
       <form className="otp-Form" onSubmit={handleVerify}>
-        <button className="exitBtn" type="button" onClick={handleExit}>
-          ×
-        </button>
+        <button className="exitBtn" type="button" onClick={handleExit}>×</button>
 
         <div className="otp-section">
           <span className="mainHeading">Enter OTP</span>
@@ -147,7 +147,9 @@ const OtpVerification = () => {
             We have sent a 6-digit verification code to your mobile number
           </p>
 
-          {/* six input boxes */}
+          {message && <p className="success-msg" style={{ color: 'green', textAlign: 'center' }}>{message}</p>}
+          {error && <p className="error-msg" style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+
           <div className="inputContainer">
             {otpRefs.map((ref, index) => (
               <input
@@ -165,8 +167,8 @@ const OtpVerification = () => {
             ))}
           </div>
 
-          <button className="verifyButton" type="submit">
-            Verify
+          <button className="verifyButton" type="submit" disabled={loading}>
+            {loading ? 'Verifying...' : 'Verify'}
           </button>
 
           <p className="resendNote">
@@ -175,6 +177,7 @@ const OtpVerification = () => {
               className="resendBtn"
               type="button"
               onClick={handleResend}
+              disabled={loading}
             >
               Resend Code
             </button>
