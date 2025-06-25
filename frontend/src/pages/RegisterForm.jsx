@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading, setAuthData, setError } from './store/authSlice';
+import { setLoading, setAuthData, setError } from '../store/authSlice';
 
-import FormInput from './components/FormInput';
-import FormButton from './components/FormButton';
-import SwitchFormText from './components/SwitchFormText';
-import './App.css';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+import SwitchFormText from '../components/SwitchFormText';
+import '../App.css';
 
 const RegisterForm = () => {
   const navigate = useNavigate();

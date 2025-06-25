@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import {
   User, BookOpen, Award, TrendingUp, Clock , ClipboardList
 } from 'lucide-react';
-import './Dashboard.css';
+import '../styles/Dashboard.css';
 import { useDispatch } from 'react-redux';
-import { clearAuth } from './store/authSlice';
+import { clearAuth } from '../store/authSlice';
 
 import { useNavigate } from 'react-router-dom';
 import {
@@ -12,7 +12,7 @@ import {
   getProgressColor,
   getStatusClass,
   getRandomTimeRemaining
-} from './utils/dashboardUtils';
+} from '../utils/dashboardUtils';
 
 const Dashboard = () => {
   const [enrolledCourses, setEnrolledCourses] = useState([

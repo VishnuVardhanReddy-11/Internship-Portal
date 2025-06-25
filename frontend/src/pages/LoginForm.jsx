@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import './App.css';
-import FormInput from './components/FormInput';
-import FormButton from './components/FormButton';
-import SwitchFormText from './components/SwitchFormText';
-import { setAuthData, setError, setLoading } from './store/authSlice';
+import '../App.css';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+import SwitchFormText from '../components/SwitchFormText';
+import { setAuthData, setError, setLoading } from '../store/authSlice';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
