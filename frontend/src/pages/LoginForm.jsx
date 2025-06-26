@@ -117,6 +117,11 @@ const LoginForm = () => {
                   linkText="Register"
                   linkTo="/register"
                 />
+                <SwitchFormText
+                  question="Are you an Admin?"
+                  linkText="Go to Admin Portal"
+                  linkTo="/admin/login"
+                />
               </div>
             </form>
           </div>
