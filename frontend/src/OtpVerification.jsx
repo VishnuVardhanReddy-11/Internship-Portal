@@ -74,7 +74,7 @@ const OtpVerification = () => {
       }));
 
       if (mode === "register") {
-       \setTimeout(() => {
+       setTimeout(() => {
          navigate("/");
        }, 2000);
       } else {
