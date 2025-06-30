@@ -175,7 +175,10 @@ const Dashboard = () => {
             >
                 <Layers size={20} /> My Courses
             </button>
-            <button className="logout-btn-animated" onClick={() => alert('Logged out')}>
+            <button className="logout-btn-animated" onClick={() => {
+                  alert('Logged out');
+                  navigate('/');
+                }}>
                 <div className="logout-sign">
                 <svg viewBox="0 0 512 512">
                     <path
