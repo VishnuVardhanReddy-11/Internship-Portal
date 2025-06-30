@@ -3,13 +3,729 @@ import {
   Users, BookOpen, FolderOpen, TrendingUp, DollarSign,
   Eye, Star, Calendar, Search, Bell, Settings,
   ChevronDown, Plus, Edit, Trash2, BarChart3,
-  Activity, Award, Clock, Download
+  Activity, Award, Clock, Download, X
 } from 'lucide-react';
+
+// --- Modals for Courses ---
+
+const AddCourseModal = ({ isOpen, onClose, onSave }) => {
+  const [courseData, setCourseData] = useState({
+    title: '',
+    description: '',
+    instructor: '',
+    duration: '',
+    startDate: '',
+    endDate: '',
+    content: []
+  });
+
+  useEffect(() => {
+    if (!isOpen) {
+      setCourseData({ // Reset form when modal closes
+        title: '',
+        description: '',
+        instructor: '',
+        duration: '',
+        startDate: '',
+        endDate: '',
+        content: []
+      });
+    }
+  }, [isOpen]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCourseData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(courseData);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+      {/* Changed p-8 to p-6 for smaller vertical size */}
+      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+        <h2 className="text-2xl font-bold text-white mb-6">Add New Course</h2>
+        {/* Changed space-y-4 to space-y-3 for smaller vertical gaps */}
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label htmlFor="title" className="block text-gray-300 text-sm font-medium mb-1">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={courseData.title}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              placeholder="e.g., Python Basics"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="description" className="block text-gray-300 text-sm font-medium mb-1">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              value={courseData.description}
+              onChange={handleChange}
+              rows="3"
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              placeholder="e.g., Learn Python from scratch."
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="instructor" className="block text-gray-300 text-sm font-medium mb-1">Instructor</label>
+            <input
+              type="text"
+              id="instructor"
+              name="instructor"
+              value={courseData.instructor}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              placeholder="e.g., John Doe"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="duration" className="block text-gray-300 text-sm font-medium mb-1">Duration</label>
+            <input
+              type="text"
+              id="duration"
+              name="duration"
+              value={courseData.duration}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              placeholder="e.g., 6 weeks"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="startDate" className="block text-gray-300 text-sm font-medium mb-1">Start Date</label>
+            <input
+              type="date"
+              id="startDate"
+              name="startDate"
+              value={courseData.startDate}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="endDate" className="block text-gray-300 text-sm font-medium mb-1">End Date</label>
+            <input
+              type="date"
+              id="endDate"
+              name="endDate"
+              value={courseData.endDate}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              required
+            />
+          </div>
+          <div className="flex justify-end pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="mr-3 px-6 py-2 rounded-xl text-gray-300 border border-gray-600 hover:bg-gray-700/50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-2 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300"
+            >
+              Add Course
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const ViewCourseModal = ({ isOpen, onClose, course }) => {
+  if (!isOpen || !course) return null;
+
+  return (
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+      {/* Changed p-8 to p-6 for smaller vertical size */}
+      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+        <h2 className="text-2xl font-bold text-white mb-6">Course Details: {course.title}</h2>
+        <div className="space-y-4 text-gray-300">
+          <div>
+            <p className="font-medium text-white">Description:</p>
+            <p>{course.description}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="font-medium text-white">Instructor:</p>
+              <p>{course.instructor}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Duration:</p>
+              <p>{course.duration}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Start Date:</p>
+              <p>{course.startDate}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">End Date:</p>
+              <p>{course.endDate}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Students:</p>
+              <p>{course.students?.toLocaleString() || 0}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Rating:</p>
+              <p>{course.rating || 'N/A'}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Status:</p>
+              <p>{course.status}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Revenue:</p>
+              <p>{course.revenue}</p>
+            </div>
+          </div>
+          {course.content && course.content.length > 0 && (
+            <div>
+              <p className="font-medium text-white">Content:</p>
+              <ul className="list-disc list-inside ml-4">
+                {course.content.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        <div className="flex justify-end pt-6">
+          <button
+            onClick={onClose}
+            className="bg-blue-600 text-white px-6 py-2 rounded-xl font-medium hover:bg-blue-700 transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const EditCourseModal = ({ isOpen, onClose, onSave, course }) => {
+  const [editedCourseData, setEditedCourseData] = useState(course || {
+    title: '',
+    description: '',
+    instructor: '',
+    duration: '',
+    startDate: '',
+    endDate: '',
+    status: '', // Added status for editing
+    content: []
+  });
+
+  useEffect(() => {
+    if (course) {
+      setEditedCourseData(course);
+    }
+  }, [course]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedCourseData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(editedCourseData);
+    onClose();
+  };
+
+  if (!isOpen || !course) return null;
+
+  return (
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+      {/* Changed p-8 to p-6 for smaller vertical size */}
+      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+        <h2 className="text-2xl font-bold text-white mb-6">Edit Course: {course.title}</h2>
+        {/* Changed space-y-4 to space-y-3 for smaller vertical gaps */}
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label htmlFor="editTitle" className="block text-gray-300 text-sm font-medium mb-1">Title</label>
+            <input
+              type="text"
+              id="editTitle"
+              name="title"
+              value={editedCourseData.title}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="editDescription" className="block text-gray-300 text-sm font-medium mb-1">Description</label>
+            <textarea
+              id="editDescription"
+              name="description"
+              value={editedCourseData.description}
+              onChange={handleChange}
+              rows="3"
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="editInstructor" className="block text-gray-300 text-sm font-medium mb-1">Instructor</label>
+            <input
+              type="text"
+              id="editInstructor"
+              name="instructor"
+              value={editedCourseData.instructor}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="editDuration" className="block text-gray-300 text-sm font-medium mb-1">Duration</label>
+            <input
+              type="text"
+              id="editDuration"
+              name="duration"
+              value={editedCourseData.duration}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="editStartDate" className="block text-gray-300 text-sm font-medium mb-1">Start Date</label>
+            <input
+              type="date"
+              id="editStartDate"
+              name="startDate"
+              value={editedCourseData.startDate}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="editEndDate" className="block text-gray-300 text-sm font-medium mb-1">End Date</label>
+            <input
+              type="date"
+              id="editEndDate"
+              name="endDate"
+              value={editedCourseData.endDate}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="editStatus" className="block text-gray-300 text-sm font-medium mb-1">Status</label>
+            <select
+              id="editStatus"
+              name="status"
+              value={editedCourseData.status}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
+            >
+              <option value="active">Active</option>
+              <option value="draft">Draft</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+          <div className="flex justify-end pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="mr-3 px-6 py-2 rounded-xl text-gray-300 border border-gray-600 hover:bg-gray-700/50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-2 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+
+// --- Modals for Projects ---
+
+const AddProjectModal = ({ isOpen, onClose, onSave }) => {
+  const [projectData, setProjectData] = useState({
+    title: '',
+    description: '',
+    difficulty: 'Beginner', // Default value
+    category: '',
+  });
+
+  useEffect(() => {
+    if (!isOpen) {
+      setProjectData({ // Reset form when modal closes
+        title: '',
+        description: '',
+        difficulty: 'Beginner',
+        category: '',
+      });
+    }
+  }, [isOpen]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProjectData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(projectData);
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+      {/* Changed p-8 to p-6 for smaller vertical size */}
+      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+        <h2 className="text-2xl font-bold text-white mb-6">Add New Project</h2>
+        {/* Changed space-y-4 to space-y-3 for smaller vertical gaps */}
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label htmlFor="projectTitle" className="block text-gray-300 text-sm font-medium mb-1">Title</label>
+            <input
+              type="text"
+              id="projectTitle"
+              name="title"
+              value={projectData.title}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              placeholder="e.g., Portfolio Website"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="projectDescription" className="block text-gray-300 text-sm font-medium mb-1">Description</label>
+            <textarea
+              id="projectDescription"
+              name="description"
+              value={projectData.description}
+              onChange={handleChange}
+              rows="3"
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              placeholder="A brief description of the project."
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="projectCategory" className="block text-gray-300 text-sm font-medium mb-1">Category</label>
+            <input
+              type="text"
+              id="projectCategory"
+              name="category"
+              value={projectData.category}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              placeholder="e.g., Frontend, Backend, Full Stack, Data Science"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="projectDifficulty" className="block text-gray-300 text-sm font-medium mb-1">Difficulty</label>
+            <select
+              id="projectDifficulty"
+              name="difficulty"
+              value={projectData.difficulty}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
+            >
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+
+          <div className="flex justify-end pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="mr-3 px-6 py-2 rounded-xl text-gray-300 border border-gray-600 hover:bg-gray-700/50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-xl font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+            >
+              Add Project
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const ViewProjectModal = ({ isOpen, onClose, project }) => {
+  if (!isOpen || !project) return null;
+  return (
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+      {/* Changed p-8 to p-6 for smaller vertical size */}
+      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+        <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+          <X className="w-6 h-6" />
+        </button>
+        <h2 className="text-2xl font-bold text-white mb-6">Project Details: {project.title}</h2>
+        <div className="space-y-4 text-gray-300">
+          <div>
+            <p className="font-medium text-white">Description:</p>
+            <p>{project.description}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="font-medium text-white">Category:</p>
+              <p>{project.category}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Difficulty:</p>
+              <p>{project.difficulty}</p>
+            </div>
+            <div>
+              <p className="font-medium text-white">Submissions:</p>
+              <p>{project.submissions}</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-end pt-6">
+          <button
+            onClick={onClose}
+            className="bg-purple-600 text-white px-6 py-2 rounded-xl font-medium hover:bg-purple-700 transition-colors"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const EditProjectModal = ({ isOpen, onClose, onSave, project }) => {
+  const [editedProjectData, setEditedProjectData] = useState(project || {
+    title: '',
+    description: '',
+    difficulty: 'Beginner',
+    category: '',
+  });
+
+  useEffect(() => {
+    if (project) {
+      setEditedProjectData(project);
+    }
+  }, [project]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEditedProjectData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(editedProjectData);
+    onClose();
+  };
+
+  if (!isOpen || !project) return null;
+
+  return (
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+      {/* Changed p-8 to p-6 for smaller vertical size */}
+      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+        >
+          <X className="w-6 h-6" />
+        </button>
+        <h2 className="text-2xl font-bold text-white mb-6">Edit Project: {project.title}</h2>
+        {/* Changed space-y-4 to space-y-3 for smaller vertical gaps */}
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div>
+            <label htmlFor="editProjectTitle" className="block text-gray-300 text-sm font-medium mb-1">Title</label>
+            <input
+              type="text"
+              id="editProjectTitle"
+              name="title"
+              value={editedProjectData.title}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="editProjectDescription" className="block text-gray-300 text-sm font-medium mb-1">Description</label>
+            <textarea
+              id="editProjectDescription"
+              name="description"
+              value={editedProjectData.description}
+              onChange={handleChange}
+              rows="3"
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="editProjectCategory" className="block text-gray-300 text-sm font-medium mb-1">Category</label>
+            <input
+              type="text"
+              id="editProjectCategory"
+              name="category"
+              value={editedProjectData.category}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="editProjectDifficulty" className="block text-gray-300 text-sm font-medium mb-1">Difficulty</label>
+            <select
+              id="editProjectDifficulty"
+              name="difficulty"
+              value={editedProjectData.difficulty}
+              onChange={handleChange}
+              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
+            >
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+          <div className="flex justify-end pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="mr-3 px-6 py-2 rounded-xl text-gray-300 border border-gray-600 hover:bg-gray-700/50 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-xl font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+// --- Confirmation Modal ---
+
+const ConfirmationModal = ({ isOpen, onClose, onConfirm, message }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+      {/* Changed p-8 to p-6 for smaller vertical size */}
+      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-sm relative shadow-2xl animate-scale-in">
+        <h2 className="text-xl font-bold text-white mb-4">Confirm Deletion</h2>
+        <p className="text-gray-300 mb-6">{message}</p>
+        <div className="flex justify-end space-x-3">
+          <button
+            onClick={onClose}
+            className="px-6 py-2 rounded-xl text-gray-300 border border-gray-600 hover:bg-gray-700/50 transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={onConfirm}
+            className="bg-red-600 text-white px-6 py-2 rounded-xl font-medium hover:bg-red-700 transition-colors"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
+// --- AdminDashboard Component ---
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [searchTerm, setSearchTerm] = useState('');
   const [animationClass, setAnimationClass] = useState('');
+
+  // Course Modals State
+  const [isAddCourseModalOpen, setIsAddCourseModalOpen] = useState(false);
+  const [isViewCourseModalOpen, setIsViewCourseModalOpen] = useState(false);
+  const [isEditCourseModalOpen, setIsEditCourseModalOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
+  // Project Modals State
+  const [isAddProjectModalOpen, setIsAddProjectModalOpen] = useState(false);
+  const [isViewProjectModalOpen, setIsViewProjectModalOpen] = useState(false);
+  const [isEditProjectModalOpen, setIsEditProjectModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  // Delete Confirmation Modal State
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   // Simulated data
   const stats = {
@@ -23,20 +739,20 @@ const AdminDashboard = () => {
     activeNow: 187
   };
 
-  const recentCourses = [
-    { id: 1, title: 'Advanced React Development', students: 1247, rating: 4.9, status: 'active', revenue: '$3,240' },
-    { id: 2, title: 'Machine Learning Fundamentals', students: 892, rating: 4.7, status: 'active', revenue: '$2,890' },
-    { id: 3, title: 'UI/UX Design Masterclass', students: 1534, rating: 4.8, status: 'active', revenue: '$4,120' },
-    { id: 4, title: 'Python for Beginners', students: 2103, rating: 4.6, status: 'active', revenue: '$1,680' },
-    { id: 5, title: 'DevOps Engineering', students: 567, rating: 4.9, status: 'draft', revenue: '$1,890' }
-  ];
+  const [recentCourses, setRecentCourses] = useState([
+    { id: 1, title: 'Advanced React Development', description: 'Deep dive into React hooks, context API, and performance optimization.', instructor: 'Jane Smith', duration: '8 weeks', startDate: '2025-07-01', endDate: '2025-08-26', students: 1247, rating: 4.9, status: 'active', revenue: '$3,240', content: ['Module 1: Advanced Hooks', 'Module 2: Context & Reducers'] },
+    { id: 2, title: 'Machine Learning Fundamentals', description: 'Introduction to supervised and unsupervised learning algorithms with practical examples.', instructor: 'Dr. Alan Turing', duration: '10 weeks', startDate: '2025-07-15', endDate: '2025-09-20', students: 892, rating: 4.7, status: 'active', revenue: '$2,890', content: [] },
+    { id: 3, title: 'UI/UX Design Masterclass', description: 'Learn principles of user interface and user experience design from prototyping to testing.', instructor: 'Alice Wonderland', duration: '6 weeks', startDate: '2025-08-01', endDate: '2025-09-15', students: 1534, rating: 4.8, status: 'active', revenue: '$4,120', content: [] },
+    { id: 4, title: 'Python for Beginners', description: 'Start your programming journey with Python, covering basics like variables, loops, and functions.', instructor: 'John Doe', duration: '6 weeks', startDate: '2025-07-01', endDate: '2025-08-15', students: 2103, rating: 4.6, status: 'active', revenue: '$1,680', content: [] },
+    { id: 5, title: 'DevOps Engineering', description: 'Understand CI/CD pipelines, Docker, and Kubernetes for modern software deployment.', instructor: 'Bob Builder', duration: '12 weeks', startDate: '2025-09-01', endDate: '2025-11-25', students: 567, rating: 4.9, status: 'draft', revenue: '$1,890', content: [] }
+  ]);
 
-  const recentProjects = [
-    { id: 1, title: 'E-commerce Platform', submissions: 234, difficulty: 'Advanced', category: 'Full Stack' },
-    { id: 2, title: 'Weather App', submissions: 892, difficulty: 'Beginner', category: 'Frontend' },
-    { id: 3, title: 'Chat Application', submissions: 456, difficulty: 'Intermediate', category: 'Backend' },
-    { id: 4, title: 'Data Visualization', submissions: 321, difficulty: 'Advanced', category: 'Data Science' }
-  ];
+  const [recentProjects, setRecentProjects] = useState([
+    { id: 1, title: 'E-commerce Platform', description: 'Build a full-stack e-commerce application with user authentication, product listings, and a shopping cart.', submissions: 234, difficulty: 'Advanced', category: 'Full Stack' },
+    { id: 2, title: 'Weather App', description: 'Create a responsive web application that fetches and displays weather data from an API.', submissions: 892, difficulty: 'Beginner', category: 'Frontend' },
+    { id: 3, title: 'Chat Application', description: 'Develop a real-time chat application using WebSockets for instant messaging.', submissions: 456, difficulty: 'Intermediate', category: 'Backend' },
+    { id: 4, title: 'Data Visualization', description: 'Design and implement interactive data visualizations using a charting library and a dataset of your choice.', submissions: 321, difficulty: 'Advanced', category: 'Data Science' }
+  ]);
 
   useEffect(() => {
     setAnimationClass('animate-pulse');
@@ -44,9 +760,100 @@ const AdminDashboard = () => {
     return () => clearTimeout(timer);
   }, [activeTab]);
 
+  // Course Handlers
+  const handleSaveNewCourse = (newCourseData) => {
+    const newId = recentCourses.length > 0 ? Math.max(...recentCourses.map(c => c.id)) + 1 : 1;
+    const addedCourse = {
+      id: newId,
+      ...newCourseData,
+      students: 0,
+      rating: 0,
+      status: 'draft',
+      revenue: '$0'
+    };
+    setRecentCourses(prevCourses => [...prevCourses, addedCourse]);
+    alert(`Course "${newCourseData.title}" added successfully!`);
+  };
+
+  const handleViewCourseClick = (course) => {
+    setSelectedCourse(course);
+    setIsViewCourseModalOpen(true);
+  };
+
+  const handleEditCourseClick = (course) => {
+    setSelectedCourse(course);
+    setIsEditCourseModalOpen(true);
+  };
+
+  const handleSaveEditedCourse = (updatedCourse) => {
+    setRecentCourses(prevCourses =>
+      prevCourses.map(course =>
+        course.id === updatedCourse.id ? updatedCourse : course
+      )
+    );
+    alert(`Course "${updatedCourse.title}" updated successfully!`);
+  };
+
+  // Project Handlers
+  const handleSaveNewProject = (newProjectData) => {
+    const newId = recentProjects.length > 0 ? Math.max(...recentProjects.map(p => p.id)) + 1 : 1;
+    const addedProject = {
+      id: newId,
+      ...newProjectData,
+      submissions: 0,
+    };
+    setRecentProjects(prevProjects => [...prevProjects, addedProject]);
+    alert(`Project "${newProjectData.title}" added successfully!`);
+  };
+
+  const handleViewProjectClick = (project) => {
+    setSelectedProject(project);
+    setIsViewProjectModalOpen(true);
+  };
+
+  const handleEditProjectClick = (project) => {
+    setSelectedProject(project);
+    setIsEditProjectModalOpen(true);
+  };
+
+  const handleSaveEditedProject = (updatedProject) => {
+    setRecentProjects(prevProjects =>
+      prevProjects.map(project =>
+        project.id === updatedProject.id ? updatedProject : project
+      )
+    );
+    alert(`Project "${updatedProject.title}" updated successfully!`);
+  };
+
+  // Delete Confirmation Handlers
+  const handleDeleteClick = (id, type) => {
+    setItemToDelete({ id, type });
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (itemToDelete) {
+      if (itemToDelete.type === 'course') {
+        setRecentCourses(prevCourses => prevCourses.filter(course => course.id !== itemToDelete.id));
+        alert(`Course with ID ${itemToDelete.id} deleted successfully!`);
+      } else if (itemToDelete.type === 'project') {
+        setRecentProjects(prevProjects => prevProjects.filter(project => project.id !== itemToDelete.id));
+        alert(`Project with ID ${itemToDelete.id} deleted successfully!`);
+      }
+      setItemToDelete(null);
+      setIsConfirmModalOpen(false);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setItemToDelete(null);
+    setIsConfirmModalOpen(false);
+  };
+
+
   const StatCard = ({ icon: Icon, title, value, change, color = "blue" }) => (
-    <div className={`bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:bg-gray-800/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl ${animationClass}`}>
-      <div className="flex items-center justify-between">
+   <div className={`bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:bg-gray-800/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl ${animationClass}`}>
+    <div className="flex items-center justify-between">
         <div>
           <p className="text-gray-400 text-sm font-medium">{title}</p>
           <p className="text-2xl font-bold text-white mt-1">{value}</p>
@@ -57,13 +864,13 @@ const AdminDashboard = () => {
           )}
         </div>
         <div className={`p-3 rounded-xl bg-gradient-to-r ${color === 'blue' ? 'from-blue-500/20 to-cyan-500/20' :
-                           color === 'green' ? 'from-green-500/20 to-emerald-500/20' :
-                           color === 'purple' ? 'from-purple-500/20 to-pink-500/20' :
-                           'from-orange-500/20 to-red-500/20'}`}>
+          color === 'green' ? 'from-green-500/20 to-emerald-500/20' :
+            color === 'purple' ? 'from-purple-500/20 to-pink-500/20' :
+              'from-orange-500/20 to-red-500/20'}`}>
           <Icon className={`w-6 h-6 ${color === 'blue' ? 'text-blue-400' :
-                           color === 'green' ? 'text-green-400' :
-                           color === 'purple' ? 'text-purple-400' :
-                           'text-orange-400'}`} />
+            color === 'green' ? 'text-green-400' :
+              color === 'purple' ? 'text-purple-400' :
+                'text-orange-400'}`} />
         </div>
       </div>
     </div>
@@ -114,6 +921,7 @@ const AdminDashboard = () => {
           change="+23%"
           color="orange"
         />
+
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -159,9 +967,9 @@ const AdminDashboard = () => {
               <div key={index} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700/30 transition-colors">
                 <div className={`w-2 h-2 rounded-full ${
                   activity.type === 'success' ? 'bg-green-400' :
-                  activity.type === 'warning' ? 'bg-yellow-400' :
-                  'bg-blue-400'
-                }`} />
+                    activity.type === 'warning' ? 'bg-yellow-400' :
+                      'bg-blue-400'
+                  }`} />
                 <div className="flex-1">
                   <p className="text-white text-sm">{activity.action}</p>
                   <p className="text-gray-400 text-xs">{activity.item}</p>
@@ -203,7 +1011,10 @@ const AdminDashboard = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <h2 className="text-2xl font-bold text-white">Course Management</h2>
-        <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 flex items-center gap-2 hover:scale-105">
+        <button
+          onClick={() => setIsAddCourseModalOpen(true)}
+          className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+        >
           <Plus className="w-4 h-4" />
           Add New Course
         </button>
@@ -264,19 +1075,28 @@ const AdminDashboard = () => {
                       course.status === 'active'
                         ? 'bg-green-500/20 text-green-400'
                         : 'bg-yellow-500/20 text-yellow-400'
-                    }`}>
+                      }`}>
                       {course.status}
                     </span>
                   </td>
                   <td className="p-4">
-                    <div className="flex gap-2">
-                      <button className="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors">
+                    <div className="flex gap-1">
+                      <button
+                        onClick={() => handleViewCourseClick(course)}
+                        className="p-2.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
+                      >
                         <Eye className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-gray-400 hover:text-green-400 hover:bg-green-500/10 rounded-lg transition-colors">
+                      <button
+                        onClick={() => handleEditCourseClick(course)}
+                        className="p-2.5 text-gray-400 hover:text-green-400 hover:bg-green-500/10 rounded-lg transition-colors"
+                      >
                         <Edit className="w-4 h-4" />
                       </button>
-                      <button className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors">
+                      <button
+                        onClick={() => handleDeleteClick(course.id, 'course')}
+                        className="p-2.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                      >
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -287,6 +1107,23 @@ const AdminDashboard = () => {
           </table>
         </div>
       </div>
+      {/* Modals for Courses */}
+      <AddCourseModal
+        isOpen={isAddCourseModalOpen}
+        onClose={() => setIsAddCourseModalOpen(false)}
+        onSave={handleSaveNewCourse}
+      />
+      <ViewCourseModal
+        isOpen={isViewCourseModalOpen}
+        onClose={() => {setIsViewCourseModalOpen(false); setSelectedCourse(null);}}
+        course={selectedCourse}
+      />
+      <EditCourseModal
+        isOpen={isEditCourseModalOpen}
+        onClose={() => {setIsEditCourseModalOpen(false); setSelectedCourse(null);}}
+        onSave={handleSaveEditedCourse}
+        course={selectedCourse}
+      />
     </div>
   );
 
@@ -294,7 +1131,10 @@ const AdminDashboard = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <h2 className="text-2xl font-bold text-white">Project Management</h2>
-        <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 flex items-center gap-2 hover:scale-105">
+        <button
+          onClick={() => setIsAddProjectModalOpen(true)}
+          className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 flex items-center gap-2 hover:scale-105"
+        >
           <Plus className="w-4 h-4" />
           Add New Project
         </button>
@@ -308,11 +1148,23 @@ const AdminDashboard = () => {
                 <FolderOpen className="w-6 h-6 text-purple-400" />
               </div>
               <div className="flex gap-1">
-                <button className="p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors">
+                <button
+                  onClick={() => handleViewProjectClick(project)}
+                  className="p-2.5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
+                >
                   <Eye className="w-4 h-4" />
                 </button>
-                <button className="p-2 text-gray-400 hover:text-green-400 hover:bg-green-500/10 rounded-lg transition-colors">
+                <button
+                  onClick={() => handleEditProjectClick(project)}
+                  className="p-2.5 text-gray-400 hover:text-green-400 hover:bg-green-500/10 rounded-lg transition-colors"
+                >
                   <Edit className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => handleDeleteClick(project.id, 'project')}
+                  className="p-2.5 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
                 </button>
               </div>
             </div>
@@ -329,9 +1181,9 @@ const AdminDashboard = () => {
                 <span className="text-gray-400 text-sm">Difficulty</span>
                 <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                   project.difficulty === 'Beginner' ? 'bg-green-500/20 text-green-400' :
-                  project.difficulty === 'Intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
-                  'bg-red-500/20 text-red-400'
-                }`}>
+                    project.difficulty === 'Intermediate' ? 'bg-yellow-500/20 text-yellow-400' :
+                      'bg-red-500/20 text-red-400'
+                  }`}>
                   {project.difficulty}
                 </span>
               </div>
@@ -339,6 +1191,23 @@ const AdminDashboard = () => {
           </div>
         ))}
       </div>
+      {/* Modals for Projects */}
+      <AddProjectModal
+        isOpen={isAddProjectModalOpen}
+        onClose={() => setIsAddProjectModalOpen(false)}
+        onSave={handleSaveNewProject}
+      />
+      <ViewProjectModal
+        isOpen={isViewProjectModalOpen}
+        onClose={() => {setIsViewProjectModalOpen(false); setSelectedProject(null);}}
+        project={selectedProject}
+      />
+      <EditProjectModal
+        isOpen={isEditProjectModalOpen}
+        onClose={() => {setIsEditProjectModalOpen(false); setSelectedProject(null);}}
+        onSave={handleSaveEditedProject}
+        project={selectedProject}
+      />
     </div>
   );
 
@@ -471,6 +1340,15 @@ const AdminDashboard = () => {
           {activeTab === 'analytics' && renderAnalytics()}
         </main>
       </div>
+
+      {/* Confirmation Modal (placed outside main for global access) */}
+      <ConfirmationModal
+        isOpen={isConfirmModalOpen}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        message={`Are you sure you want to delete this ${itemToDelete?.type || 'item'}? This action cannot be undone.`}
+      />
+
     </div>
   );
 };
