@@ -6,7 +6,7 @@ import {
 } from 'lucide-react'; // Added Layers icon for "My Courses" link
 import '../styles/Dashboard.css';
 import EnrollModal from '../components/EnrollModal'; // Import the EnrollModal component
-
+import axios from 'axios';
 // --- Utility Functions (Keep these in src/utils/dashboardUtils.js if you have it) ---
 const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -175,9 +175,17 @@ const Dashboard = () => {
             >
                 <Layers size={20} /> My Courses
             </button>
-            <button className="logout-btn-animated" onClick={() => {
-                  alert('Logged out');
-                  navigate('/');
+            <button className="logout-btn-animated" onClick={async () => {
+                  try {
+                    await axios.post('http://localhost:3000/user/logout', {}, {
+                      withCredentials: true, // 🔑 Send cookies
+                    });
+                    alert('Logged out');
+                    navigate('/');
+                  } catch (error) {
+                    console.error("Logout failed:", error);
+                    alert('Logout failed. Try again.');
+                  }
                 }}>
                 <div className="logout-sign">
                 <svg viewBox="0 0 512 512">
