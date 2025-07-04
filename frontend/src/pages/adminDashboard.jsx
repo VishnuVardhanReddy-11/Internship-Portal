@@ -1,163 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Users, BookOpen, FolderOpen, TrendingUp, DollarSign,
   Eye, Star, Calendar, Search, Bell, Settings,
   ChevronDown, Plus, Edit, Trash2, BarChart3,
   Activity, Award, Clock, Download, X
 } from 'lucide-react';
-
+import { useNavigate, useLocation  } from 'react-router-dom';
 // --- Modals for Courses ---
-
-const AddCourseModal = ({ isOpen, onClose, onSave }) => {
-  const [courseData, setCourseData] = useState({
-    title: '',
-    description: '',
-    instructor: '',
-    duration: '',
-    startDate: '',
-    endDate: '',
-    content: []
-  });
-
-  useEffect(() => {
-    if (!isOpen) {
-      setCourseData({ // Reset form when modal closes
-        title: '',
-        description: '',
-        instructor: '',
-        duration: '',
-        startDate: '',
-        endDate: '',
-        content: []
-      });
-    }
-  }, [isOpen]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setCourseData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSave(courseData);
-    onClose();
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
-      {/* Changed p-8 to p-6 for smaller vertical size */}
-      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
-        >
-          <X className="w-6 h-6" />
-        </button>
-        <h2 className="text-2xl font-bold text-white mb-6">Add New Course</h2>
-        {/* Changed space-y-4 to space-y-3 for smaller vertical gaps */}
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <div>
-            <label htmlFor="title" className="block text-gray-300 text-sm font-medium mb-1">Title</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={courseData.title}
-              onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="e.g., Python Basics"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="description" className="block text-gray-300 text-sm font-medium mb-1">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              value={courseData.description}
-              onChange={handleChange}
-              rows="3"
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="e.g., Learn Python from scratch."
-              required
-            ></textarea>
-          </div>
-          <div>
-            <label htmlFor="instructor" className="block text-gray-300 text-sm font-medium mb-1">Instructor</label>
-            <input
-              type="text"
-              id="instructor"
-              name="instructor"
-              value={courseData.instructor}
-              onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="e.g., John Doe"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="duration" className="block text-gray-300 text-sm font-medium mb-1">Duration</label>
-            <input
-              type="text"
-              id="duration"
-              name="duration"
-              value={courseData.duration}
-              onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="e.g., 6 weeks"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="startDate" className="block text-gray-300 text-sm font-medium mb-1">Start Date</label>
-            <input
-              type="date"
-              id="startDate"
-              name="startDate"
-              value={courseData.startDate}
-              onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="endDate" className="block text-gray-300 text-sm font-medium mb-1">End Date</label>
-            <input
-              type="date"
-              id="endDate"
-              name="endDate"
-              value={courseData.endDate}
-              onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              required
-            />
-          </div>
-          <div className="flex justify-end pt-4">
-            <button
-              type="button"
-              onClick={onClose}
-              className="mr-3 px-6 py-2 rounded-xl text-gray-300 border border-gray-600 hover:bg-gray-700/50 transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-2 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300"
-            >
-              Add Course
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
 
 const ViewCourseModal = ({ isOpen, onClose, course }) => {
   if (!isOpen || !course) return null;
@@ -217,7 +66,11 @@ const ViewCourseModal = ({ isOpen, onClose, course }) => {
               <p className="font-medium text-white">Content:</p>
               <ul className="list-disc list-inside ml-4">
                 {course.content.map((item, index) => (
-                  <li key={index}>{item}</li>
+                    <li key={index}>
+                    {item.type === 'text' && item.value}
+                    {item.type === 'video-link' && `Video Link: ${item.value}`}
+                    {item.type === 'video-upload' && `Uploaded Video: ${item.filename || item.value}`}
+                  </li>
                 ))}
               </ul>
             </div>
@@ -261,6 +114,27 @@ const EditCourseModal = ({ isOpen, onClose, onSave, course }) => {
       [name]: value
     }));
   };
+  const updateContentBlock = (index, key, value) => {
+  const updatedContent = [...editedCourseData.content];
+  updatedContent[index][key] = value;
+  setEditedCourseData(prev => ({
+    ...prev,
+    content: updatedContent
+  }));
+};
+
+const addContentBlock = () => {
+  setEditedCourseData(prev => ({
+    ...prev,
+    content: [...prev.content, { type: 'text', value: '', filename: '' }]
+  }));
+};
+
+const removeContentBlock = (index) => {
+  const updated = [...editedCourseData.content];
+  updated.splice(index, 1);
+  setEditedCourseData(prev => ({ ...prev, content: updated }));
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -369,6 +243,79 @@ const EditCourseModal = ({ isOpen, onClose, onSave, course }) => {
               <option value="archived">Archived</option>
             </select>
           </div>
+          <div>
+  <label className="block text-gray-300 text-sm font-medium mb-2">Course Content</label>
+
+  {editedCourseData.content.map((block, index) => (
+    <div key={index} className="space-y-2 border border-gray-700 p-3 rounded-md mb-4">
+      <select
+        value={block.type}
+        onChange={(e) => updateContentBlock(index, 'type', e.target.value)}
+        className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+      >
+        <option value="text">Text</option>
+        <option value="video-link">Video-Link</option>
+        <option value="video-upload">Video-Upload</option>
+      </select>
+
+      {block.type === 'text' && (
+        <textarea
+          value={block.value}
+          onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
+          rows={3}
+          className="w-full bg-gray-800 text-white border border-gray-600 rounded px-3 py-2"
+        />
+      )}
+
+      {block.type === 'video-link' && (
+        <input
+          type="url"
+          value={block.value}
+          onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
+          className="w-full bg-gray-800 text-white border border-gray-600 rounded px-3 py-2"
+        />
+      )}
+
+      {block.type === 'video-upload' && (
+        <>
+          <input
+            type="file"
+            accept="video/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const videoURL = URL.createObjectURL(file);
+                updateContentBlock(index, 'value', videoURL);
+                updateContentBlock(index, 'filename', file.name);
+              }
+            }}
+            className="text-white"
+          />
+          {block.filename && (
+            <p className="text-sm text-gray-400">Uploaded: {block.filename}</p>
+          )}
+        </>
+      )}
+
+      <button
+        type="button"
+        onClick={() => removeContentBlock(index)}
+        className="text-red-400 text-sm hover:underline"
+      >
+        Remove
+      </button>
+    </div>
+  ))}
+
+  <button
+    type="button"
+    onClick={addContentBlock}
+    className="text-sm text-blue-400 hover:underline mt-2"
+  >
+    + Add Content Block
+  </button>
+</div>
+
           <div className="flex justify-end pt-4">
             <button
               type="button"
@@ -429,9 +376,9 @@ const AddProjectModal = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-start justify-center z-50 p-4 overflow-y-scroll">
       {/* Changed p-8 to p-6 for smaller vertical size */}
-      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+<div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-3xl max-h-[90vh] overflow-y-scroll relative shadow-2xl animate-scale-in">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -707,12 +654,12 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, message }) => {
 // --- AdminDashboard Component ---
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
   const [searchTerm, setSearchTerm] = useState('');
   const [animationClass, setAnimationClass] = useState('');
 
   // Course Modals State
-  const [isAddCourseModalOpen, setIsAddCourseModalOpen] = useState(false);
   const [isViewCourseModalOpen, setIsViewCourseModalOpen] = useState(false);
   const [isEditCourseModalOpen, setIsEditCourseModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -747,6 +694,44 @@ const AdminDashboard = () => {
     { id: 5, title: 'DevOps Engineering', description: 'Understand CI/CD pipelines, Docker, and Kubernetes for modern software deployment.', instructor: 'Bob Builder', duration: '12 weeks', startDate: '2025-09-01', endDate: '2025-11-25', students: 567, rating: 4.9, status: 'draft', revenue: '$1,890', content: [] }
   ]);
 
+const location = useLocation();
+const hasHandledNewCourse = useRef(false); // add above useEffect
+
+useEffect(() => {
+  const newCourse = location.state?.newCourse;
+  const isEdit = location.state?.isEdit;
+
+  // Guard to ensure this block runs only once
+  if (newCourse && !hasHandledNewCourse.current) {
+    hasHandledNewCourse.current = true;
+
+    setRecentCourses(prevCourses => {
+      if (isEdit && newCourse.id != null) {
+        return prevCourses.map(course =>
+          course.id === newCourse.id ? { ...newCourse } : course
+        );
+      }
+
+      const newId = prevCourses.length > 0 ? Math.max(...prevCourses.map(c => c.id)) + 1 : 1;
+      return [
+        ...prevCourses,
+        {
+          id: newId,
+          ...newCourse,
+          students: 0,
+          rating: 0,
+          status: 'draft',
+          revenue: '$0'
+        }
+      ];
+    });
+
+    // Clean up the navigation state so it doesn't re-trigger
+    navigate(location.pathname, { replace: true });
+  }
+}, [location.state, navigate]);
+
+
   const [recentProjects, setRecentProjects] = useState([
     { id: 1, title: 'E-commerce Platform', description: 'Build a full-stack e-commerce application with user authentication, product listings, and a shopping cart.', submissions: 234, difficulty: 'Advanced', category: 'Full Stack' },
     { id: 2, title: 'Weather App', description: 'Create a responsive web application that fetches and displays weather data from an API.', submissions: 892, difficulty: 'Beginner', category: 'Frontend' },
@@ -761,19 +746,6 @@ const AdminDashboard = () => {
   }, [activeTab]);
 
   // Course Handlers
-  const handleSaveNewCourse = (newCourseData) => {
-    const newId = recentCourses.length > 0 ? Math.max(...recentCourses.map(c => c.id)) + 1 : 1;
-    const addedCourse = {
-      id: newId,
-      ...newCourseData,
-      students: 0,
-      rating: 0,
-      status: 'draft',
-      revenue: '$0'
-    };
-    setRecentCourses(prevCourses => [...prevCourses, addedCourse]);
-    alert(`Course "${newCourseData.title}" added successfully!`);
-  };
 
   const handleViewCourseClick = (course) => {
     setSelectedCourse(course);
@@ -781,8 +753,7 @@ const AdminDashboard = () => {
   };
 
   const handleEditCourseClick = (course) => {
-    setSelectedCourse(course);
-    setIsEditCourseModalOpen(true);
+     navigate('/newcourse', { state: { editCourse: course } });
   };
 
   const handleSaveEditedCourse = (updatedCourse) => {
@@ -1012,7 +983,7 @@ const AdminDashboard = () => {
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <h2 className="text-2xl font-bold text-white">Course Management</h2>
         <button
-          onClick={() => setIsAddCourseModalOpen(true)}
+          onClick={() => navigate('/newcourse')}
           className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 flex items-center gap-2 hover:scale-105"
         >
           <Plus className="w-4 h-4" />
@@ -1108,11 +1079,6 @@ const AdminDashboard = () => {
         </div>
       </div>
       {/* Modals for Courses */}
-      <AddCourseModal
-        isOpen={isAddCourseModalOpen}
-        onClose={() => setIsAddCourseModalOpen(false)}
-        onSave={handleSaveNewCourse}
-      />
       <ViewCourseModal
         isOpen={isViewCourseModalOpen}
         onClose={() => {setIsViewCourseModalOpen(false); setSelectedCourse(null);}}
