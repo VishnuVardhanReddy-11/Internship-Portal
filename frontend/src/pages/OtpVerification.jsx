@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthData, setError, setLoading } from './store/authSlice';
-import './OtpVerification.css';
+import { setAuthData, setError, setLoading } from '../store/authSlice';
+import '../styles/OtpVerification.css';
 
 const OtpVerification = () => {
   const navigate = useNavigate();

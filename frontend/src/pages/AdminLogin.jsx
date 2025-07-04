@@ -1,8 +1,8 @@
 import React from 'react';
-import './App.css';
-import FormInput from './components/FormInput';
-import FormButton from './components/FormButton';
-import SwitchFormText from './components/SwitchFormText';
+import '../App.css';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+import SwitchFormText from '../components/SwitchFormText';
 
 const AdminLogin = () => {
   return (

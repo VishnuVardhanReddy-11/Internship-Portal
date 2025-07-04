@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
-import Dashboard from './Dashboard';
-import OtpVerification from './OtpVerification';
-import AdminLogin from './AdminLogin'; // ✅ Import admin login
+import LoginForm from './pages/LoginForm';
+import RegisterForm from './pages/RegisterForm';
+import Dashboard from './pages/Dashboard';
+import OtpVerification from './pages/OtpVerification';
+import AdminLogin from './pages/AdminLogin'; // ✅ Import admin login
 
 function App() {
   return (
