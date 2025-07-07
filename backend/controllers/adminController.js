@@ -1,10 +1,10 @@
 const Admin = require('../models/adminModel');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { generateToken } = require('../utils/generateToken');
-const Course = require('../models/Course');
+const Course = require('../models/courseModel');
 
-exports.loginAdmin = async (req, res) => {
+loginAdmin = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
@@ -18,11 +18,13 @@ exports.loginAdmin = async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    const token = generateToken(existingAdmin);
+    const adminToken = generateToken(existingAdmin);
+    res.cookie('adminToken', adminToken);
+
 
     res.status(200).json({
       message: 'Login successful',
-      token,
+      adminToken,
       admin: {
         name: existingAdmin.name,
         email: existingAdmin.email,
@@ -35,10 +37,10 @@ exports.loginAdmin = async (req, res) => {
   }
 };
 
-const Course = require('../models/Course');
+
 
 // Create course
-exports.createCourse = async (req, res) => {
+const createCourse = async (req, res) => {
   try {
     const newCourse = new Course(req.body);
     await newCourse.save();
@@ -49,7 +51,7 @@ exports.createCourse = async (req, res) => {
 };
 
 // Get all courses
-exports.getAllCourses = async (req, res) => {
+const getAllCourses = async (req, res) => {
   try {
     const courses = await Course.find();
     res.status(200).json(courses);
@@ -59,7 +61,7 @@ exports.getAllCourses = async (req, res) => {
 };
 
 // Get single course
-exports.getCourseById = async (req, res) => {
+const getCourseById = async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
     if (!course) return res.status(404).json({ message: 'Course not found' });
@@ -70,7 +72,7 @@ exports.getCourseById = async (req, res) => {
 };
 
 // Update course
-exports.updateCourse = async (req, res) => {
+const updateCourse = async (req, res) => {
   try {
     const updatedCourse = await Course.findByIdAndUpdate(
       req.params.id,
@@ -85,7 +87,7 @@ exports.updateCourse = async (req, res) => {
 };
 
 // Delete course
-exports.deleteCourse = async (req, res) => {
+const deleteCourse = async (req, res) => {
   try {
     const deleted = await Course.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Course not found' });
@@ -94,3 +96,13 @@ exports.deleteCourse = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+module.exports = {
+  loginAdmin,
+  createCourse,
+  getAllCourses,
+  getCourseById,
+  updateCourse,
+  deleteCourse,
+};  

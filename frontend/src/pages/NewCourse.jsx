@@ -69,25 +69,60 @@ React.useEffect(() => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const message = editCourse
-  ? `Course "${courseData.title}" updated successfully!`
-  : `Course "${courseData.title}" added successfully!`;
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-alert(message);
-navigate('/admin/dashboard', {
-  state: {
-    newCourse: {
-      ...courseData,
-      id: courseData.id || editCourse?.id // ✅ fallback just in case
-    },
-    isEdit: Boolean(editCourse),
+  try {
+    const formData = new FormData();
+
+    // Add basic fields
+    formData.append('title', courseData.title);
+    formData.append('description', courseData.description);
+    formData.append('instructor', courseData.instructor);
+    formData.append('duration', courseData.duration);
+    formData.append('startDate', courseData.startDate);
+    formData.append('endDate', courseData.endDate);
+    formData.append('level', courseData.level);
+
+    // Prepare content blocks
+    const contentArray = [];
+
+    for (let i = 0; i < courseData.content.length; i++) {
+      const block = courseData.content[i];
+      if (block.type === 'video-upload') {
+        // find the actual file from input
+        const input = document.querySelectorAll('input[type="file"]')[i];
+        if (input && input.files[0]) {
+          formData.append(`video_${i}`, input.files[0]); // name it uniquely
+          contentArray.push({ type: 'video-upload', value: `video_${i}` });
+        }
+      } else {
+        contentArray.push(block);
+      }
+    }
+
+    // Append stringified content array
+    formData.append('content', JSON.stringify(contentArray));
+
+    const res = await fetch('http://localhost:3000/admin/create-course', {
+      method: 'POST',
+      credentials: 'include',
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert(`✅ Course "${data.course.title}" created successfully!`);
+      navigate('/admin/dashboard');
+    } else {
+      alert(`❌ ${data.message || 'Failed to create course'}`);
+    }
+  } catch (error) {
+    alert(`❌ Error: ${error.message}`);
   }
-});
+};
 
-
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-4 md:p-6 overflow-y-auto">

@@ -8,18 +8,20 @@ import AdminDashboard from './pages/adminDashboard'; // Consider fixing casing
 import AdminLogin from './pages/AdminLogin';
 import CoursesPages from './pages/CoursesPages'; // ✅ Using this now
 import NewCourse from './pages/NewCourse';
+import UserRoute from './components/UserRoute';
+import AdminRoute from './components/AdminRoute';
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<UserRoute><Dashboard /></UserRoute>} />
         <Route path="/otp" element={<OtpVerification />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminDashboard />} />
-        <Route path="/newcourse" element={<NewCourse />} />
-        <Route path="/courses" element={<CoursesPages />} /> {/* ✅ Fixed */}
+        <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+        <Route path="/admin/newCourse" element= {<AdminRoute><NewCourse /></AdminRoute>}  />
+        <Route path="/admin/allCourses" element={<AdminRoute><CoursesPages /></AdminRoute>} /> {/* ✅ Fixed */}
       </Routes>
     </Router>
   );
