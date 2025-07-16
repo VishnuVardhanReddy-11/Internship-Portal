@@ -12,11 +12,21 @@ export default function HairCoaction() {
       {/* Header */}
       <header className="bg-white py-5 shadow-sm sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-5 flex flex-wrap justify-between items-center">
-          <div className="w-full md:w-auto text-center md:text-left mb-4 md:mb-0">
-            <a href="#" className="text-3xl font-bold text-[#6C5CE7] uppercase tracking-wider">
-              Hair Coaction
-            </a>
-          </div>
+          <div className="w-full md:w-auto flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 mb-4 md:mb-0">
+  <img 
+    src="/logo.jpeg" 
+    alt="Hair Coaction Logo" 
+    className="h-20 w-20 object-cover rounded-xl shadow" 
+  />
+  <a 
+    href="#" 
+    className="text-3xl font-bold text-[#6C5CE7] uppercase tracking-wider text-center md:text-left"
+  >
+    Hair Coaction
+  </a>
+</div>
+
+
           
           <nav className="w-full md:w-auto order-3 md:order-none">
             <ul className={`${menuActive ? 'flex' : 'hidden'} md:flex flex-col md:flex-row gap-4 md:gap-8 mt-5 md:mt-0`}>
@@ -31,7 +41,7 @@ export default function HairCoaction() {
           <div className="hidden md:flex gap-4">
             <a 
   href="/login" 
-  className="inline-block px-7 py-3.5 rounded-md font-semibold text-lg bg-white text-[#6C5CE7] border-2 border-[#6C5CE7] hover:bg-[#6C5CE7] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all"
+  className="inline-block px-7 py-3.5 rounded-md font-semibold text-lg bg-white text-[#6C5CE7] border-2 border-[#6C5CE7] hover:bg-[#6C5CE7] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all "
 >
   Login
 </a>
@@ -74,7 +84,9 @@ export default function HairCoaction() {
   <div className="max-w-6xl mx-auto px-5 flex flex-col md:flex-row items-center gap-10 relative z-10">
     <div className="flex-1 max-w-2xl">
       <h1 className="text-5xl md:text-6xl font-bold font-['Poppins'] leading-tight mb-6">
-        Elevate Your Hair Career with Hair Coaction
+        <span className="block">Elevate Your</span>
+  <span className="block">Hair Career with</span>
+  <span className="block">Hair Coaction</span>
       </h1>
       <p className="text-xl md:text-2xl text-gray-200 leading-relaxed mb-10">
         Unlock your potential with expert courses, hands-on projects, and exclusive internship opportunities in the hair industry.
@@ -90,7 +102,7 @@ export default function HairCoaction() {
     </div>
     <div className="flex-1 flex justify-center">
       <img 
-        src="https://via.placeholder.com/600x400/f8f8f8/333?text=Hair+Coaction+Hero+Image" 
+        src="girl.png" 
         alt="Hair stylist working on hair" 
         className="max-w-full h-auto rounded-lg shadow-xl"
       />
@@ -320,8 +332,8 @@ export default function HairCoaction() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Internship Card 1 */}
               <div className="bg-white rounded-lg shadow-md overflow-hidden p-6 hover:-translate-y-2 hover:shadow-lg transition-all flex flex-col">
-                <h3 className="text-xl font-semibold font-['Poppins'] mb-3">Junior Stylist Intern</h3>
-                <p className="text-gray-600 mb-2"><i className="fas fa-building text-[#6C5CE7] mr-2"></i> "The Style Hub" Salon</p>
+                <h3 className="text-xl font-semibold font-['Poppins'] mb-3">Artificial Intelligence Intern</h3>
+                <p className="text-gray-600 mb-2"><i className="fas fa-building text-[#6C5CE7] mr-2"></i> Hair Coaction</p>
                 <p className="text-gray-600 mb-4"><i className="fas fa-map-marker-alt text-[#6C5CE7] mr-2"></i> Panipat, Haryana</p>
                 
                 <ul className="flex flex-wrap gap-3 text-sm text-gray-500 mb-5">
@@ -331,7 +343,7 @@ export default function HairCoaction() {
                 </ul>
                 
                 <p className="text-gray-600 mb-6 flex-grow">
-                  Assist senior stylists, learn client consultation, and master blowouts.
+                  Developing and testing machine learning models, analyzing data
                 </p>
                 
                 <a href="#" className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center self-start">
@@ -341,9 +353,9 @@ export default function HairCoaction() {
               
               {/* Internship Card 2 */}
               <div className="bg-white rounded-lg shadow-md overflow-hidden p-6 hover:-translate-y-2 hover:shadow-lg transition-all flex flex-col">
-                <h3 className="text-xl font-semibold font-['Poppins'] mb-3">Coloring Apprentice</h3>
-                <p className="text-gray-600 mb-2"><i className="fas fa-building text-[#6C5CE7] mr-2"></i> "Vibrant Hues" Studio</p>
-                <p className="text-gray-600 mb-4"><i className="fas fa-map-marker-alt text-[#6C5CE7] mr-2"></i> Indore, MP</p>
+                <h3 className="text-xl font-semibold font-['Poppins'] mb-3">Artificial Intelligence Intern</h3>
+                <p className="text-gray-600 mb-2"><i className="fas fa-building text-[#6C5CE7] mr-2"></i> Hair Coaction</p>
+                <p className="text-gray-600 mb-4"><i className="fas fa-map-marker-alt text-[#6C5CE7] mr-2"></i>Panipat, Haryana</p>
                 
                 <ul className="flex flex-wrap gap-3 text-sm text-gray-500 mb-5">
                   <li><i className="fas fa-clock text-[#6C5CE7] mr-1"></i> Part-time</li>
@@ -352,7 +364,7 @@ export default function HairCoaction() {
                 </ul>
                 
                 <p className="text-gray-600 mb-6 flex-grow">
-                  Focus on color mixing, application, and advanced techniques.
+                  Developing and testing machine learning models, analyzing data
                 </p>
                 
                 <a href="#" className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center self-start">
@@ -362,9 +374,9 @@ export default function HairCoaction() {
               
               {/* Internship Card 3 */}
               <div className="bg-white rounded-lg shadow-md overflow-hidden p-6 hover:-translate-y-2 hover:shadow-lg transition-all flex flex-col">
-                <h3 className="text-xl font-semibold font-['Poppins'] mb-3">Salon Management Intern</h3>
-                <p className="text-gray-600 mb-2"><i className="fas fa-building text-[#6C5CE7] mr-2"></i> "Elite Beauty" Group</p>
-                <p className="text-gray-600 mb-4"><i className="fas fa-map-marker-alt text-[#6C5CE7] mr-2"></i> Delhi, NCR</p>
+                <h3 className="text-xl font-semibold font-['Poppins'] mb-3">Artificial Intelligence Intern</h3>
+                <p className="text-gray-600 mb-2"><i className="fas fa-building text-[#6C5CE7] mr-2"></i>Hair Coaction</p>
+                <p className="text-gray-600 mb-4"><i className="fas fa-map-marker-alt text-[#6C5CE7] mr-2"></i> Panipat, Haryana</p>
                 
                 <ul className="flex flex-wrap gap-3 text-sm text-gray-500 mb-5">
                   <li><i className="fas fa-clock text-[#6C5CE7] mr-1"></i> Full-time</li>
@@ -373,7 +385,7 @@ export default function HairCoaction() {
                 </ul>
                 
                 <p className="text-gray-600 mb-6 flex-grow">
-                  Gain insights into salon operations, marketing, and client relations.
+                  Developing and testing machine learning models, analyzing data
                 </p>
                 
                 <a href="#" className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center self-start">
