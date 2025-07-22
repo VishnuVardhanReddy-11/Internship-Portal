@@ -9,6 +9,7 @@ import AdminLogin from './pages/AdminLogin';
 import CoursesPages from './pages/CoursesPages'; // ✅ Using this now
 import NewCourse from './pages/NewCourse';
 import HairCoaction from './pages/HairCoaction';
+import AboutUs from './pages/AboutUs';
 function App() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function App() {
         <Route path="/newcourse" element={<NewCourse />} />
         <Route path="/courses" element={<CoursesPages />} />
         <Route path="/" element={<HairCoaction />} />;
+        <Route path="/about" element={<AboutUs />} />
       </Routes>
     </Router>
   );

@@ -7,6 +7,7 @@ import {
 import '../styles/Dashboard.css';
 import EnrollModal from '../components/EnrollModal'; // Import the EnrollModal component
 import axios from 'axios';
+import Footer from '../components/Footer';
 // --- Utility Functions (Keep these in src/utils/dashboardUtils.js if you have it) ---
 const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -367,7 +368,9 @@ const Dashboard = () => {
         isOpen={isEnrollModalOpen}
         onClose={() => setIsEnrollModalOpen(false)}
       />
+      <Footer />
     </div>
+    
   );
 };
 
