@@ -118,73 +118,65 @@ export default function HairCoaction() {
     </p>
 
     <div className="overflow-x-auto">
-      <div className="flex gap-6 w-max">
-        {/* Reusable Course Card Component */}
-        {[
-          {
-            title: "Artificial Intelligence",
-            instructor: "Dr. Alan Turing",
-            description: "Explore the foundations and applications of AI across industries.",
-            duration: "15 hours",
-            rating: "4.8 (420)",
-            image: "ai.png",
-          },
-          {
-            title: "Web Development",
-            instructor: "Jane Doe",
-            description: "Learn to build modern, responsive websites using HTML, CSS, and JS.",
-            duration: "12 hours",
-            rating: "4.9 (512)",
-            image: "web.png",
-          },
-          {
-            title: "DevOps Essentials",
-            instructor: "John Smith",
-            description: "Understand CI/CD pipelines, Docker, and cloud deployment.",
-            duration: "10 hours",
-            rating: "4.7 (360)",
-            image: "dev.png",
-          },
-          {
-            title: "Data Science",
-            instructor: "Dr. Grace Hopper",
-            description: "Analyze data, create visualizations, and apply ML algorithms.",
-            duration: "14 hours",
-            rating: "4.9 (390)",
-            image: "data.png",
-          },
-        ].map((course, index) => (
-          <div
-            key={index}
-            className="min-w-[460px] bg-white rounded-lg shadow-md overflow-hidden hover:-translate-y-2 hover:shadow-lg transition-all flex flex-col"
-          >
-            <img
-              src={course.image}
-              alt={`Course: ${course.title}`}
-              className="w-full h-52 object-cover"
-            />
-            <div className="p-6 flex flex-col flex-grow">
-              <h3 className="text-2xl font-semibold   mb-2">{course.title}</h3>
-              <p className="text-gray-500 text-sm mb-2">Taught by: {course.instructor}</p>
-              <p className="text-gray-600 mb-4 flex-grow">{course.description}</p>
-              <div className="flex gap-4 text-sm text-gray-500 mb-5">
-                <span>
-                  <i className="fas fa-clock text-[#6C5CE7] mr-1"></i> {course.duration}
-                </span>
-                <span>
-                  <i className="fas fa-star text-[#6C5CE7] mr-1"></i> {course.rating}
-                </span>
-              </div>
-              <a
-                href="#"
-                className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center"
-              >
-                View Course
-              </a>
-            </div>
-          </div>
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  {[
+    {
+      title: "Artificial Intelligence",
+      instructor: "Dr. Alan Turing",
+      description: "Explore the foundations and applications of AI across industries.",
+      duration: "15 hours",
+      rating: "4.8 (420)",
+      image: "ai.png",
+    },
+    {
+      title: "Machine Learning",
+      instructor: "Jane Doe",
+      description: "Explore the fundamentals of machine learning, including supervised and unsupervised learning, model evaluation, and real-world applications using Python.",
+      duration: "12 hours",
+      rating: "4.9 (512)",
+      image: "ml.png",
+    },
+    {
+      title: "Data Science",
+      instructor: "Dr. Grace Hopper",
+      description: "Analyze data, create visualizations, and apply ML algorithms.",
+      duration: "14 hours",
+      rating: "4.9 (390)",
+      image: "data.png",
+    },
+  ].map((course, index) => (
+    <div
+      key={index}
+      className="bg-white rounded-lg shadow-md overflow-hidden hover:-translate-y-2 hover:shadow-lg transition-all flex flex-col"
+    >
+      <img
+        src={course.image}
+        alt={`Course: ${course.title}`}
+        className="w-full h-52 object-cover"
+      />
+      <div className="p-6 flex flex-col flex-grow">
+        <h3 className="text-2xl font-semibold mb-2">{course.title}</h3>
+        <p className="text-gray-500 text-sm mb-2">Taught by: {course.instructor}</p>
+        <p className="text-gray-600 mb-4 flex-grow">{course.description}</p>
+        <div className="flex gap-4 text-sm text-gray-500 mb-5">
+          <span>
+            <i className="fas fa-clock text-[#6C5CE7] mr-1"></i> {course.duration}
+          </span>
+          <span>
+            <i className="fas fa-star text-[#6C5CE7] mr-1"></i> {course.rating}
+          </span>
+        </div>
+        <a
+          href="#"
+          className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center"
+        >
+          View Course
+        </a>
       </div>
+    </div>
+  ))}
+</div>
+
     </div>
 
     <div className="text-center mt-16">
@@ -256,14 +248,14 @@ export default function HairCoaction() {
         {/* Project 4 */}
         <div className="w-[500px] min-w-[500px] bg-white rounded-xl shadow-md hover:shadow-lg transition-all p-6 flex-shrink-0">
           <img
-            src="sales.png"
-            alt="Sales Forecasting System"
+            src="app.png"
+            alt="Internship Management Portal"
             className="rounded-lg mb-4 w-full h-48 object-cover"
           />
-          <h3 className="text-xl font-semibold mb-2">Sales Forecasting System</h3>
-          <p className="text-gray-600 mb-1">Domain: Data Science</p>
+          <h3 className="text-xl font-semibold mb-2">Internship Management Portal</h3>
+          <p className="text-gray-600 mb-1">Domain: Application Development</p>
           <p className="text-gray-500 text-sm">
-            Built a machine learning model to predict future product sales based on historical trends.
+            A role-based portal for students, mentors, and admins to manage internships.
           </p>
         </div>
       </div>
@@ -332,8 +324,8 @@ export default function HairCoaction() {
 
         {/* Data Science Intern */}
         <div className="bg-white rounded-lg shadow-md min-w-[300px] max-w-sm p-6 hover:-translate-y-2 hover:shadow-lg transition-all flex flex-col">
-          <h3 className="text-xl font-semibold   mb-3">Data Science Intern</h3>
-          <p className="text-gray-600 mb-2"><i className="fas fa-building text-[#6C5CE7] mr-2"></i>DataDive Labs</p>
+          <h3 className="text-xl font-semibold   mb-3">Application Development Intern</h3>
+          <p className="text-gray-600 mb-2"><i className="fas fa-building text-[#6C5CE7] mr-2"></i>CodeCrafters Technologies</p>
           <p className="text-gray-600 mb-4"><i className="fas fa-map-marker-alt text-[#6C5CE7] mr-2"></i>Pune, Maharashtra</p>
           <ul className="flex flex-wrap gap-3 text-sm text-gray-500 mb-5">
             <li><i className="fas fa-clock text-[#6C5CE7] mr-1"></i> Full-time</li>
@@ -341,7 +333,7 @@ export default function HairCoaction() {
             <li><i className="fas fa-calendar-alt text-[#6C5CE7] mr-1"></i> 4 Months</li>
           </ul>
           <p className="text-gray-600 mb-6 flex-grow">
-            Analyze large datasets and help build data-driven solutions using Python & SQL
+            Work on developing cross-platform mobile and web applications using Flutter and Node.js.
           </p>
           <a href="#" className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center self-start">
             Apply Now
