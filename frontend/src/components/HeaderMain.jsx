@@ -3,7 +3,8 @@ import React from 'react';
 export default function HeaderMain({ menuActive, toggleMenu }) {
   return (
     <header className="bg-white py-5 shadow-sm sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-5 flex flex-wrap justify-between items-center">
+      <div className="w-full px-5 flex flex-wrap justify-between items-center">
+
         <div className="w-full md:w-auto flex flex-col md:flex-row items-center justify-center md:justify-start gap-3 mb-4 md:mb-0">
           <img 
             src="/logo.jpeg" 
@@ -18,7 +19,8 @@ export default function HeaderMain({ menuActive, toggleMenu }) {
           </a>
         </div>
         <nav className="w-full md:w-auto order-3 md:order-none">
-          <ul className={`${menuActive ? 'flex' : 'hidden'} md:flex flex-col md:flex-row gap-4 md:gap-8 mt-5 md:mt-0`}>
+          <ul className={`${menuActive ? 'flex' : 'hidden'} md:flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10 mt-5 md:mt-0 items-center`}>
+
             <li><a href="/about" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">About Us</a></li>
             <li><a href="/#courses" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Courses</a></li>
             <li><a href="/#projects" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Projects</a></li>

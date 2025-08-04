@@ -15,10 +15,10 @@ export default function Footer() {
             <h3 className="text-xl font-semibold    text-white mb-5">Quick Links</h3>
             <ul className="space-y-2">
               <li><a href="/about" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">About Us</a></li>
-              <li><a href="#courses" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">Courses</a></li>
-              <li><a href="#projects" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">Projects</a></li>
-              <li><a href="#internships" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">Internships</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">Contact</a></li>
+              <li><a href="/#courses" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">Courses</a></li>
+              <li><a href="/#projects" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">Projects</a></li>
+              <li><a href="/#internships" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">Internships</a></li>
+              <li><a href="/#contact" className="text-gray-400 hover:text-[#6C5CE7] transition-colors">Contact</a></li>
             </ul>
           </div>
           {/* Contact Column */}

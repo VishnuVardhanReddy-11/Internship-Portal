@@ -10,10 +10,8 @@ import CoursesPages from './pages/CoursesPages';
 import NewCourse from './pages/NewCourse';
 import HairCoaction from './pages/HairCoaction';
 import AboutUs from './pages/AboutUs';
-import FullStackInternship from './pages/Internship/FullStackInternship';
-import ArtificialIntelligenceInternship from './pages/Internship/ArtificialIntelligenceInternship';
-import ApplicationDevInternship from './pages/Internship/ApplicationDevInternship';
-import DevOpsInternship from './pages/Internship/DevOpsInternship';
+import InternshipDetail from './pages/InternshipDetail';
+import CourseDetail from './pages/CourseDetail';
 function App() {
   return (
     <Router>
@@ -26,12 +24,11 @@ function App() {
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/newcourse" element={<NewCourse />} />
         <Route path="/courses" element={<CoursesPages />} />
-        <Route path="/" element={<HairCoaction />} />;
+        <Route path="/" element={<HairCoaction />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/web" element={<FullStackInternship />} />
-        <Route path="/ai" element={<ArtificialIntelligenceInternship />} />
-        <Route path="/applicationdev" element={<ApplicationDevInternship />} />
-        <Route path="/devops" element={<DevOpsInternship />} />
+        <Route path="/course/:courseId" element={<CourseDetail />} />
+        <Route path="/internship/:internshipId" element={<InternshipDetail />} />
+
       </Routes>
     </Router>
   );

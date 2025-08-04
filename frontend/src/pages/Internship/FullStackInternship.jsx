@@ -1,5 +1,6 @@
 import { useState } from "react";
-
+import Footer from "../../components/Footer.jsx";
+import HeaderMain from "../../components/HeaderMain.jsx";
 export default function FullStackInternship() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -22,7 +23,7 @@ export default function FullStackInternship() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 text-gray-800"  style={{
     background: `linear-gradient(to right, #6c5ce7e0, #8d7ee7e0), url('https://via.placeholder.com/1920x800/6C5CE7/ffffff?text=Hair+CoAction+Background') no-repeat center center / cover`,
-  }}>
+  }}><HeaderMain />
       <div className="max-w-7xl mx-auto px-5 py-10">
         <header className="text-center text-white mb-10 animate-fade-in-down">
           <h1 className="text-4xl md:text-5xl font-bold drop-shadow-lg">🚀 Web Development Internship</h1>
@@ -179,7 +180,7 @@ export default function FullStackInternship() {
   >
     ⬅ Go Back to Home
   </a>
-</div>
+</div><Footer />
     </div>
   );
 }
