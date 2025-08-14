@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-const NewCourse = ({ onSave }) => {
+
+const NewCourse = () => {
   const [courseData, setCourseData] = useState({
     title: '',
     description: '',
@@ -10,20 +11,21 @@ const NewCourse = ({ onSave }) => {
     endDate: '',
     level: '',
     content: [],
+    id: null
   });
 
   const navigate = useNavigate();
-const location = useLocation();
-const editCourse = location.state?.editCourse;
+  const location = useLocation();
+  const editCourse = location.state?.editCourse;
 
-React.useEffect(() => {
-  if (editCourse) {
-    setCourseData({
-      ...editCourse,
-      id: editCourse.id // ✅ explicitly preserve the ID
-    });
-  }
-}, [editCourse]);
+  useEffect(() => {
+    if (editCourse) {
+      setCourseData({
+        ...editCourse,
+        id: editCourse.id // ✅ preserve ID in edit mode
+      });
+    }
+  }, [editCourse]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,35 +70,66 @@ React.useEffect(() => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const message = editCourse
-  ? `Course "${courseData.title}" updated successfully!`
-  : `Course "${courseData.title}" added successfully!`;
+    try {
+      const formData = new FormData();
 
-alert(message);
-navigate('/admin/dashboard', {
-  state: {
-    newCourse: {
-      ...courseData,
-      id: courseData.id || editCourse?.id // ✅ fallback just in case
-    },
-    isEdit: Boolean(editCourse),
-  }
-});
+      // Basic fields
+      formData.append('title', courseData.title);
+      formData.append('description', courseData.description);
+      formData.append('instructor', courseData.instructor);
+      formData.append('duration', courseData.duration);
+      formData.append('startDate', courseData.startDate);
+      formData.append('endDate', courseData.endDate);
+      formData.append('level', courseData.level);
+      if (courseData.id) formData.append('id', courseData.id);
 
+      // Content handling
+      const contentArray = [];
 
+      for (let i = 0; i < courseData.content.length; i++) {
+        const block = courseData.content[i];
+        if (block.type === 'video-upload' || block.type === 'audio-upload') {
+          const input = document.getElementById(`${block.type}-${i}`);
+          if (input && input.files[0]) {
+            const fileKey = `${block.type}_${i}`;
+            formData.append(fileKey, input.files[0]);
+            contentArray.push({ type: block.type, value: fileKey });
+          }
+        } else {
+          contentArray.push(block);
+        }
+      }
+
+      formData.append('content', JSON.stringify(contentArray));
+
+      const res = await fetch('http://localhost:3000/admin/create-course', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert(`✅ Course "${data.course.title}" ${editCourse ? 'updated' : 'created'} successfully!`);
+        navigate('/admin/dashboard');
+      } else {
+        alert(`❌ ${data.message || 'Failed to save course'}`);
+      }
+    } catch (error) {
+      alert(`❌ Error: ${error.message}`);
+    }
   };
 
   return (
-    
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-4 md:p-6 overflow-y-auto">
       <div className="max-w-6xl mx-auto bg-gray-800 border border-gray-700/50 rounded-xl shadow-2xl p-6 md:p-10 space-y-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h1 className="text-3xl font-bold text-white">
             {editCourse ? 'Edit Course' : 'Add New Course'}
-            </h1>
-
+          </h1>
           <button
             onClick={() => navigate('/admin/dashboard')}
             className="text-sm bg-gray-700 border border-gray-600 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-600 transition"
@@ -209,99 +242,111 @@ navigate('/admin/dashboard', {
 
             {courseData.content.map((block, index) => (
               <div key={index} className="mb-4 border border-gray-600 rounded-lg p-4 bg-gray-700 space-y-2">
-                <div className="flex flex-col md:flex-row md:items-center gap-4">
-                  <label className="text-sm text-gray-200">Type</label>
-                  <select
-                    value={block.type}
-                    onChange={(e) => updateContentBlock(index, 'type', e.target.value)}
-                    className="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="text">Text</option>
-                    <option value="video-upload">Video (Upload)</option>
-                    <option value="video-link">Video (Link)</option>
-                  </select>
-                </div>
+                <select
+                  value={block.type}
+                  onChange={(e) => updateContentBlock(index, 'type', e.target.value)}
+                  className="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-2"
+                >
+                  <option value="text">Text</option>
+                  <option value="video-upload">Video (Upload)</option>
+                  <option value="video-link">Video (Link)</option>
+                  <option value="audio-upload">Audio (Upload)</option>
+                </select>
 
-                <div className="flex flex-col">
-                  <label className="text-sm text-gray-200">Content</label>
+                {block.type === 'text' && (
+  <textarea
+    placeholder="Enter lesson text"
+    value={block.value}
+    onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
+    rows={3}
+    className="block w-full bg-gray-800 text-white border border-gray-600 rounded-md px-4 py-3 placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+    required
+  />
+)}
 
-                  {block.type === 'text' && (
-                    <textarea
-                      placeholder="Enter lesson text"
-                      value={block.value}
-                      onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
-                      rows={3}
-                      className="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+                {block.type === 'video-upload' && (
+                  <>
+                    <input
+                      type="file"
+                      id={`video-upload-${index}`}
+                      accept="video/*"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const url = URL.createObjectURL(file);
+                          updateContentBlock(index, 'value', url);
+                          updateContentBlock(index, 'filename', file.name);
+                        }
+                      }}
+                      className="block w-full text-sm text-gray-300"
                       required
                     />
-                  )}
+                    {block.filename && (
+                      <p className="text-sm text-gray-400">Selected file: {block.filename}</p>
+                    )}
+                    {block.value && (
+                      <video controls src={block.value} className="mt-3 rounded-lg border border-gray-600 max-w-full" />
+                    )}
+                  </>
+                )}
 
-                  {block.type === 'video-upload' && (
-                    <>
-                      <input
-                        type="file"
-                        accept="video/*"
-                        onChange={(e) => {
-                          const file = e.target.files[0];
-                          if (file) {
-                            const videoURL = URL.createObjectURL(file);
-                            updateContentBlock(index, 'value', videoURL);
-                            updateContentBlock(index, 'filename', file.name);
-                          }
-                        }}
-                        className="block w-full text-sm text-gray-300 file:mr-4 file:py-2 file:px-4
-                          file:rounded-md file:border-0 file:text-sm file:font-semibold
-                          file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer"
-                        required
-                      />
-                      {block.filename && (
-                        <p className="mt-1 text-sm text-gray-400">Selected file: {block.filename}</p>
-                      )}
-                      {block.value && (
-                        <video
-                          controls
-                          src={block.value}
-                          className="mt-3 rounded-lg border border-gray-600 max-w-full"
-                          style={{ maxHeight: '300px' }}
-                        />
-                      )}
-                    </>
-                  )}
+                {block.type === 'audio-upload' && (
+                  <>
+                    <input
+                      type="file"
+                      id={`audio-upload-${index}`}
+                      accept="audio/*"
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                          const url = URL.createObjectURL(file);
+                          updateContentBlock(index, 'value', url);
+                          updateContentBlock(index, 'filename', file.name);
+                        }
+                      }}
+                      className="block w-full text-sm text-gray-300"
+                      required
+                    />
+                    {block.filename && (
+                      <p className="text-sm text-gray-400">Selected file: {block.filename}</p>
+                    )}
+                    {block.value && (
+                      <audio controls src={block.value} className="mt-3 w-full" />
+                    )}
+                  </>
+                )}
 
-                  {block.type === 'video-link' && (
-                    <>
-                      <input
-                        type="url"
-                        placeholder="Paste video URL (e.g., https://youtube.com/...)"
-                        value={block.value}
-                        onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
-                        className="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
-                        required
-                      />
-                      {block.value && (
-                        <>
-                          {extractYouTubeID(block.value) ? (
-                            <iframe
-                              className="mt-3 w-full rounded-lg border border-gray-600"
-                              style={{ height: "300px" }}
-                              src={`https://www.youtube.com/embed/${extractYouTubeID(block.value)}`}
-                              title="YouTube Video"
-                              frameBorder="0"
-                              allowFullScreen
-                            ></iframe>
-                          ) : (
-                            <video
-                              controls
-                              src={block.value}
-                              className="mt-3 rounded-lg border border-gray-600 max-w-full"
-                              style={{ maxHeight: '300px' }}
-                            />
-                          )}
-                        </>
-                      )}
-                    </>
-                  )}
-                </div>
+                {block.type === 'video-link' && (
+  <div className="col-span-2">
+    <input
+      type="url"
+      placeholder="Paste video URL"
+      value={block.value}
+      onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
+      className="block w-full bg-gray-800 text-white border border-gray-600 rounded-md px-4 py-3 placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+      required
+    />
+
+    {block.value && (
+      extractYouTubeID(block.value) ? (
+        <iframe
+          className="mt-4 w-full rounded-lg border border-gray-600"
+          height="350"
+          src={`https://www.youtube.com/embed/${extractYouTubeID(block.value)}`}
+          frameBorder="0"
+          allowFullScreen
+        />
+      ) : (
+        <video
+          controls
+          src={block.value}
+          className="mt-4 w-full rounded-lg border border-gray-600"
+        />
+      )
+    )}
+  </div>
+)}
+
 
                 <button
                   type="button"
@@ -327,7 +372,7 @@ navigate('/admin/dashboard', {
             <button
               type="button"
               onClick={() => navigate('/admin/dashboard')}
-              className="px-6 py-2 rounded-lg text-gray-300 border border-gray-600 hover:bg-gray-700 transition-colors"
+              className="px-6 py-2 rounded-lg text-gray-300 border border-gray-600 hover:bg-gray-700"
             >
               Cancel
             </button>
