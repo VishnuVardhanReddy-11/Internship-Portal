@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const NewCourse = () => {
 const NewCourse = ({ onSave }) => {
   const [courseData, setCourseData] = useState({
     title: '',
@@ -119,12 +118,6 @@ const NewCourse = ({ onSave }) => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6">
-      <div className="max-w-4xl mx-auto bg-gray-800 p-6 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">
-          {editCourse ? 'Edit Course' : 'Add New Course'}
-        </h2>
-    
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-4 md:p-6 overflow-y-auto">
       <div className="max-w-6xl mx-auto bg-gray-800 border border-gray-700/50 rounded-xl shadow-2xl p-6 md:p-10 space-y-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -340,7 +333,9 @@ const NewCourse = ({ onSave }) => {
         </form>
       </div>
     </div>
+    </div>
   );
 };
+
 
 export default NewCourse;
