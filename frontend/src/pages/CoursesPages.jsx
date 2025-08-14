@@ -1,5 +1,4 @@
-// src/CoursesPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   BookOpen, Layers, CheckCircle, Clock, GraduationCap, Code, Target,
@@ -29,141 +28,55 @@ const getStatusClass = (status) => {
 const CoursesPage = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [enrolledItems, setEnrolledItems] = useState([]);
 
-  const [enrolledItems] = useState([
-    {
-      id: 1,
-      title: 'React Fundamentals',
-      domain: 'Web Development',
-      progress: 75,
-      totalUnits: 12,
-      completedUnits: 9,
-      enrolledDate: '2024-11-15',
-      status: 'In Progress',
-      type: 'course'
-    },
-    {
-      id: 2,
-      title: 'Python for AI',
-      domain: 'Artificial Intelligence',
-      progress: 100,
-      totalUnits: 16,
-      completedUnits: 16,
-      enrolledDate: '2024-10-01',
-      status: 'Completed',
-      type: 'course'
-    },
-    {
-      id: 3,
-      title: 'Docker Essentials',
-      domain: 'DevOps',
-      progress: 45,
-      totalUnits: 10,
-      completedUnits: 5,
-      enrolledDate: '2024-12-01',
-      status: 'In Progress',
-      type: 'course'
-    },
-    {
-      id: 4,
-      title: 'Machine Learning Project',
-      domain: 'Artificial Intelligence',
-      progress: 80,
-      totalUnits: 10,
-      completedUnits: 8,
-      enrolledDate: '2024-10-25',
-      status: 'In Progress',
-      type: 'project'
-    },
-    {
-      id: 5,
-      title: 'Cloud Security Capstone',
-      domain: 'Cybersecurity',
-      progress: 10,
-      totalUnits: 7,
-      completedUnits: 1,
-      enrolledDate: '2025-01-10',
-      status: 'Enrolled',
-      type: 'project'
-    },
-    {
-      id: 6,
-      title: 'E-commerce Website Build',
-      domain: 'Web Development',
-      progress: 20,
-      totalUnits: 8,
-      completedUnits: 2,
-      enrolledDate: '2025-01-20',
-      status: 'In Progress',
-      type: 'project'
-    },
-    {
-      id: 7,
-      title: 'Data Structures & Algorithms',
-      domain: 'Computer Science',
-      progress: 60,
-      totalUnits: 15,
-      completedUnits: 9,
-      enrolledDate: '2024-09-01',
-      status: 'In Progress',
-      type: 'course'
-    },
-    {
-      id: 8,
-      title: 'Database Management Basics',
-      domain: 'Data Science',
-      progress: 90,
-      totalUnits: 8,
-      completedUnits: 7,
-      enrolledDate: '2024-08-10',
-      status: 'In Progress',
-      type: 'course'
-    },
-  ]);
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch('http://localhost:3000/admin/get-all-courses', {
+        method: 'GET',
+        credentials: 'include', // important for sending cookies
+      });
+      
+
+        const data = await res.json();
+        setEnrolledItems(data);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+    fetchCourses();
+  }, []);
 
   const snapshotData = [
     {
       id: 1,
-      title: 'Courses In Progress',
-      value: enrolledItems.filter(item => item.type === 'course' && item.status === 'In Progress').length,
-      icon: <PlayCircle size={24} color="white" />,
+      title: 'Total Courses',
+      value: enrolledItems.length,
+      icon: <Notebook size={24} color="white" />,
       color: 'blue'
     },
     {
       id: 2,
-      title: 'Projects In Progress',
-      value: enrolledItems.filter(item => item.type === 'project' && item.status === 'In Progress').length,
-      icon: <Code size={24} color="white" />,
-      color: 'orange'
-    },
-    {
-      id: 3,
-      title: 'Total Enrolled Courses',
-      value: enrolledItems.filter(item => item.type === 'course').length,
-      icon: <Notebook size={24} color="white" />,
-      color: 'purple'
-    },
-    {
-      id: 4,
-      title: 'Total Enrolled Projects',
-      value: enrolledItems.filter(item => item.type === 'project').length,
-      icon: <ClipboardList size={24} color="white" />,
-      color: 'teal'
-    },
-    {
-      id: 5,
-      title: 'Completed Items',
-      value: enrolledItems.filter(item => item.status === 'Completed').length,
-      icon: <CheckCircle size={24} color="white" />,
+      title: 'Beginner Courses',
+      value: enrolledItems.filter(c => c.level === 'Beginner').length,
+      icon: <GraduationCap size={24} color="white" />,
       color: 'green'
     },
     {
-      id: 6,
-      title: 'Total Units Completed',
-      value: enrolledItems.reduce((acc, item) => acc + item.completedUnits, 0),
-      icon: <Award size={24} color="white" />,
+      id: 3,
+      title: 'Intermediate Courses',
+      value: enrolledItems.filter(c => c.level === 'Intermediate').length,
+      icon: <Hourglass size={24} color="white" />,
       color: 'yellow'
     },
+    {
+      id: 4,
+      title: 'Advanced Courses',
+      value: enrolledItems.filter(c => c.level === 'Advanced').length,
+      icon: <Target size={24} color="white" />,
+      color: 'red'
+    }
   ];
 
   const handleEnrollClick = () => {
@@ -187,14 +100,11 @@ const CoursesPage = () => {
             <Layers color="white" className="icon-large" />
           </div>
           <div className="welcome-text">
-            <h1>My Learning Hub</h1>
-            <p>Your comprehensive overview of courses and projects</p>
+            <h1>All Courses</h1>
+            <p>Browse all available courses from the system</p>
           </div>
         </div>
         <div className="header-right-buttons">
-          <button className="enroll-new-btn back-to-dashboard" onClick={() => navigate('/dashboard')}>
-            Back to Dashboard
-          </button>
           <button className="enroll-new-btn" onClick={handleEnrollClick}>
             <PlusCircle size={20} /> Enroll Now
           </button>
@@ -208,7 +118,7 @@ const CoursesPage = () => {
               <div className="section-icon green">
                 <BarChart color="white" className="icon" />
               </div>
-              <h2>My Learning Snapshot</h2>
+              <h2>Course Snapshot</h2>
             </div>
             <div className="learning-overview-stats">
               {snapshotData.map(stat => (
@@ -230,40 +140,35 @@ const CoursesPage = () => {
               <div className="section-icon blue">
                 <BookOpen color="white" className="icon" />
               </div>
-              <h2>My Courses & Projects</h2>
+              <h2>Available Courses</h2>
             </div>
             <div className="my-courses-list">
               {enrolledItems.length > 0 ? (
                 enrolledItems.map(item => (
-                  <div key={item.id} className="enrolled-course-card">
+                  <div key={item._id} className="enrolled-course-card">
                     <div className="enrolled-course-header">
                       <div>
                         <h3 className="enrolled-course-title">{item.title}</h3>
-                        <div className="enrolled-course-domain">{item.domain}</div>
+                        <div className="enrolled-course-domain">Instructor: {item.instructor}</div>
                       </div>
-                      <span className={`enrolled-course-status-badge status-${getStatusClass(item.status)}`}>
-                        {item.status}
+                      <span className="enrolled-course-status-badge">
+                        {item.level}
                       </span>
                     </div>
-                    <div className="enrolled-course-progress-bar">
-                      <div
-                        className={`enrolled-course-progress-fill progress-${getProgressColor(item.progress)}`}
-                        style={{ width: `${item.progress}%` }}
-                      ></div>
-                    </div>
+                    <p>{item.description}</p>
                     <div className="enrolled-course-details">
                       <div>
-                        Progress: {item.progress}% ({item.completedUnits}/{item.totalUnits} {item.type === 'course' ? 'lessons' : 'milestones'})
+                        Duration: {item.duration} | From {new Date(item.startDate).toLocaleDateString()} to {new Date(item.endDate).toLocaleDateString()}
                       </div>
-                      <button className="continue-btn">
-                        {item.status === 'Completed' ? 'View Certificate' : 'Continue Learning'}
+                      <button className="continue-btn" onClick={() => navigate(`/course/${item._id}`)}>
+                        View Details
                       </button>
                     </div>
                   </div>
                 ))
               ) : (
                 <p className="no-items-message">
-                  You haven't enrolled in any courses or projects yet. Enroll in new learning opportunities from the Dashboard!
+                  No courses found.
                 </p>
               )}
             </div>
@@ -271,7 +176,6 @@ const CoursesPage = () => {
         </div>
       </div>
 
-      {/* Modal Component */}
       <EnrollModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

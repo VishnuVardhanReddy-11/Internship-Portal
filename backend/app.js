@@ -2,11 +2,12 @@ const express= require('express');
 const dotenv = require('dotenv');
 const cors= require('cors');
 const cookieParser = require('cookie-parser');
-const verifyToken= require('./middlewares/auth');
+const verifyToken= require('./middlewares/verifyToken');
 const db= require('./config/mongoose-connection'); 
 const client  = require('./config/emailConfig'); 
 // const twilio = require('twilio');
 const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
@@ -18,14 +19,18 @@ console.log("twilioServiceSid", process.env.TWILIO_SERVICE_SID);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 app.use(cookieParser());
+
 
 // Allow specific origin (e.g., Vite dev server)
 app.use(cors({
   origin: 'http://localhost:5173', // Replace with your frontend URL
   credentials: true,  
 }));
-app.use("/user", authRoutes)
+app.use("/user", authRoutes);
+app.use("/admin", adminRoutes);
+
 
 const twilioServiceSid=process.env.TWILIO_SERVICE_SID
 

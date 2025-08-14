@@ -8,6 +8,8 @@ import AdminDashboard from './pages/adminDashboard';
 import AdminLogin from './pages/AdminLogin';
 import CoursesPages from './pages/CoursesPages'; 
 import NewCourse from './pages/NewCourse';
+import UserRoute from './components/UserRoute';
+import AdminRoute from './components/AdminRoute';
 import HairCoaction from './pages/HairCoaction';
 import AboutUs from './pages/AboutUs';
 import InternshipDetail from './pages/InternshipDetail';
@@ -18,9 +20,12 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<UserRoute><Dashboard /></UserRoute>} />
         <Route path="/otp" element={<OtpVerification />} />
         <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+        <Route path="/admin/newCourse" element= {<AdminRoute><NewCourse /></AdminRoute>}  />
+        <Route path="/admin/allCourses" element={<AdminRoute><CoursesPages /></AdminRoute>} /> {/* ✅ Fixed */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/newcourse" element={<NewCourse />} />
         <Route path="/courses" element={<CoursesPages />} />

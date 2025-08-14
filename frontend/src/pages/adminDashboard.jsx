@@ -983,7 +983,7 @@ useEffect(() => {
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
         <h2 className="text-2xl font-bold text-white">Course Management</h2>
         <button
-          onClick={() => navigate('/newcourse')}
+          onClick={() => navigate('/admin/newCourse')}
           className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-medium hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 flex items-center gap-2 hover:scale-105"
         >
           <Plus className="w-4 h-4" />
