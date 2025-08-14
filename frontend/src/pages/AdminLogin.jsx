@@ -86,7 +86,7 @@ const AdminLogin = () => {
                 <SwitchFormText
                   question="Not an admin?"
                   linkText="Login as Student"
-                  linkTo="/"
+                  linkTo="/login"
                 />
               </div>
             </form>

@@ -124,7 +124,7 @@ const RegisterForm = () => {
                 <SwitchFormText
                   question="Already have an account?"
                   linkText="Login here"
-                  linkTo="/"
+                  linkTo="/login"
                 />
               </div>
             </form>
