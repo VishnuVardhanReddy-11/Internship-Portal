@@ -4,4 +4,6 @@ verifyAdmin = (req, res, next) => {
   return res.status(403).json({ message: 'Only admin can perform this action' });
 };
 
-module.exports.verifyAdmin = verifyAdmin;
+module.exports = {
+  verifyAdmin
+};

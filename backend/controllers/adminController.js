@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { generateToken } = require('../utils/generateToken');
 const Course = require('../models/courseModel');
+const path = require('path');
+const fs = require('fs');
 
 loginAdmin = async (req, res) => {
   const { username, email, password } = req.body;
@@ -41,17 +43,60 @@ loginAdmin = async (req, res) => {
 
 // Create course
 const createCourse = async (req, res) => {
+  console.log("frontend:", req.body);
+  
   try {
-    const newCourse = new Course(req.body);
+    const {
+      title,
+      description,
+      instructor,
+      duration,
+      startDate,
+      endDate,
+      level,
+      content
+    } = req.body;
+
+    const parsedContent = JSON.parse(content);
+    const finalContent = [];
+
+    for (let i = 0; i < parsedContent.length; i++) {
+      const block = parsedContent[i];
+      if (block.type === 'video-upload') {
+        const file = req.files.find(file => file.fieldname === block.value);
+        if (file) {
+          finalContent.push({
+            type: 'video-upload',
+            value: `uploads/${file.filename}`
+          });
+        }
+      } else {
+        finalContent.push(block);
+      }
+    }
+
+    const newCourse = new Course({
+      title,
+      description,
+      instructor,
+      duration,
+      startDate,
+      endDate,
+      level,
+      content: finalContent
+    });
+
     await newCourse.save();
-    res.status(201).json({ message: 'Course created', course: newCourse });
+
+    res.status(201).json({ message: 'Course created successfully!', course: newCourse });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error creating course:', error);
+    res.status(500).json({ message: 'Server error while creating course' });
   }
 };
 
 // Get all courses
-const getAllCourses = async (req, res) => {
+ getAllCourses = async (req, res) => {
   try {
     const courses = await Course.find();
     res.status(200).json(courses);
@@ -61,7 +106,7 @@ const getAllCourses = async (req, res) => {
 };
 
 // Get single course
-const getCourseById = async (req, res) => {
+ getCourseById = async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
     if (!course) return res.status(404).json({ message: 'Course not found' });
@@ -72,7 +117,7 @@ const getCourseById = async (req, res) => {
 };
 
 // Update course
-const updateCourse = async (req, res) => {
+updateCourse = async (req, res) => {
   try {
     const updatedCourse = await Course.findByIdAndUpdate(
       req.params.id,
@@ -87,7 +132,7 @@ const updateCourse = async (req, res) => {
 };
 
 // Delete course
-const deleteCourse = async (req, res) => {
+ deleteCourse = async (req, res) => {
   try {
     const deleted = await Course.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Course not found' });

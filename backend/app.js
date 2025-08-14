@@ -19,7 +19,9 @@ console.log("twilioServiceSid", process.env.TWILIO_SERVICE_SID);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 app.use(cookieParser());
+
 
 // Allow specific origin (e.g., Vite dev server)
 app.use(cors({
