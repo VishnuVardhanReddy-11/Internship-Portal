@@ -30,7 +30,7 @@ const AdminLogin = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // 🔐 Needed for cookie-based login
+        credentials: 'include',
         body: JSON.stringify(adminData),
       });
 

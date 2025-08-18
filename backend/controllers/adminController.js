@@ -8,7 +8,8 @@ const fs = require('fs');
 
 loginAdmin = async (req, res) => {
   const { username, email, password } = req.body;
-
+  console.log("req.body", req.body);
+  
   try {
     const existingAdmin = await Admin.findOne({ email });
     if (!existingAdmin) {
