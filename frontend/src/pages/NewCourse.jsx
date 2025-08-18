@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-<<<<<<< HEAD
 const NewCourse = () => {
-=======
-const NewCourse = ({ onSave }) => {
->>>>>>> 2f157e319e1c74ebc618e4e0e9a155d75836be48
   const [courseData, setCourseData] = useState({
     title: '',
     description: '',
@@ -353,7 +349,7 @@ const NewCourse = ({ onSave }) => {
         </form>
       </div>
     </div>
-    </div>
+  
   );
 };
 
