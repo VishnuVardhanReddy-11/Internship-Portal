@@ -20,12 +20,12 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/dashboard" element={<UserRoute><Dashboard /></UserRoute>} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/otp" element={<OtpVerification />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-        <Route path="/admin/newCourse" element= {<AdminRoute><NewCourse /></AdminRoute>}  />
-        <Route path="/admin/allCourses" element={<AdminRoute><CoursesPages /></AdminRoute>} /> {/* ✅ Fixed */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/newCourse" element= {<NewCourse />}  />
+        <Route path="/admin/allCourses" element={<CoursesPages />} /> {/* ✅ Fixed */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/newcourse" element={<NewCourse />} />
         <Route path="/courses" element={<CoursesPages />} />

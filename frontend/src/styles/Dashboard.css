@@ -252,18 +252,22 @@ body {
 
 /* Left Sidebar - Filters */
 .sidebar-left {
-    display: block; /* Ensure it's visible again on dashboard */
-    position: sticky; /* Make it sticky as user scrolls */
-    top: 2.5rem; /* Space from top (adjust based on header height) */
-    max-height: calc(100vh - 5rem); /* Limit height to viewport */
-    overflow-y: auto; /* Enable scroll if content is long */
-    padding-right: 1.5rem; /* Space from right edge of sidebar */
+    display: block;
+    position: sticky;
+    top: 2.5rem; /* starts below header */
+    height: calc(100vh - 2.5rem); /* fills remaining space till bottom */
+    overflow-y: auto;
+    padding-right: 1.5rem;
+    width:400px;
+
+    /* Hide scrollbar cross-browser */
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
 .sidebar-left::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
 }
+
 
 
 .filter-card {
@@ -320,6 +324,13 @@ body {
     cursor: pointer;
 }
 
+.filter-checkbox-group {
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  gap: 8px; /* spacing between items */
+  margin-top: 6px; /* little space below heading */
+}
+
 /* Right Main Content Area */
 .main-content-right {
     display: flex;
@@ -333,6 +344,7 @@ body {
     border-radius: 1rem;
     box-shadow: var(--shadow-medium);
     padding: 2rem;
+    width:1480px;
 }
 
 .section-header {
@@ -968,3 +980,4 @@ body {
         font-size: 1rem;
     }
 }
+

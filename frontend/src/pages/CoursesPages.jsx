@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import HeaderCourse from "../components/HeaderCourse";
 import {
-  BookOpen, Layers, CheckCircle, Clock, GraduationCap, Code, Target,
-  BarChart, PlusCircle, PlayCircle, Notebook, ClipboardList, Hourglass, Award
-} from 'lucide-react';
-import '../styles/CoursesPages.css';
-import EnrollModal from '../components/EnrollModal'; // Make sure the path is correct
-
-const getProgressColor = (progress) => {
-  if (progress < 25) return 'red';
-  if (progress < 50) return 'orange';
-  if (progress < 75) return 'yellow';
-  if (progress < 100) return 'blue';
-  return 'green';
-};
-
-const getStatusClass = (status) => {
-  const statusMap = {
-    'In Progress': 'in-progress',
-    'Completed': 'completed',
-    'Enrolled': 'enrolled',
-    'Dropped': 'dropped'
-  };
-  return statusMap[status] || '';
-};
+  BookOpen,
+  Layers,
+  GraduationCap,
+  Target,
+  BarChart,
+  PlusCircle,
+  Notebook,
+  Hourglass,
+} from "lucide-react";
+import "../styles/CoursesPages.css";
+import EnrollModal from "../components/EnrollModal"; // Make sure the path is correct
+import HeaderMain from "../components/HeaderMainDash";
 
 const CoursesPage = () => {
   const navigate = useNavigate();
@@ -33,16 +23,15 @@ const CoursesPage = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const res = await fetch('http://localhost:3000/admin/get-all-courses', {
-        method: 'GET',
-        credentials: 'include', // important for sending cookies
-      });
-      
-
+        const res = await fetch("http://localhost:3000/admin/get-all-courses", {
+          method: "GET",
+          credentials: "include", // important for sending cookies
+        });
         const data = await res.json();
-        setEnrolledItems(data);
+        setEnrolledItems(Array.isArray(data) ? data : []); // ✅ Safe
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error("Error fetching courses:", error);
+        setEnrolledItems([]); // ✅ Prevent crash
       }
     };
     fetchCourses();
@@ -51,32 +40,33 @@ const CoursesPage = () => {
   const snapshotData = [
     {
       id: 1,
-      title: 'Total Courses',
-      value: enrolledItems.length,
+      title: "Total Courses",
+      value: (enrolledItems || []).length, // ✅ Safe
       icon: <Notebook size={24} color="white" />,
-      color: 'blue'
+      color: "blue",
     },
     {
       id: 2,
-      title: 'Beginner Courses',
-      value: enrolledItems.filter(c => c.level === 'Beginner').length,
+      title: "Beginner Courses",
+      value: (enrolledItems || []).filter((c) => c.level === "Beginner").length, // ✅ Safe
       icon: <GraduationCap size={24} color="white" />,
-      color: 'green'
+      color: "green",
     },
     {
       id: 3,
-      title: 'Intermediate Courses',
-      value: enrolledItems.filter(c => c.level === 'Intermediate').length,
+      title: "Intermediate Courses",
+      value: (enrolledItems || []).filter((c) => c.level === "Intermediate")
+        .length, // ✅ Safe
       icon: <Hourglass size={24} color="white" />,
-      color: 'yellow'
+      color: "yellow",
     },
     {
       id: 4,
-      title: 'Advanced Courses',
-      value: enrolledItems.filter(c => c.level === 'Advanced').length,
+      title: "Advanced Courses",
+      value: (enrolledItems || []).filter((c) => c.level === "Advanced").length, // ✅ Safe
       icon: <Target size={24} color="white" />,
-      color: 'red'
-    }
+      color: "red",
+    },
   ];
 
   const handleEnrollClick = () => {
@@ -85,15 +75,17 @@ const CoursesPage = () => {
 
   const handleEnrollType = (type) => {
     setIsModalOpen(false);
-    if (type === 'course') {
-      navigate('/enroll/course');
-    } else if (type === 'project') {
-      navigate('/enroll/project');
+    if (type === "course") {
+      navigate("/enroll/course");
+    } else if (type === "project") {
+      navigate("/enroll/project");
     }
   };
 
   return (
-    <div className="container">
+    <div className="contahiner">
+      <HeaderCourse />
+      <br></br>
       <div className="header">
         <div className="header-left">
           <div className="section-icon blue">
@@ -120,14 +112,21 @@ const CoursesPage = () => {
               </div>
               <h2>Course Snapshot</h2>
             </div>
-            <div className="learning-overview-stats">
-              {snapshotData.map(stat => (
-                <div key={stat.id} className="overview-stat-card">
+
+            {/* Make items vertical */}
+            <div className="learning-overview-stats flex flex-col gap-4">
+              {snapshotData.map((stat) => (
+                <div
+                  key={stat.id}
+                  className="overview-stat-card flex items-center gap-3 p-3 border rounded-lg shadow-sm"
+                >
                   <div className={`stat-icon-wrapper ${stat.color}`}>
                     {stat.icon}
                   </div>
-                  <h4>{stat.title}</h4>
-                  <span>{stat.value}</span>
+                  <div>
+                    <h4>{stat.title}</h4>
+                    <span>{stat.value}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -143,13 +142,15 @@ const CoursesPage = () => {
               <h2>Available Courses</h2>
             </div>
             <div className="my-courses-list">
-              {enrolledItems.length > 0 ? (
-                enrolledItems.map(item => (
+              {(enrolledItems || []).length > 0 ? (
+                (enrolledItems || []).map((item) => (
                   <div key={item._id} className="enrolled-course-card">
                     <div className="enrolled-course-header">
                       <div>
                         <h3 className="enrolled-course-title">{item.title}</h3>
-                        <div className="enrolled-course-domain">Instructor: {item.instructor}</div>
+                        <div className="enrolled-course-domain">
+                          Instructor: {item.instructor}
+                        </div>
                       </div>
                       <span className="enrolled-course-status-badge">
                         {item.level}
@@ -158,18 +159,21 @@ const CoursesPage = () => {
                     <p>{item.description}</p>
                     <div className="enrolled-course-details">
                       <div>
-                        Duration: {item.duration} | From {new Date(item.startDate).toLocaleDateString()} to {new Date(item.endDate).toLocaleDateString()}
+                        Duration: {item.duration} | From{" "}
+                        {new Date(item.startDate).toLocaleDateString()} to{" "}
+                        {new Date(item.endDate).toLocaleDateString()}
                       </div>
-                      <button className="continue-btn" onClick={() => navigate(`/course/${item._id}`)}>
+                      <button
+                        className="continue-btn"
+                        onClick={() => navigate(`/course/${item._id}`)}
+                      >
                         View Details
                       </button>
                     </div>
                   </div>
                 ))
               ) : (
-                <p className="no-items-message">
-                  No courses found.
-                </p>
+                <p className="no-items-message">No courses found.</p>
               )}
             </div>
           </div>
