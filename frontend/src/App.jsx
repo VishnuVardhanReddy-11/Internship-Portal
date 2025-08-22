@@ -13,7 +13,8 @@ import AdminRoute from './components/AdminRoute';
 import HairCoaction from './pages/HairCoaction';
 import AboutUs from './pages/AboutUs';
 import InternshipDetail from './pages/InternshipDetail';
-import CourseDetail from './pages/CourseDetail';
+import CourseDetail from './pages/AdminCourseDetail';
+import EditCourse from './pages/EditCourse';
 function App() {
   return (
     <Router>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/newCourse" element= {<AdminRoute><NewCourse /></AdminRoute>}  />
+        <Route path="/admin/editCourse/:courseId" element={<AdminRoute><EditCourse /></AdminRoute>} />
         <Route path="/admin/allCourses" element={<AdminRoute><CoursesPages /></AdminRoute>} /> {/* ✅ Fixed */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/newcourse" element={<NewCourse />} />

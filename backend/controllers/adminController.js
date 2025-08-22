@@ -109,7 +109,11 @@ const createCourse = async (req, res) => {
 // Get single course
  getCourseById = async (req, res) => {
   try {
+    console.log("getCourseById");
+    
     const course = await Course.findById(req.params.id);
+    console.log("course", course);
+    
     if (!course) return res.status(404).json({ message: 'Course not found' });
     res.status(200).json(course);
   } catch (error) {
@@ -118,19 +122,79 @@ const createCourse = async (req, res) => {
 };
 
 // Update course
+// File: controllers/courseController.js
+
 updateCourse = async (req, res) => {
   try {
+    const {
+      title,
+      description,
+      instructor,
+      duration,
+      startDate,
+      endDate,
+      level,
+      content
+    } = req.body;
+
+    // Parse the content (stringified JSON from frontend)
+    const parsedContent = JSON.parse(content);
+    const finalContent = [];
+
+    for (let i = 0; i < parsedContent.length; i++) {
+      const block = parsedContent[i];
+
+      if (block.type === 'video-upload') {
+        // Check if a new file is uploaded for this block
+        const file = req.files?.find(file => file.fieldname === block.value);
+
+        if (file) {
+          // New file uploaded → update path
+          finalContent.push({
+            type: 'video-upload',
+            value: `uploads/${file.filename}`
+          });
+        } else {
+          // No new file → keep old value
+          finalContent.push(block);
+        }
+      } else {
+        // For text or other content blocks
+        finalContent.push(block);
+      }
+    }
+
+    // Update the course
     const updatedCourse = await Course.findByIdAndUpdate(
       req.params.id,
-      req.body,
-      { new: true }
+      {
+        title,
+        description,
+        instructor,
+        duration,
+        startDate,
+        endDate,
+        level,
+        content: finalContent
+      },
+      { new: true } // return updated document
     );
-    if (!updatedCourse) return res.status(404).json({ message: 'Course not found' });
-    res.status(200).json({ message: 'Course updated', course: updatedCourse });
+
+    if (!updatedCourse) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+
+    res.status(200).json({
+      message: "Course updated successfully!",
+      course: updatedCourse
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error updating course:", error);
+    res.status(500).json({ message: "Server error while updating course" });
   }
 };
+
+module.exports = { updateCourse };
 
 // Delete course
  deleteCourse = async (req, res) => {
