@@ -1,47 +1,39 @@
-// src/Dashboard.js
+// src/UserDashboard.js
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   User, BookOpen, Award, TrendingUp, Clock, Filter, PlusCircle, ChevronUp, Layers
-} from 'lucide-react'; // Added Layers icon for "My Courses" link
+} from 'lucide-react';
 import '../styles/Dashboard.css';
-import EnrollModal from '../components/EnrollModal'; // Import the EnrollModal component
-import axios from 'axios';
+import EnrollModal from '../components/EnrollModal';
 import Footer from '../components/Footer';
-// --- Utility Functions (Keep these in src/utils/dashboardUtils.js if you have it) ---
+import {Link } from 'react-router-dom';
+// --- Utility Functions ---
 const formatDate = (dateString) => {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
-const getProgressColor = (progress) => {
-    if (progress < 25) return 'red';
-    if (progress < 50) return 'orange';
-    if (progress < 75) return 'yellow';
-    if (progress < 100) return 'blue';
-    return 'green';
-};
+// const getProgressColor = (progress) => {
+//     if (progress < 25) return 'red';
+//     if (progress < 50) return 'orange';
+//     if (progress < 75) return 'yellow';
+//     if (progress < 100) return 'blue';
+//     return 'green';
+// };
 
-const getStatusClass = (status) => {
-    const statusMap = {
-        'In Progress': 'in-progress',
-        'Completed': 'completed',
-        'Enrolled': 'enrolled',
-        'Dropped': 'dropped'
-    };
-    return statusMap[status] || '';
-};
-
-const getRandomTimeRemaining = () => {
-    const days = Math.floor(Math.random() * 30) + 1;
-    const hours = Math.floor(Math.random() * 24);
-    return `${days}d ${hours}h left`;
-};
+// const getStatusClass = (status) => {
+//     const statusMap = {
+//         'In Progress': 'in-progress',
+//         'Completed': 'completed',
+//         'Enrolled': 'enrolled',
+//         'Dropped': 'dropped'
+//     };
+//     return statusMap[status] || '';
+// };
 // --- End of Utility Functions ---
 
-
-// --- Mock Data for New Filters and Trending Items ---
-// This data is specifically for the new filter categories and the trending section.
+// Filter options (you can keep or remove counts depending on your DB)
 const professionOptions = [
   { name: 'College Student', count: 417, value: 'College Student' },
   { name: 'School Student', count: 11, value: 'School Student' },
@@ -60,31 +52,13 @@ const categoryOptions = [
   { name: 'Business', count: 15, value: 'Business' },
 ];
 
-// Mock data for the "Trending Learning Opportunities" section
-const mockTrendingItemsData = [
-  { id: 201, name: 'AI for Business Leaders', description: 'Understand AI strategy for enterprises.', duration: '6 weeks', type: 'course', domain: 'Artificial Intelligence', profession: 'Working Professional', program: 'Bootcamp', categories: ['Technical', 'Business'] },
-  { id: 202, name: 'Web Dev Fundamentals', description: 'HTML, CSS, JS for beginners.', duration: '4 weeks', type: 'course', domain: 'Web Development', profession: 'College Student', program: 'Community Programs', categories: ['Technical'] },
-  { id: 203, name: 'Competitive Programming Basics', description: 'Sharpen your problem-solving skills.', duration: '8 weeks', type: 'course', domain: 'Computer Science', profession: 'School Student', program: 'Bootcamp', categories: ['Aptitude', 'Technical'] },
-  { id: 204, name: 'Data Science with Python', description: 'Hands-on data analysis projects.', duration: '10 weeks', type: 'project', domain: 'Data Science', profession: 'Working Professional', program: 'Bootcamp', categories: ['Technical', 'Business'] },
-  { id: 205, name: 'Mobile App Design (UI/UX)', description: 'Learn principles of mobile UI/UX.', duration: '5 weeks', type: 'course', domain: 'Design', profession: 'College Student', program: 'Bootcamp', categories: ['Soft Skills', 'Technical'] },
-  { id: 206, name: 'Aptitude Test Prep', description: 'Prepare for common aptitude tests.', duration: '3 weeks', type: 'course', domain: 'General', profession: 'College Student', program: 'Community Programs', categories: ['Aptitude'] },
-  { id: 207, name: 'Public Speaking Workshop', description: 'Improve your communication skills.', duration: '2 weeks', type: 'course', domain: 'Soft Skills', profession: 'Working Professional', program: 'Community Programs', categories: ['Soft Skills'] },
-  { id: 208, name: 'Game Development with Unity', description: 'Build your first 3D game.', duration: '12 weeks', type: 'project', domain: 'Game Development', profession: 'School Student', program: 'Bootcamp', categories: ['Technical'] },
-  { id: 209, name: 'Digital Marketing Fundamentals', description: 'Basics of online advertising and SEO.', duration: '6 weeks', type: 'course', domain: 'Marketing', profession: 'Working Professional', program: 'Community Programs', categories: ['Business'] },
-  { id: 210, name: 'Cloud Security Fundamentals', description: 'Secure cloud deployments on AWS.', duration: '7 weeks', type: 'course', domain: 'Cloud Computing', profession: 'Working Professional', program: 'Bootcamp', categories: ['Technical'] },
-  { id: 211, name: 'Vedic Maths for Kids', description: 'Quick calculation techniques.', duration: '4 weeks', type: 'course', domain: 'Mathematics', profession: 'School Student', program: 'Community Programs', categories: ['Aptitude'] },
-  { id: 212, name: 'Personal Finance Basics', description: 'Manage your money effectively.', duration: '3 weeks', type: 'course', domain: 'Finance', profession: 'College Student', program: 'Community Programs', categories: ['Business', 'Soft Skills'] },
-];
-// --- End of Mock Data ---
-
-
-const Dashboard = () => {
+const UserDashboard = () => {
   const navigate = useNavigate();
 
-  // State for controlling the EnrollModal visibility
+  // Modal
   const [isEnrollModalOpen, setIsEnrollModalOpen] = useState(false);
 
-  // Certifications remain on the Dashboard
+  // Certifications
   const [certifications] = useState([
     {
       id: 1,
@@ -102,18 +76,45 @@ const Dashboard = () => {
     },
   ]);
 
-  // States for the new filters
+  // Filters
   const [selectedProfessionFilter, setSelectedProfessionFilter] = useState('');
   const [selectedProgramFilter, setSelectedProgramFilter] = useState('');
   const [selectedCategoryFilters, setSelectedCategoryFilters] = useState([]);
 
-  // Memoized version of the mock trending data (acts as our base for filtering)
-  const allTrendingLearningOpportunities = useMemo(() => mockTrendingItemsData, []);
-
-  // State for the filtered items displayed in "Trending Learning Opportunities"
+  // State for courses (fetched from backend)
+  const [courses, setCourses] = useState([]);
   const [filteredTrendingItems, setFilteredTrendingItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  // Effect to filter trending items based on selected filters
+  // Fetch courses from backend
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('http://localhost:3000/user/courses', {
+          method: 'GET',
+          credentials: 'include',
+        });
+        const data = await response.json();
+        console.log('response:', data);
+        
+        setCourses(data); // Expecting backend to return an array of courses
+      } catch (err) {
+        console.error("Error fetching courses:", err);
+        setError('Failed to load courses. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourses();
+  }, []);
+
+  // Memoize courses for filtering
+  const allTrendingLearningOpportunities = useMemo(() => courses, [courses]);
+
+  // Effect: Apply filters
   useEffect(() => {
       let filtered = allTrendingLearningOpportunities;
 
@@ -127,7 +128,7 @@ const Dashboard = () => {
 
       if (selectedCategoryFilters.length > 0) {
           filtered = filtered.filter(item =>
-              item.categories.some(cat => selectedCategoryFilters.includes(cat))
+              item.categories?.some(cat => selectedCategoryFilters.includes(cat))
           );
       }
 
@@ -135,7 +136,7 @@ const Dashboard = () => {
 
   }, [selectedProfessionFilter, selectedProgramFilter, selectedCategoryFilters, allTrendingLearningOpportunities]);
 
-  // Handle Category checkbox changes
+  // Category handler
   const handleCategoryChange = (e) => {
     const { value, checked } = e.target;
     setSelectedCategoryFilters(prev =>
@@ -143,10 +144,32 @@ const Dashboard = () => {
     );
   };
 
-  // Function to open the enrollment modal
+  // Open modal
   const handleEnrollNewClick = () => {
     setIsEnrollModalOpen(true);
   };
+
+  // --- Logout Function ---
+const handleLogout = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/user/logout', {
+      method: 'POST',   // 👈 use POST instead of GET for logout
+      credentials: 'include',
+    });
+
+    if (response.ok) {
+      alert('Logged out successfully');
+      navigate('/');
+    } else {
+      const errorData = await response.json();
+      alert(errorData.message || 'Logout failed');
+    }
+  } catch (error) {
+    console.error("Logout failed:", error);
+    alert('Logout failed. Try again.');
+  }
+};
+
 
   return (
     <div className="container">
@@ -168,41 +191,29 @@ const Dashboard = () => {
             >
                 <PlusCircle size={20} /> Enroll New
             </button>
-            {/* New button to navigate to CoursesPage */}
             <button
                 className="enroll-new-btn"
                 onClick={() => navigate('/courses')}
-                style={{ backgroundColor: 'var(--accent-green)' }} // Differentiate visually
+                style={{ backgroundColor: 'var(--accent-green)' }}
             >
                 <Layers size={20} /> My Courses
             </button>
-            <button className="Btn" onClick={async () => {
-  try {
-    await axios.post('http://localhost:3000/user/logout', {}, {
-      withCredentials: true,
-    });
-    alert('Logged out');
-    navigate('/');
-  } catch (error) {
-    console.error("Logout failed:", error);
-    alert('Logout failed. Try again.');
-  }
-}}>
-  <div className="sign">
-    <svg viewBox="0 0 512 512">
-      <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
-    </svg>
-  </div>
-  <div className="text">Logout</div>
-</button>
+            <button className="Btn" onClick={handleLogout}>
+                    <div className="sign">
+                      <svg viewBox="0 0 512 512">
+                        <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
+                      </svg>
+                    </div>
+                    <div className="text">Logout</div>
+            </button>
 
         </div>
       </div>
 
-      {/* Main Grid - Two Columns: Filters on Left, Content on Right */}
+      {/* Main Grid */}
       <div className="main-grid">
 
-        {/* Left Column: Filters Sidebar */}
+        {/* Left: Filters */}
         <div className="sidebar-left filter-sidebar">
           <div className="section-card filter-card">
             <div className="section-header">
@@ -212,7 +223,7 @@ const Dashboard = () => {
               <h2>Filters</h2>
             </div>
 
-            {/* Filter by Profession */}
+            {/* Profession */}
             <div className="filter-group">
                 <div className="filter-section-header">
                     <h3>Filter by Profession</h3>
@@ -240,7 +251,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            {/* Filter by Program */}
+            {/* Program */}
             <div className="filter-group">
                 <div className="filter-section-header">
                     <h3>Filter by Program</h3>
@@ -291,10 +302,10 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Right Column: Main Dashboard Content */}
+        {/* Right: Courses + Certifications */}
         <div className="main-content-right">
 
-          {/* Trending Learning Opportunities */}
+          {/* Courses Section */}
           <div className="section-card trending-courses-section">
             <div className="section-header">
               <div className="section-icon blue">
@@ -303,30 +314,44 @@ const Dashboard = () => {
               <h2>Trending Learning Opportunities</h2>
             </div>
             <div className="course-grid">
-                {filteredTrendingItems.length > 0 ? (
+                {loading ? (
+                  <p>Loading courses...</p>
+                ) : error ? (
+                  <p className="error-message">{error}</p>
+                ) : filteredTrendingItems.length > 0 ? (
                     filteredTrendingItems.map(item => (
-                        <div key={item.id} className="course-card">
-                            <div className="course-header">
+                       <div key={item._id} className="course-card">
+                              <div className="course-header">
                                 <div>
-                                    <h3 className="course-title">{item.name}</h3>
-                                    <div className="course-domain">{item.domain}</div>
+                                  <h3 className="course-title">{item.title}</h3>
+                                  <div className="course-domain">Instructor: {item.instructor}</div>
                                 </div>
-                                <div className="course-type-badge">{item.type}</div>
-                            </div>
-                            <div className="course-description">{item.description}</div>
-                            <div className="course-footer">
-                                <span className="time-remaining"><Clock size={16} /> {item.duration}</span>
-                                <button className="continue-btn">View Details</button>
-                            </div>
+                                <div className="course-type-badge">{item.level}</div>
+                              </div>
+                              <div className="course-description">{item.description}</div>
+                              <div className="course-footer">
+                                <span className="time-remaining">
+                                    <Clock size={16} /> {item.duration}
+                                </span>
+                                <Link
+                          to={`/user/course/${courses._id}`}
+                          className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center"
+                        >
+                          View Course
+                        </Link>
+                              </div>
                         </div>
+
                     ))
                 ) : (
-                    <p className="no-items-message" style={{ gridColumn: '1 / -1' }}>No learning opportunities found matching your filters.</p>
+                    <p className="no-items-message" style={{ gridColumn: '1 / -1' }}>
+                      No learning opportunities found matching your filters.
+                    </p>
                 )}
             </div>
           </div>
 
-          {/* My Achieved Certifications (remains on Dashboard) */}
+          {/* Certifications */}
           <div className="section-card">
             <div className="section-header">
               <div className="section-icon yellow">
@@ -356,14 +381,16 @@ const Dashboard = () => {
                   </div>
                 ))
               ) : (
-                <p className="no-items-message" style={{ gridColumn: '1 / -1' }}>No certifications achieved yet. Keep learning and earn your first one!</p>
+                <p className="no-items-message" style={{ gridColumn: '1 / -1' }}>
+                  No certifications achieved yet. Keep learning and earn your first one!
+                </p>
               )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Enroll Modal Integration */}
+      {/* Enroll Modal */}
       <EnrollModal
         isOpen={isEnrollModalOpen}
         onClose={() => setIsEnrollModalOpen(false)}
@@ -374,4 +401,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default UserDashboard;

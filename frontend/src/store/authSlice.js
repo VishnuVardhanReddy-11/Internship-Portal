@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user: null,              // User details
+  role: null,              // Role -> "admin" | "user"
   isAuthenticated: false,  // Login status
   loading: false,          // For loader
   error: null,             // Error message
@@ -15,6 +16,7 @@ const authSlice = createSlice({
   reducers: {
     setAuthData(state, action) {
       state.user = action.payload.user;
+      state.role = action.payload.user?.role || null;  // ✅ store role
       state.isAuthenticated = true;
       state.loading = false;
       state.error = null;
@@ -32,6 +34,7 @@ const authSlice = createSlice({
     },
     clearAuth(state) {
       state.user = null;
+      state.role = null;
       state.isAuthenticated = false;
       state.loading = false;
       state.error = null;

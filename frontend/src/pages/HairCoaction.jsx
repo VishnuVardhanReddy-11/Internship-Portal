@@ -1,14 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import HeaderMain from '../components/HeaderMain';
 
 export default function HairCoaction() {
   const [menuActive, setMenuActive] = useState(false);
+  const [courses, setCourses] = useState([]);
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
   };
+
+
+   useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/public/courses", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (!res.ok) throw new Error("Failed to fetch courses");
+        const data = await res.json();
+        console.log("backend se aaya: ", data);
+        
+        setCourses(data.slice(0, 3)); // only latest 3
+      } catch (err) {
+        console.error("Error fetching courses:", err);
+      }
+    };
+    fetchCourses();
+  }, []);
+
+
+
 
   return (
     <div className="font-sans text-gray-800 bg-gray-50 min-h-screen">
@@ -108,80 +132,64 @@ export default function HairCoaction() {
           </div>
         </section>
 
-        {/* Courses Section */}
+        {/* ✅ Updated Courses Section */}
         <section id="courses" className="bg-gray-100 py-12 md:py-24">
-  <div className="max-w-6xl mx-auto px-5">
-    <h2 className="text-4xl font-bold   text-gray-900 mb-5 text-center">
-      Our Latest Courses
-    </h2>
-    <p className="max-w-3xl mx-auto text-xl text-gray-500 mb-16 text-center -mt-5">
-      Dive into our diverse range of courses designed to elevate your craft.
-    </p>
+          <div className="max-w-6xl mx-auto px-5">
+            <h2 className="text-4xl font-bold text-gray-900 mb-5 text-center">
+              Our Latest Courses
+            </h2>
+            <p className="max-w-3xl mx-auto text-xl text-gray-500 mb-16 text-center -mt-5">
+              Dive into our diverse range of courses designed to elevate your craft.
+            </p>
 
-    <div className="overflow-x-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-  {[
-    {
-      title: "Artificial Intelligence",
-      instructor: "Dr. Alan Turing",
-      description: "Explore the foundations and applications of AI across industries.",
-      duration: "15 hours",
-      rating: "4.8 (420)",
-      image: "ai.png",
-    },
-    {
-      title: "Machine Learning",
-      instructor: "Jane Doe",
-      description: "Explore the fundamentals of machine learning, including supervised and unsupervised learning, model evaluation, and real-world applications using Python.",
-      duration: "12 hours",
-      rating: "4.9 (512)",
-      image: "ml.png",
-    },
-    {
-      title: "Data Science",
-      instructor: "Dr. Grace Hopper",
-      description: "Analyze data, create visualizations, and apply ML algorithms.",
-      duration: "14 hours",
-      rating: "4.9 (390)",
-      image: "data.png",
-    },
-  ].map((course, index) => (
-    <div
-      key={index}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:-translate-y-2 hover:shadow-lg transition-all flex flex-col"
-    >
-      <img
-        src={course.image}
-        alt={`Course: ${course.title}`}
-        className="w-full h-52 object-cover"
-      />
-      <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-2xl font-semibold mb-2">{course.title}</h3>
-        <p className="text-gray-500 text-sm mb-2">Taught by: {course.instructor}</p>
-        <p className="text-gray-600 mb-4 flex-grow">{course.description}</p>
-        <div className="flex gap-4 text-sm text-gray-500 mb-5">
-          <span>
-            <i className="fas fa-clock text-[#6C5CE7] mr-1"></i> {course.duration}
-          </span>
-          <span>
-            <i className="fas fa-star text-[#6C5CE7] mr-1"></i> {course.rating}
-          </span>
-        </div>
-        <Link
-          to={`/course/${course.image.replace('.png','')}`}
-          className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center"
-        >
-          View Course
-        </Link>
-      </div>
-    </div>
-  ))}
-</div>
+            <div className="overflow-x-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {courses.length > 0 ? (
+                  courses.map((course) => (
+                    <div
+                      key={course._id}
+                      className="bg-white rounded-lg shadow-md overflow-hidden hover:-translate-y-2 hover:shadow-lg transition-all flex flex-col"
+                    >
+                      <img
+                        src={course.image || "course.png"}
+                        alt={`Course: ${course.title}`}
+                        className="w-full h-52 object-cover"
+                      />
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h3 className="text-2xl font-semibold mb-2">{course.title}</h3>
+                        <p className="text-gray-500 text-sm mb-2">
+                          Taught by: {course.instructor}
+                        </p>
+                        <p className="text-gray-600 mb-4 flex-grow">{course.description}</p>
+                        <div className="flex gap-4 text-sm text-gray-500 mb-5">
+                          <span>
+                            <i className="fas fa-clock text-[#6C5CE7] mr-1"></i>{" "}
+                            {course.duration}
+                          </span>
+                          <span>
+                            <i className="fas fa-layer-group text-[#6C5CE7] mr-1"></i>{" "}
+                            {course.level}
+                          </span>
+                        </div>
+                        <Link
+                          to={`/user/course/${course._id}`}
+                          className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center"
+                        >
+                          View Course
+                        </Link>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-center text-gray-500 col-span-3">
+                    No courses available
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
 
-    </div>
-
-  </div>
-</section>
 
 
         {/* Projects Section */}

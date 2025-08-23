@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginForm from './pages/LoginForm';
 import RegisterForm from './pages/RegisterForm';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/UserDashboard';
 import OtpVerification from './pages/OtpVerification';
 import AdminDashboard from './pages/adminDashboard';
 import AdminLogin from './pages/AdminLogin';
