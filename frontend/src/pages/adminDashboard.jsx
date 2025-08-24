@@ -12,9 +12,9 @@ const ViewCourseModal = ({ isOpen, onClose, course }) => {
   if (!isOpen || !course) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+    <div className="fixed inset-0 bg-gradient-to-br from-[#5B3A29]/80 via-[#5B3A29]/80 to-[#1C1C1C]/80 flex items-center justify-center z-50 p-4 animate-fade-in">
       {/* Changed p-8 to p-6 for smaller vertical size */}
-      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+      <div className="bg-[#B6B2A6]/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -145,9 +145,9 @@ const removeContentBlock = (index) => {
   if (!isOpen || !course) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+    <div className="fixed inset-0 bg-gradient-to-br from-[#5B3A29]/80 via-[#5B3A29]/80 to-[#1C1C1C]/80 flex items-center justify-center z-50 p-4 animate-fade-in">
       {/* Changed p-8 to p-6 for smaller vertical size */}
-      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+      <div className="bg-[#B6B2A6]/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -165,7 +165,7 @@ const removeContentBlock = (index) => {
               name="title"
               value={editedCourseData.title}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               required
             />
           </div>
@@ -177,7 +177,7 @@ const removeContentBlock = (index) => {
               value={editedCourseData.description}
               onChange={handleChange}
               rows="3"
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               required
             ></textarea>
           </div>
@@ -189,7 +189,7 @@ const removeContentBlock = (index) => {
               name="instructor"
               value={editedCourseData.instructor}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               required
             />
           </div>
@@ -201,7 +201,7 @@ const removeContentBlock = (index) => {
               name="duration"
               value={editedCourseData.duration}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               required
             />
           </div>
@@ -213,7 +213,7 @@ const removeContentBlock = (index) => {
               name="startDate"
               value={editedCourseData.startDate}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               required
             />
           </div>
@@ -225,7 +225,7 @@ const removeContentBlock = (index) => {
               name="endDate"
               value={editedCourseData.endDate}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               required
             />
           </div>
@@ -236,7 +236,7 @@ const removeContentBlock = (index) => {
               name="status"
               value={editedCourseData.status}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 appearance-none"
             >
               <option value="active">Active</option>
               <option value="draft">Draft</option>
@@ -251,7 +251,7 @@ const removeContentBlock = (index) => {
       <select
         value={block.type}
         onChange={(e) => updateContentBlock(index, 'type', e.target.value)}
-        className="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-white"
+        className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-3 py-2 text-white"
       >
         <option value="text">Text</option>
         <option value="video-link">Video-Link</option>
@@ -263,7 +263,7 @@ const removeContentBlock = (index) => {
           value={block.value}
           onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
           rows={3}
-          className="w-full bg-gray-800 text-white border border-gray-600 rounded px-3 py-2"
+          className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-3 py-2"
         />
       )}
 
@@ -272,7 +272,7 @@ const removeContentBlock = (index) => {
           type="url"
           value={block.value}
           onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
-          className="w-full bg-gray-800 text-white border border-gray-600 rounded px-3 py-2"
+          className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-3 py-2"
         />
       )}
 
@@ -376,9 +376,9 @@ const AddProjectModal = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   return (
-      <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-start justify-center z-50 p-4 overflow-y-scroll">
+      <div className="fixed inset-0 bg-gradient-to-br from-[#5B3A29]/80 via-[#5B3A29]/80 to-[#1C1C1C]/80 flex items-start justify-center z-50 p-4 overflow-y-scroll">
       {/* Changed p-8 to p-6 for smaller vertical size */}
-<div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-3xl max-h-[90vh] overflow-y-scroll relative shadow-2xl animate-scale-in">
+<div className="bg-[#B6B2A6]/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-3xl max-h-[90vh] overflow-y-scroll relative shadow-2xl animate-scale-in">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -396,7 +396,7 @@ const AddProjectModal = ({ isOpen, onClose, onSave }) => {
               name="title"
               value={projectData.title}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
               placeholder="e.g., Portfolio Website"
               required
             />
@@ -409,7 +409,7 @@ const AddProjectModal = ({ isOpen, onClose, onSave }) => {
               value={projectData.description}
               onChange={handleChange}
               rows="3"
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
               placeholder="A brief description of the project."
               required
             ></textarea>
@@ -422,7 +422,7 @@ const AddProjectModal = ({ isOpen, onClose, onSave }) => {
               name="category"
               value={projectData.category}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
               placeholder="e.g., Frontend, Backend, Full Stack, Data Science"
               required
             />
@@ -434,7 +434,7 @@ const AddProjectModal = ({ isOpen, onClose, onSave }) => {
               name="difficulty"
               value={projectData.difficulty}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
             >
               <option value="Beginner">Beginner</option>
               <option value="Intermediate">Intermediate</option>
@@ -466,9 +466,9 @@ const AddProjectModal = ({ isOpen, onClose, onSave }) => {
 const ViewProjectModal = ({ isOpen, onClose, project }) => {
   if (!isOpen || !project) return null;
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+    <div className="fixed inset-0 bg-gradient-to-br from-[#5B3A29]/80 via-[#5B3A29]/80 to-[#1C1C1C]/80 flex items-center justify-center z-50 p-4 animate-fade-in">
       {/* Changed p-8 to p-6 for smaller vertical size */}
-      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+      <div className="bg-[#B6B2A6]/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
         <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
           <X className="w-6 h-6" />
         </button>
@@ -537,9 +537,9 @@ const EditProjectModal = ({ isOpen, onClose, onSave, project }) => {
   if (!isOpen || !project) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+    <div className="fixed inset-0 bg-gradient-to-br from-[#5B3A29]/80 via-[#5B3A29]/80 to-[#1C1C1C]/80 flex items-center justify-center z-50 p-4 animate-fade-in">
       {/* Changed p-8 to p-6 for smaller vertical size */}
-      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
+      <div className="bg-[#B6B2A6]/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-md relative shadow-2xl animate-scale-in">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
@@ -557,7 +557,7 @@ const EditProjectModal = ({ isOpen, onClose, onSave, project }) => {
               name="title"
               value={editedProjectData.title}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
               required
             />
           </div>
@@ -569,7 +569,7 @@ const EditProjectModal = ({ isOpen, onClose, onSave, project }) => {
               value={editedProjectData.description}
               onChange={handleChange}
               rows="3"
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
               required
             ></textarea>
           </div>
@@ -581,7 +581,7 @@ const EditProjectModal = ({ isOpen, onClose, onSave, project }) => {
               name="category"
               value={editedProjectData.category}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
               required
             />
           </div>
@@ -592,7 +592,7 @@ const EditProjectModal = ({ isOpen, onClose, onSave, project }) => {
               name="difficulty"
               value={editedProjectData.difficulty}
               onChange={handleChange}
-              className="w-full bg-gray-700/50 border border-gray-600/50 rounded-lg px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
+              className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded px-4.5 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 appearance-none"
             >
               <option value="Beginner">Beginner</option>
               <option value="Intermediate">Intermediate</option>
@@ -626,9 +626,9 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, message }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900/80 via-gray-900/80 to-black/80 flex items-center justify-center z-50 p-4 animate-fade-in">
+    <div className="fixed inset-0 bg-gradient-to-br from-[#5B3A29]/80 via-[#5B3A29]/80 to-[#1C1C1C]/80 flex items-center justify-center z-50 p-4 animate-fade-in">
       {/* Changed p-8 to p-6 for smaller vertical size */}
-      <div className="bg-gray-800/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-sm relative shadow-2xl animate-scale-in">
+      <div className="bg-[#B6B2A6]/90 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 w-full max-w-sm relative shadow-2xl animate-scale-in">
         <h2 className="text-xl font-bold text-white mb-4">Confirm Deletion</h2>
         <p className="text-gray-300 mb-6">{message}</p>
         <div className="flex justify-end space-x-3">
@@ -823,7 +823,7 @@ useEffect(() => {
 
 
   const StatCard = ({ icon: Icon, title, value, change, color = "blue" }) => (
-   <div className={`bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:bg-gray-800/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl ${animationClass}`}>
+   <div className={`bg-[#B6B2A6]/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:bg-[#B6B2A6]/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl ${animationClass}`}>
     <div className="flex items-center justify-between">
         <div>
           <p className="text-gray-400 text-sm font-medium">{title}</p>
@@ -853,7 +853,7 @@ useEffect(() => {
       className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 ${
         isActive
           ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-blue-400 border border-blue-500/30'
-          : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+          : 'text-gray-400 hover:text-black hover:bg-[#B6B2A6]/50'
       }`}
     >
       <Icon className="w-4 h-4" />
@@ -926,7 +926,7 @@ useEffect(() => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
+        <div className="bg-[#B6B2A6]/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
           <h3 className="text-xl font-bold text-white mb-4">Recent Activity</h3>
           <div className="space-y-4">
             {[
@@ -951,7 +951,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
+        <div className="bg-[#B6B2A6]/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
           <h3 className="text-xl font-bold text-white mb-4">Top Performing Courses</h3>
           <div className="space-y-4">
             {recentCourses.slice(0, 4).map((course, index) => (
@@ -991,7 +991,7 @@ useEffect(() => {
         </button>
       </div>
 
-      <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl overflow-hidden">
+      <div className="bg-[#B6B2A6]/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl overflow-hidden">
         <div className="p-6 border-b border-gray-700/50">
           <div className="flex flex-col sm:flex-row gap-4 justify-between">
             <div className="relative flex-1 max-w-md">
@@ -1001,14 +1001,14 @@ useEffect(() => {
                 placeholder="Search courses..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-gray-700/50 border border-gray-600/50 rounded-xl pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full bg-[#B6B2A6] text-black border border-gray-600 rounded-xl pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               />
             </div>
             <div className="flex gap-2">
-              <button className="bg-gray-700/50 text-gray-300 px-4 py-3 rounded-xl hover:bg-gray-600/50 transition-colors">
+              <button className="bg-[#B6B2A6] text-black px-4 py-3 rounded-xl hover:bg-[#B6B2A6]/50 transition-colors">
                 Filter
               </button>
-              <button className="bg-gray-700/50 text-gray-300 px-4 py-3 rounded-xl hover:bg-gray-600/50 transition-colors">
+              <button className="bg-[#B6B2A6] text-black px-4 py-3 rounded-xl hover:bg-[#B6B2A6]/50 transition-colors">
                 Export
               </button>
             </div>
@@ -1108,7 +1108,7 @@ useEffect(() => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {recentProjects.map((project) => (
-          <div key={project.id} className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:bg-gray-800/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+          <div key={project.id} className="bg-[#B6B2A6]/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:bg-[#B6B2A6]/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
             <div className="flex items-start justify-between mb-4">
               <div className="p-3 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20">
                 <FolderOpen className="w-6 h-6 text-purple-400" />
@@ -1182,7 +1182,7 @@ useEffect(() => {
       <h2 className="text-2xl font-bold text-white">Analytics & Insights</h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
+        <div className="bg-[#B6B2A6]/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
           <h3 className="text-xl font-bold text-white mb-4">Revenue Trends</h3>
           <div className="h-64 flex items-center justify-center">
             <div className="text-center">
@@ -1192,7 +1192,7 @@ useEffect(() => {
           </div>
         </div>
 
-        <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
+        <div className="bg-[#B6B2A6]/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
           <h3 className="text-xl font-bold text-white mb-4">User Engagement</h3>
           <div className="h-64 flex items-center justify-center">
             <div className="text-center">
@@ -1203,7 +1203,7 @@ useEffect(() => {
         </div>
       </div>
 
-      <div className="bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
+      <div className="bg-[#B6B2A6]/40 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
         <h3 className="text-xl font-bold text-white mb-4">Performance Metrics</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
@@ -1224,7 +1224,7 @@ useEffect(() => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-[#5B3A29] via-[#7A7266] to-[#5B3A29]">
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -1233,7 +1233,7 @@ useEffect(() => {
 
       <div className="relative z-10">
         {/* Header */}
-        <header className="bg-gray-900/80 backdrop-blur-xl border-b border-gray-700/50 sticky top-0 z-20">
+        <header className="bg-[#5B3A29]/80 backdrop-blur-xl border-b border-gray-700/50 sticky top-0 z-20">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
@@ -1247,11 +1247,11 @@ useEffect(() => {
               </div>
 
               <div className="flex items-center gap-4">
-                <button className="p-3 text-gray-400 hover:text-white hover:bg-gray-800/50 rounded-xl transition-colors relative">
+                <button className="p-3 text-gray-400 hover:text-black hover:bg-[#B6B2A6]/50 rounded-xl transition-colors relative">
                   <Bell className="w-5 h-5" />
                   <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
                 </button>
-                <button className="p-3 text-gray-400 hover:text-white hover:bg-gray-800/50 rounded-xl transition-colors">
+                <button className="p-3 text-gray-400 hover:text-black hover:bg-[#B6B2A6]/50 rounded-xl transition-colors">
                   <Settings className="w-5 h-5" />
                 </button>
                 <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
@@ -1263,7 +1263,7 @@ useEffect(() => {
         </header>
 
         {/* Navigation */}
-        <nav className="bg-gray-900/60 backdrop-blur-xl border-b border-gray-700/30 sticky top-16 z-10">
+        <nav className="bg-[#5B3A29]/60 backdrop-blur-xl border-b border-gray-700/30 sticky top-16 z-10">
           <div className="px-6 py-4">
             <div className="flex gap-2 overflow-x-auto">
               <TabButton

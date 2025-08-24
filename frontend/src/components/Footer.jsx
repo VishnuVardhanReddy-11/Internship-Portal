@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-16">
+    <footer className="bg-[#5B3A29] text-white py-16">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -75,7 +75,7 @@ export default function Footer() {
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="flex-1 px-4 py-3 rounded-md bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:border-[#D89A7A] focus:ring-1 focus:ring-[#D89A7A]"
+                className="flex-1 px-4 py-3 rounded-md bg-[#B6B2A6] border border-gray-600 text-black placeholder-white focus:outline-none focus:border-[#D89A7A] focus:ring-1 focus:ring-[#D89A7A]"
               />
               <button className="px-6 py-3 bg-[#D89A7A] text-white rounded-md font-semibold hover:bg-[#c08565] transition-colors">
                 Subscribe

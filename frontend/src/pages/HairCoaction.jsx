@@ -20,15 +20,15 @@ export default function HairCoaction() {
         <section 
   className="relative text-white py-24 min-h-[80vh] flex items-center"
   style={{
-    background: "linear-gradient(to right, #6c5ce7e0, #8d7ee7e0), url('https://via.placeholder.com/1920x800/6C5CE7/ffffff?text=Hair+CoAction+Background') no-repeat center center/cover"
+    background: "linear-gradient(to right, #7A7266e0, #B6B2A6e0), url('https://via.placeholder.com/1920x800/7A7266/ffffff?text=Hair+CoAction+Background') no-repeat center center/cover"
   }}
 >
   {/* Background overlay */}
-  <div className="absolute inset-0 bg-gradient-to-r from-[#6c5ce7e0] to-[#8d7ee7e0]"></div>
+  <div className="absolute inset-0 bg-gradient-to-r from-[#7A7266e0] to-[#B6B2A6e0]"></div>
   
   {/* Background image */}
   <div 
-    className="absolute inset-0 bg-[url('https://via.placeholder.com/1920x800/6C5CE7/ffffff?text=Hair+CoAction+Background')] bg-cover bg-center"
+    className="absolute inset-0 bg-[url('https://via.placeholder.com/1920x800/7A7266/ffffff?text=Hair+CoAction+Background')] bg-cover bg-center"
     aria-hidden="true"
   ></div>
   
@@ -44,10 +44,10 @@ export default function HairCoaction() {
         Unlock your potential with expert courses, hands-on projects, and exclusive internship opportunities in the hair industry.
       </p>
       <div className="flex flex-col sm:flex-row gap-5">
-        <a href="#courses" className="px-12 py-4 rounded-md font-semibold text-lg bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] hover:-translate-y-0.5 hover:shadow-md transition-all text-center">
+        <a href="#courses" className="px-12 py-4 rounded-md font-semibold text-lg bg-[#7A7266] text-white border-2 border-[#7A7266] hover:bg-[#5B3A29] hover:border-[#5B3A29] hover:-translate-y-0.5 hover:shadow-md transition-all text-center">
           Explore Courses
         </a>
-        <a href="#internships" className="px-12 py-4 rounded-md font-semibold text-lg bg-white text-[#6C5CE7] border-2 border-[#6C5CE7] hover:bg-[#6C5CE7] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all text-center">
+       <a href="#courses" className="px-12 py-4 rounded-md font-semibold text-lg bg-[#7A7266] text-white border-2 border-[#7A7266] hover:bg-[#5B3A29] hover:border-[#5B3A29] hover:-translate-y-0.5 hover:shadow-md transition-all text-center">
           Find Internships
         </a>
       </div>
@@ -65,42 +65,42 @@ export default function HairCoaction() {
         {/* Features Section */}
         <section id="features-overview" className="bg-white py-12 md:py-24">
           <div className="max-w-6xl mx-auto px-5">
-            <h2 className="text-4xl font-bold  text-gray-900 mb-16 text-center">
+            <h2 className="text-4xl font-bold text-[#1C1C1C] mb-16 text-center">
               Your Path to Success Starts Here
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Feature Card 1 */}
               <div className="bg-gray-50 p-9 rounded-xl shadow-md hover:-translate-y-2 hover:shadow-lg transition-all text-center">
-                <i className="fas fa-graduation-cap text-5xl text-[#6C5CE7] mb-5"></i>
+                <i className="fas fa-graduation-cap text-5xl text-[#7A7266] mb-5"></i>
                 <h3 className="text-2xl font-semibold  mb-3">Comprehensive Courses</h3>
                 <p className="text-gray-600 mb-6">
                   Master new techniques and business skills with our curated online courses, taught by industry leaders.
                 </p>
-                <a href="#courses" className="text-[#6C5CE7] font-semibold hover:text-[#5B4DC0] transition-colors">
+                <a href="#courses" className="text-[#7A7266] font-semibold hover:text-[#5B3A29] transition-colors">
                   Learn More <i className="fas fa-arrow-right ml-2 transition-all hover:ml-3"></i>
                 </a>
               </div>
               
               {/* Feature Card 2 */}
               <div className="bg-gray-50 p-9 rounded-xl shadow-md hover:-translate-y-2 hover:shadow-lg transition-all text-center">
-                <i className="fas fa-lightbulb text-5xl text-[#6C5CE7] mb-5"></i>
+                <i className="fas fa-lightbulb text-5xl text-[#7A7266] mb-5"></i>
                 <h3 className="text-2xl font-semibold  mb-3">Practical Projects</h3>
                 <p className="text-gray-600 mb-6">
                   Apply your knowledge with real-world projects, build your portfolio, and get valuable feedback.
                 </p>
-                <a href="#projects" className="text-[#6C5CE7] font-semibold hover:text-[#5B4DC0] transition-colors">
+                <a href="#projects" className="text-[#7A7266] font-semibold hover:text-[#5B3A29] transition-colors">
                   Learn More <i className="fas fa-arrow-right ml-2 transition-all hover:ml-3"></i>
                 </a>
               </div>
               
               {/* Feature Card 3 */}
               <div className="bg-gray-50 p-9 rounded-xl shadow-md hover:-translate-y-2 hover:shadow-lg transition-all text-center">
-                <i className="fas fa-briefcase text-5xl text-[#6C5CE7] mb-5"></i>
+                <i className="fas fa-briefcase text-5xl text-[#7A7266] mb-5"></i>
                 <h3 className="text-2xl font-semibold  mb-3">Exclusive Internships</h3>
                 <p className="text-gray-600 mb-6">
                   Connect with top salons and studios for hands-on experience and kickstart your professional journey.
                 </p>
-                <a href="#internships" className="text-[#6C5CE7] font-semibold hover:text-[#5B4DC0] transition-colors">
+                <a href="#internships" className="text-[#7A7266] font-semibold hover:text-[#5B3A29] transition-colors">
                   Learn More <i className="fas fa-arrow-right ml-2 transition-all hover:ml-3"></i>
                 </a>
               </div>
@@ -111,7 +111,7 @@ export default function HairCoaction() {
         {/* Courses Section */}
         <section id="courses" className="bg-gray-100 py-12 md:py-24">
   <div className="max-w-6xl mx-auto px-5">
-    <h2 className="text-4xl font-bold   text-gray-900 mb-5 text-center">
+    <h2 className="text-4xl font-bold text-[#1C1C1C] mb-5 text-center">
       Our Latest Courses
     </h2>
     <p className="max-w-3xl mx-auto text-xl text-gray-500 mb-16 text-center -mt-5">
@@ -161,15 +161,15 @@ export default function HairCoaction() {
         <p className="text-gray-600 mb-4 flex-grow">{course.description}</p>
         <div className="flex gap-4 text-sm text-gray-500 mb-5">
           <span>
-            <i className="fas fa-clock text-[#6C5CE7] mr-1"></i> {course.duration}
+            <i className="fas fa-clock text-[#7A7266] mr-1"></i> {course.duration}
           </span>
           <span>
-            <i className="fas fa-star text-[#6C5CE7] mr-1"></i> {course.rating}
+            <i className="fas fa-star text-[#7A7266] mr-1"></i> {course.rating}
           </span>
         </div>
         <Link
           to={`/course/${course.image.replace('.png','')}`}
-          className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center"
+          className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#7A7266] text-white border-2 border-[#7A7266] hover:bg-[#5B3A29] hover:border-[#5B3A29] transition-all text-center"
         >
           View Course
         </Link>
@@ -187,7 +187,7 @@ export default function HairCoaction() {
         {/* Projects Section */}
        <section id="projects" className="py-12 md:py-24 bg-gray-50">
   <div className="max-w-6xl mx-auto px-5">
-    <h2 className="text-4xl font-bold text-gray-900 mb-5 text-center">
+    <h2 className="text-4xl font-bold text-[#1C1C1C] mb-5 text-center">
       Showcase Your Skills with Projects
     </h2>
     <p className="max-w-3xl mx-auto text-xl text-gray-500 mb-10 text-center -mt-5">
@@ -260,7 +260,7 @@ export default function HairCoaction() {
         {/* Internships Section */}
         <section id="internships" className="bg-gray-100 py-12 md:py-24">
   <div className="max-w-6xl mx-auto px-5">
-    <h2 className="text-4xl font-bold   text-gray-900 mb-5 text-center">
+    <h2 className="text-4xl font-bold text-[#1C1C1C] mb-5 text-center">
       Kickstart Your Career with Internships
     </h2>
     <p className="max-w-3xl mx-auto text-xl text-gray-500 mb-16 text-center -mt-5">
@@ -298,26 +298,26 @@ export default function HairCoaction() {
       >
         <h3 className="text-xl font-semibold mb-3">{intern.title}</h3>
         <p className="text-gray-600 mb-2">
-          <i className="fas fa-building text-[#6C5CE7] mr-2"></i>Hair Coaction
+          <i className="fas fa-building text-[#7A7266] mr-2"></i>Hair Coaction
         </p>
         <p className="text-gray-600 mb-4">
-          <i className="fas fa-map-marker-alt text-[#6C5CE7] mr-2"></i>Remote
+          <i className="fas fa-map-marker-alt text-[#7A7266] mr-2"></i>Remote
         </p>
         <ul className="flex flex-wrap gap-3 text-sm text-gray-500 mb-5">
           <li>
-            <i className="fas fa-clock text-[#6C5CE7] mr-1"></i> Part-time
+            <i className="fas fa-clock text-[#7A7266] mr-1"></i> Part-time
           </li>
           <li>
-            <i className="fas fa-money-bill-wave text-[#6C5CE7] mr-1"></i> Unpaid
+            <i className="fas fa-money-bill-wave text-[#7A7266] mr-1"></i> Unpaid
           </li>
           <li>
-            <i className="fas fa-calendar-alt text-[#6C5CE7] mr-1"></i> 3 Months
+            <i className="fas fa-calendar-alt text-[#7A7266] mr-1"></i> 3 Months
           </li>
         </ul>
         <p className="text-gray-600 mb-6 flex-grow">{intern.description}</p>
         <Link
           to={`/internship/${intern.id}`}
-          className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all text-center self-start"
+          className="inline-block px-5 py-2.5 rounded-md font-semibold text-sm bg-[#7A7266] text-white border-2 border-[#7A7266] hover:bg-[#5B3A29] hover:border-[#5B3A29] transition-all text-center self-start"
         >
           Apply Now
         </Link>
@@ -331,15 +331,15 @@ export default function HairCoaction() {
 
 
         {/* CTA Section */}
-        <section id="cta-join" className="bg-[#6C5CE7] py-16 md:py-20">
+        <section id="cta-join" className="bg-[#7A7266] py-16 md:py-20">
           <div className="max-w-6xl mx-auto px-5 text-center">
-            <h2 className="text-4xl font-bold   text-white mb-6">
+            <h2 className="text-4xl font-bold text-[#1C1C1C] mb-6">
               Ready to Transform Your Hair Journey?
             </h2>
             <p className="text-xl text-gray-200 mb-10 max-w-3xl mx-auto">
               Join the Hair Coaction community today and take the next step in your career.
             </p>
-            <a href="#" className="inline-block px-10 py-4 rounded-md font-semibold text-lg bg-white text-[#6C5CE7] border-2 border-white hover:bg-[#6C5CE7] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all">
+            <a href="#" className="inline-block px-10 py-4 rounded-md font-semibold text-lg bg-white text-[#7A7266] border-2 border-white hover:bg-[#5B3A29] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all">
               Sign Up for Free!
             </a>
           </div>

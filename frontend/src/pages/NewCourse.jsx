@@ -90,8 +90,8 @@ navigate('/admin/dashboard', {
 
   return (
     
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white p-4 md:p-6 overflow-y-auto">
-      <div className="max-w-6xl mx-auto bg-gray-800 border border-gray-700/50 rounded-xl shadow-2xl p-6 md:p-10 space-y-10">
+    <div className="min-h-screen bg-gradient-to-br from-[#5B3A29] via-[#7A7266] to-[#1C1C1C] text-white p-4 md:p-6 overflow-y-auto">
+      <div className="max-w-6xl mx-auto bg-[#B6B2A6] border border-gray-700/50 rounded-xl shadow-2xl p-6 md:p-10 space-y-10">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h1 className="text-3xl font-bold text-white">
             {editCourse ? 'Edit Course' : 'Add New Course'}
@@ -115,7 +115,7 @@ navigate('/admin/dashboard', {
               value={courseData.title}
               onChange={handleChange}
               placeholder="e.g., Python Basics"
-              className="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+              className="bg-[#B6B2A6] text-black border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -128,7 +128,7 @@ navigate('/admin/dashboard', {
               value={courseData.instructor}
               onChange={handleChange}
               placeholder="e.g., John Doe"
-              className="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+              className="bg-[#B6B2A6] text-black border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -142,7 +142,7 @@ navigate('/admin/dashboard', {
               onChange={handleChange}
               rows={4}
               placeholder="e.g., Learn Python from scratch."
-              className="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+              className="bg-[#B6B2A6] text-black border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -155,7 +155,7 @@ navigate('/admin/dashboard', {
               value={courseData.duration}
               onChange={handleChange}
               placeholder="e.g., 6 weeks"
-              className="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+              className="bg-[#B6B2A6] text-black border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -167,7 +167,7 @@ navigate('/admin/dashboard', {
               name="level"
               value={courseData.level}
               onChange={handleChange}
-              className="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
+              className="bg-[#B6B2A6] text-black border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
               required
             >
               <option value="">Select level</option>
@@ -185,7 +185,7 @@ navigate('/admin/dashboard', {
               name="startDate"
               value={courseData.startDate}
               onChange={handleChange}
-              className="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
+              className="bg-[#B6B2A6] text-black border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -198,7 +198,7 @@ navigate('/admin/dashboard', {
               name="endDate"
               value={courseData.endDate}
               onChange={handleChange}
-              className="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
+              className="bg-[#B6B2A6] text-black border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -214,7 +214,7 @@ navigate('/admin/dashboard', {
                   <select
                     value={block.type}
                     onChange={(e) => updateContentBlock(index, 'type', e.target.value)}
-                    className="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    className="bg-[#B6B2A6] text-black border border-gray-600 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="text">Text</option>
                     <option value="video-upload">Video (Upload)</option>
@@ -231,7 +231,7 @@ navigate('/admin/dashboard', {
                       value={block.value}
                       onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
                       rows={3}
-                      className="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+                      className="bg-[#B6B2A6] text-black border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
                       required
                     />
                   )}
@@ -275,7 +275,7 @@ navigate('/admin/dashboard', {
                         placeholder="Paste video URL (e.g., https://youtube.com/...)"
                         value={block.value}
                         onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
-                        className="bg-gray-800 text-white border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
+                        className="bg-[#B6B2A6] text-black border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:ring-2 focus:ring-blue-500"
                         required
                       />
                       {block.value && (

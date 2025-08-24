@@ -37,7 +37,7 @@ export default function HeaderMain({ menuActive, toggleMenu }) {
           </a>
           <a 
             href="/register" 
-            className="inline-block px-7 py-3.5 rounded-md font-semibold text-lg bg-[#5B3A29] text-white border-2 border-[#5B3A29] hover:bg-[#4A2F1F] hover:border-[#4A2F1F] hover:-translate-y-0.5 hover:shadow-md transition-all"
+            className="inline-block px-7 py-3.5 rounded-md font-semibold text-lg bg-white text-[#5B3A29] border-2 border-[#5B3A29] hover:bg-[#5B3A29] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all "
           >
             Register
           </a>
