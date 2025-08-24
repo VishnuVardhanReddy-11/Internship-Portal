@@ -107,8 +107,8 @@ export default function CourseDetail() {
             <p className="text-gray-600 mb-2">Instructor: {course.instructor}</p>
             <p className="mb-4">{course.description}</p>
             <div className="flex gap-4 text-sm text-gray-500 mb-5">
-              <span><i className="fas fa-clock text-[#6C5CE7] mr-1"></i> {course.duration}</span>
-              <span><i className="fas fa-star text-[#6C5CE7] mr-1"></i> {course.rating}</span>
+              <span><i className="fas fa-clock text-[#7A7266] mr-1"></i> {course.duration}</span>
+              <span><i className="fas fa-star text-[#7A7266] mr-1"></i> {course.rating}</span>
             </div>
             <p className="text-gray-700">{course.details}</p>
           </div>
@@ -148,7 +148,7 @@ export default function CourseDetail() {
         
       </div>
 <div className="flex justify-center items-center gap-6 mt-10 mb-10 flex-wrap">
-  <button className="px-8 py-3 rounded-md font-semibold text-lg bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] transition-all">
+  <button className="px-8 py-3 rounded-md font-semibold text-lg bg-[#7A7266] text-white border-2 border-[#7A7266] hover:bg-[#5B3A29] hover:border-[#5B3A29] transition-all">
     🚀 Enroll Now
   </button>
   

@@ -1,6 +1,6 @@
 .otp-page {
   font-family: 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 50%, #f3e8ff 100%);
+  background: linear-gradient(135deg, #EAE6E1 0%, #F5D6C3 50%, #EAE6E1 100%); /* New color gradient */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +13,7 @@
 .otp-page .otp-Form {
   width: 100%;
   max-width: 400px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   display: flex;
@@ -21,7 +21,7 @@
   align-items: center;
   padding: 45px 35px;
   border-radius: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 30px rgba(28, 28, 28, 0.1); /* Deep Charcoal shadow */
   gap: 24px;
   position: relative;
   overflow: hidden;
@@ -35,7 +35,7 @@
   right: 0;
   height: 100%;
   width: 50%;
-  background: radial-gradient(circle at center, #9ca3af 0%, #6b7280 100%);
+  background: radial-gradient(circle at center, #B6B2A6 0%, #7A7266 100%); /* Muted Sage Grey to Warm Grey Brown gradient */
   border-top-left-radius: 100%;
   border-bottom-left-radius: 100%;
   opacity: 0.3;
@@ -58,21 +58,21 @@
 
 .otp-page .mainHeading {
   font-size: 1.5em;
-  color: #202020;
+  color: #1C1C1C; /* Deep Charcoal text */
   font-weight: 700;
   margin-bottom: 5px;
 }
 
 .otp-page .otpSubheading {
   font-size: 0.9em;
-  color: #555;
+  color: #7A7266; /* Warm Grey Brown text */
   line-height: 1.5em;
   margin: 10px 0 10px;
 }
 
 .otp-page .step-indicator {
   font-size: 0.8em;
-  color: #7f81ff;
+  color: #7A7266; /* Warm Grey Brown */
   font-weight: 600;
   margin-bottom: 6px;
   margin-right: 5px;
@@ -87,7 +87,7 @@
   font-size: 0.95em;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #333;
+  color: #1C1C1C; /* Deep Charcoal */
 }
 
 .otp-page .phone-input-wrapper {
@@ -96,8 +96,8 @@
 }
 
 .otp-page .country-select-wrapper {
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
+  background-color: #EEECE7; /* Off White background */
+  border: 1px solid #F5D6C3; /* Soft Peach border */
   border-right: none;
   border-radius: 8px 0 0 8px;
   padding: 10px 30px 10px 10px;
@@ -111,7 +111,7 @@
   border: none;
   outline: none;
   font-size: 0.95em;
-  color: #333;
+  color: #1C1C1C; /* Deep Charcoal */
   width: 100%;
   appearance: none;
   -webkit-appearance: none;
@@ -131,7 +131,7 @@
   transform: translateY(-50%);
   width: 14px;
   height: 14px;
-  color: #555;
+  color: #7A7266; /* Warm Grey Brown */
   pointer-events: none;
 }
 
@@ -139,22 +139,22 @@
   flex: 1;
   padding: 11px 16px;
   font-size: 1em;
-  border: 1px solid #ccc;
+  border: 1px solid #F5D6C3; /* Soft Peach border */
   border-left: none;
   border-radius: 0 8px 8px 0;
-  background-color: #f0f0f0;
+  background-color: #EEECE7; /* Off White background */
   outline: none;
   margin-top: 20px;
 }
 
 .otp-page .phone-input:focus,
 .otp-page .country-select-wrapper:focus-within {
-  border-color: #7f81ff;
-  background-color: #f8f9ff;
+  border-color: #7A7266; /* Warm Grey Brown on focus */
+  background-color: #F8F8F8; /* Lighter background */
 }
 
 .otp-page .phone-input:focus {
-  border-left-color: #7f81ff;
+  border-left-color: #7A7266; /* Warm Grey Brown on focus */
 }
 
 /* OTP input boxes */
@@ -170,18 +170,18 @@
   height: 50px;
   text-align: center;
   border: none;
-  background-color: #e4e4e4;
+  background-color: #EEECE7; /* Off White background */
   border-radius: 10px;
   font-size: 1.3em;
   font-weight: 600;
-  color: #333;
+  color: #1C1C1C; /* Deep Charcoal */
   outline: none;
   transition: all 0.3s ease;
 }
 
 .otp-page .otp-input:focus,
 .otp-page .otp-input:valid {
-  background-color: #e4e8ff;
+  background-color: #F5D6C3; /* Soft Peach background */
 }
 
 /* Verify button */
@@ -191,7 +191,7 @@
   padding: 12px;
   font-size: 1em;
   font-weight: 600;
-  background-color: #7f81ff;
+  background-color: #7A7266; /* Warm Grey Brown */
   color: white;
   border: none;
   border-radius: 12px;
@@ -200,7 +200,7 @@
 }
 
 .otp-page .verifyButton:hover {
-  background-color: #979aff;
+  background-color: #5B3A29; /* Rich Coffee Brown on hover */
 }
 
 /* Exit button */
@@ -212,8 +212,8 @@
   height: 28px;
   border-radius: 50%;
   border: none;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #FFFFFF; /* White background */
+  box-shadow: 0 0 10px rgba(28, 28, 28, 0.1); /* Deep Charcoal shadow */
   font-size: 1.2em;
   cursor: pointer;
   z-index: 2;
@@ -222,7 +222,7 @@
 /* Resend OTP */
 .otp-page .resendNote {
   font-size: 0.85em;
-  color: #555;
+  color: #7A7266; /* Warm Grey Brown */
   text-align: center;
   margin-top: 12px;
 }
@@ -230,7 +230,7 @@
 .otp-page .resendBtn {
   background: none;
   border: none;
-  color: #7f81ff;
+  color: #7A7266; /* Warm Grey Brown */
   font-weight: 700;
   cursor: pointer;
   font-size: 1em;

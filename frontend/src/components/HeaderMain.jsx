@@ -13,7 +13,7 @@ export default function HeaderMain({ menuActive, toggleMenu }) {
           />
           <a 
             href="/" 
-            className="text-3xl font-bold text-[#6C5CE7] uppercase tracking-wider text-center md:text-left"
+            className="text-3xl font-bold text-[#5B3A29] uppercase tracking-wider text-center md:text-left"
           >
             Hair Coaction
           </a>
@@ -21,23 +21,23 @@ export default function HeaderMain({ menuActive, toggleMenu }) {
         <nav className="w-full md:w-auto order-3 md:order-none">
           <ul className={`${menuActive ? 'flex' : 'hidden'} md:flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10 mt-5 md:mt-0 items-center`}>
 
-            <li><a href="/about" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">About Us</a></li>
-            <li><a href="/#courses" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Courses</a></li>
-            <li><a href="/#projects" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Projects</a></li>
-            <li><a href="/#internships" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Internships</a></li>
-            <li><a href="/#contact" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Contact</a></li>
+            <li><a href="/about" className="text-gray-600 font-semibold text-lg hover:text-[#5B3A29] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#5B3A29] after:transition-all hover:after:w-full">About Us</a></li>
+            <li><a href="/#courses" className="text-gray-600 font-semibold text-lg hover:text-[#5B3A29] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#5B3A29] after:transition-all hover:after:w-full">Courses</a></li>
+            <li><a href="/#projects" className="text-gray-600 font-semibold text-lg hover:text-[#5B3A29] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#5B3A29] after:transition-all hover:after:w-full">Projects</a></li>
+            <li><a href="/#internships" className="text-gray-600 font-semibold text-lg hover:text-[#5B3A29] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#5B3A29] after:transition-all hover:after:w-full">Internships</a></li>
+            <li><a href="/#contact" className="text-gray-600 font-semibold text-lg hover:text-[#5B3A29] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#5B3A29] after:transition-all hover:after:w-full">Contact</a></li>
           </ul>
         </nav>
         <div className="hidden md:flex gap-4">
           <a 
             href="/login" 
-            className="inline-block px-7 py-3.5 rounded-md font-semibold text-lg bg-white text-[#6C5CE7] border-2 border-[#6C5CE7] hover:bg-[#6C5CE7] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all "
+            className="inline-block px-7 py-3.5 rounded-md font-semibold text-lg bg-white text-[#5B3A29] border-2 border-[#5B3A29] hover:bg-[#5B3A29] hover:text-white hover:-translate-y-0.5 hover:shadow-md transition-all "
           >
             Login
           </a>
           <a 
             href="/register" 
-            className="inline-block px-7 py-3.5 rounded-md font-semibold text-lg bg-[#6C5CE7] text-white border-2 border-[#6C5CE7] hover:bg-[#5B4DC0] hover:border-[#5B4DC0] hover:-translate-y-0.5 hover:shadow-md transition-all"
+            className="inline-block px-7 py-3.5 rounded-md font-semibold text-lg bg-[#5B3A29] text-white border-2 border-[#5B3A29] hover:bg-[#4A2F1F] hover:border-[#4A2F1F] hover:-translate-y-0.5 hover:shadow-md transition-all"
           >
             Register
           </a>

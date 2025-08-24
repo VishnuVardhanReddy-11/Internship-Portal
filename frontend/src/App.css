@@ -1,5 +1,5 @@
 .auth-wrapper body {
-  background-color: rgba(182, 231, 255, 0.422);
+  background-color: #EAE6E1; /* Warm Light Beige background */
 }
 
 .auth-wrapper .page-center {
@@ -13,16 +13,16 @@
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: #1C1C1C; /* Deep Charcoal text */
   margin-bottom: 25px;
   padding: 15px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(28, 28, 28, 0.1);
   letter-spacing: 1.2px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(216, 154, 122, 0.2);
 }
 
 .auth-wrapper .container {
@@ -34,10 +34,10 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  background-color: #ffffff25;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 15px;
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.03);
-  border: 0.1px solid rgba(128, 128, 128, 0.178);
+  box-shadow: 0px 0px 30px rgba(28, 28, 28, 0.08);
+  border: 1px solid rgba(216, 154, 122, 0.15);
 }
 
 .auth-wrapper .left {
@@ -65,9 +65,9 @@
   z-index: -1;
   background: radial-gradient(
     circle,
-    rgb(194, 13, 170) 20%,
-    rgb(26, 186, 235) 60%,
-    rgb(26, 186, 235) 100%
+    #D89A7A 20%,
+    #F5D6C3 60%,
+    #F5D6C3 100%
   );
   filter: blur(70px);
   border-radius: 50%;
@@ -89,11 +89,11 @@
   width: 80%;
   height: 80%;
   right: -40%;
-  background: rgb(157, 173, 203);
+  background: #B6B2A6;
   background: radial-gradient(
     circle,
-    rgba(157, 173, 203, 1) 61%,
-    rgba(99, 122, 159, 1) 100%
+    #B6B2A6 61%,
+    #7A7266 100%
   );
   border-radius: 50%;
   z-index: -1;
@@ -101,15 +101,15 @@
 
 .auth-wrapper .input,
 .auth-wrapper button {
-  background: rgba(255, 255, 255, 0.819);
+  background: rgba(255, 255, 255, 0.95);
   outline: none;
-  border: 1px solid rgba(255, 0, 0, 0);
+  border: 1px solid rgba(216, 154, 122, 0.2);
   border-radius: 0.5rem;
   padding: 10px;
   margin: 10px 0 10px 10%;
   width: 80%;
   display: block;
-  color: #425981;
+  color: #1C1C1C;
   font-weight: 500;
   font-size: 1.1em;
 }
@@ -123,14 +123,14 @@
   left: 15%;
   top: 37%;
   pointer-events: none;
-  color: gray;
+  color: #7A7266;
 }
 
 .auth-wrapper .forgot {
   display: block;
   margin: 5px 0 10px 0;
   margin-left: 35px;
-  color: #5e7eb6;
+  color: #D89A7A;
   font-size: 0.9em;
 }
 
@@ -141,31 +141,31 @@
 }
 
 .auth-wrapper button {
-  background-color: #5e7eb6;
+  background-color: #7A7266;
   color: white;
   font-size: medium;
-  box-shadow: 2px 4px 8px rgba(70, 70, 70, 0.178);
+  box-shadow: 0 4px 8px rgba(122, 114, 102, 0.2);
 }
 
 .auth-wrapper a {
-  color: #5e7eb6;
+  color: #7A7266;
   text-decoration: none;
 }
 
 .auth-wrapper .input {
-  box-shadow: inset 4px 4px 4px rgba(165, 163, 163, 0.315),
-    4px 4px 4px rgba(218, 218, 218, 0.13);
+  box-shadow: inset 4px 4px 4px rgba(216, 154, 122, 0.1),
+    4px 4px 4px rgba(234, 230, 225, 0.1);
 }
 
 .auth-wrapper .switch-form {
   text-align: center;
   margin-top: 10px;
   font-size: 0.9em;
-  color: #425981;
+  color: #7A7266;
 }
 
 .auth-wrapper .switch-form a {
-  color: #5e7eb6;
+  color: #7A7266;
   text-decoration: none;
   font-weight: 500;
 }
@@ -175,6 +175,6 @@
 }
 
 .auth-wrapper .vis {
-  color: #2d3d59;
+  color: #1C1C1C;
 }
 

@@ -1,23 +1,23 @@
 /* Variables for colors */
 :root {
-    --primary-blue: #3498db;
-    --dark-blue: #2980b9;
-    --light-blue: #e7f3fa;
-    --green: #2ecc71;
-    --orange: #f39c12;
-    --red: #e74c3c;
-    --purple: #9b59b6;
-    --teal: #1abc9c;
-    --gray: #95a5a6;
-    --light-gray: #ecf0f1;
-    --dark-gray: #34495e;
-    --text-dark: #2c3e50;
-    --text-light: #ecf0f1;
-    --white: #ffffff;
-    --border-color: #ddd;
-    --shadow-light: rgba(0, 0, 0, 0.05);
-    --shadow-medium: rgba(0, 0, 0, 0.1);
-    --shadow-strong: rgba(0, 0, 0, 0.2);
+    --primary-color: #7A7266; /* Warm Grey Brown - Buttons, icons */
+    --secondary-color: #B6B2A6; /* Muted Sage Grey - Secondary backgrounds */
+    --light-color: #EAE6E1; /* Warm Light Beige - Backgrounds, soft sections */
+    --dark-color: #1C1C1C; /* Deep Charcoal - Text, headers, emphasis */
+    --accent-color: #D89A7A; /* Dusty Terracotta - Accents, hover states */
+    --soft-peach: #F5D6C3; /* Soft Peach - Subtle highlights, cards */
+    --off-white: #EEECE7; /* Off White - Content background, contrast text areas */
+    --rich-coffee: #5B3A29; /* Rich Coffee Brown - Footer, navbar, bold highlights */
+    --gray: #B6B2A6; /* Muted Sage Grey for neutral */
+    --light-gray: #EAE6E1; /* Warm Light Beige for backgrounds */
+    --dark-gray: #1C1C1C; /* Deep Charcoal for text */
+    --text-dark: #1C1C1C; /* Deep Charcoal for text */
+    --text-light: #EEECE7; /* Off White for text */
+    --white: #FFFFFF; /* Pure white */
+    --border-color: #F5D6C3; /* Soft Peach for borders */
+    --shadow-light: rgba(28, 28, 28, 0.05);
+    --shadow-medium: rgba(28, 28, 28, 0.1);
+    --shadow-strong: rgba(28, 28, 28, 0.2);
 }
 
 /* General body styling */
@@ -73,7 +73,7 @@ body {
     align-items: center;
     gap: 5px;
     padding: 10px 18px;
-    background-color: var(--primary-blue);
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 8px;
@@ -88,11 +88,11 @@ body {
 }
 
 .enroll-new-btn.back-to-dashboard:hover {
-    background-color: var(--dark-gray);
+    background-color: var(--rich-coffee);
 }
 
 .enroll-new-btn:hover {
-    background-color: var(--dark-blue);
+    background-color: var(--rich-coffee); /* Rich Coffee Brown on hover */
     transform: translateY(-2px);
 }
 
@@ -163,8 +163,8 @@ body {
     height: 32px;
 }
 
-.section-icon.blue { background-color: var(--primary-blue); }
-.section-icon.green { background-color: var(--green); }
+.section-icon.blue { background-color: var(--primary-color); }
+.section-icon.green { background-color: var(--primary-color); }
 
 /* My Learning Snapshot */
 .my-learning-overview-section .learning-overview-stats {
@@ -203,7 +203,7 @@ body {
 .overview-stat-card span {
     font-size: 1.8em;
     font-weight: bold;
-    color: var(--primary-blue);
+    color: var(--primary-color);
     margin-bottom: 5px;
 }
 
@@ -218,12 +218,12 @@ body {
     box-shadow: 0 2px 5px var(--shadow-medium);
 }
 
-.stat-icon-wrapper.blue { background-color: var(--primary-blue); }
-.stat-icon-wrapper.orange { background-color: var(--orange); }
-.stat-icon-wrapper.purple { background-color: var(--purple); }
-.stat-icon-wrapper.teal { background-color: var(--teal); }
-.stat-icon-wrapper.green { background-color: var(--green); }
-.stat-icon-wrapper.yellow { background-color: var(--orange); }
+.stat-icon-wrapper.blue { background-color: var(--primary-color); }
+.stat-icon-wrapper.orange { background-color: var(--primary-color); }
+.stat-icon-wrapper.purple { background-color: var(--primary-color); }
+.stat-icon-wrapper.teal { background-color: var(--primary-color); }
+.stat-icon-wrapper.green { background-color: var(--primary-color); }
+.stat-icon-wrapper.yellow { background-color: var(--primary-color); }
 
 /* Courses & Projects List */
 .my-courses-list {
@@ -273,7 +273,7 @@ body {
     color: var(--gray);
     margin-top: 5px;
     padding: 4px 8px;
-    background-color: var(--light-blue);
+    background-color: var(--soft-peach);
     border-radius: 5px;
     display: inline-block;
 }
@@ -287,10 +287,10 @@ body {
     white-space: nowrap;
 }
 
-.status-in-progress { background-color: var(--light-blue); color: var(--primary-blue); }
-.status-completed { background-color: rgba(46, 204, 113, 0.2); color: var(--green); }
-.status-enrolled { background-color: rgba(155, 89, 182, 0.2); color: var(--purple); }
-.status-dropped { background-color: rgba(231, 76, 60, 0.2); color: var(--red); }
+.status-in-progress { background-color: var(--soft-peach); color: var(--primary-color); }
+.status-completed { background-color: rgba(122, 114, 102, 0.2); color: var(--primary-color); }
+.status-enrolled { background-color: rgba(122, 114, 102, 0.2); color: var(--primary-color); }
+.status-dropped { background-color: rgba(122, 114, 102, 0.2); color: var(--primary-color); }
 
 .enrolled-course-progress-bar {
     width: 100%;
@@ -307,11 +307,11 @@ body {
     transition: width 0.5s ease-in-out;
 }
 
-.progress-red { background-color: var(--red); }
-.progress-orange { background-color: var(--orange); }
-.progress-yellow { background-color: var(--orange); }
-.progress-blue { background-color: var(--primary-blue); }
-.progress-green { background-color: var(--green); }
+.progress-red { background-color: var(--primary-color); }
+.progress-orange { background-color: var(--primary-color); }
+.progress-yellow { background-color: var(--primary-color); }
+.progress-blue { background-color: var(--primary-color); }
+.progress-green { background-color: var(--primary-color); }
 
 .enrolled-course-details {
     display: flex;
@@ -324,7 +324,7 @@ body {
 
 .continue-btn {
     padding: 8px 15px;
-    background-color: var(--primary-blue);
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 8px;
@@ -335,7 +335,7 @@ body {
 }
 
 .continue-btn:hover {
-    background-color: var(--dark-blue);
+    background-color: var(--rich-coffee); /* Rich Coffee Brown on hover */
     transform: translateY(-1px);
 }
 
