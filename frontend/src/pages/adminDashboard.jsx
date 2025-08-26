@@ -1246,7 +1246,7 @@ useEffect(() => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
+              {/* <div className="flex items-center gap-4">
                 <button className="p-3 text-gray-400 hover:text-white hover:bg-gray-800/50 rounded-xl transition-colors relative">
                   <Bell className="w-5 h-5" />
                   <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
@@ -1257,7 +1257,43 @@ useEffect(() => {
                 <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
                   <span className="text-white font-bold">A</span>
                 </div>
-              </div>
+              </div> */}
+              {/* logout button  */}
+          <button
+            onClick={async () => {
+              try {
+                const res = await axios.post(
+                  "http://localhost:3000/user/logout",
+                  {},
+                  { withCredentials: true }
+                );
+
+                if (res.status === 200) {
+                  alert("Logged out successfully");
+                  navigate("/");
+                } else {
+                  alert("Logout failed. Please try again.");
+                }
+              } catch (error) {
+                console.error("Logout failed:", error);
+                alert(
+                  error.response?.data?.message ||
+                    "Logout failed. Please try again."
+                );
+              }
+            }}
+            style={{
+              padding: "11px 40px",
+              backgroundColor: "red",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              fontSize: "20px",
+            }}
+          >
+            Logout
+          </button>
             </div>
           </div>
         </header>
@@ -1266,13 +1302,13 @@ useEffect(() => {
         <nav className="bg-gray-900/60 backdrop-blur-xl border-b border-gray-700/30 sticky top-16 z-10">
           <div className="px-6 py-4">
             <div className="flex gap-2 overflow-x-auto">
-              <TabButton
+              {/* <TabButton
                 id="overview"
-                label="Overview"
+                label=""
                 icon={BarChart3}
                 isActive={activeTab === 'overview'}
                 onClick={setActiveTab}
-              />
+              /> */}
               <TabButton
                 id="courses"
                 label="Courses"
@@ -1288,8 +1324,15 @@ useEffect(() => {
                 onClick={setActiveTab}
               />
               <TabButton
+                id="overview"
+                label="Add Internship"
+                icon={BarChart3}
+                isActive={activeTab === 'overview'}
+                onClick={setActiveTab}
+              />
+              <TabButton
                 id="analytics"
-                label="Analytics"
+                label="All Users"
                 icon={TrendingUp}
                 isActive={activeTab === 'analytics'}
                 onClick={setActiveTab}

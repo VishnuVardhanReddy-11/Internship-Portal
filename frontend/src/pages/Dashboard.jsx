@@ -439,9 +439,7 @@ const Dashboard = () => {
                       </span>
                       <button
                         className="continue-btn"
-                        onClick={() =>
-                          window.open("https://example.com", "_blank")
-                        }
+                        onClick={() => navigate(`/course/${item.id}`)}
                       >
                         View Details
                       </button>
