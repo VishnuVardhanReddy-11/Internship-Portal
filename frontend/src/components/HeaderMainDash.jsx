@@ -1,7 +1,9 @@
-import React from "react";
+import { Link } from "react-router-dom";
 // import "../styles/HeaderMainDash.css";
+import axios from "axios";
 
-export default function HeaderMain({ menuActive, toggleMenu }) {
+
+export default function HeaderMainDash({ menuActive, toggleMenu }) {
   return (
     <header className="bg-white py-5 shadow-sm sticky top-0 z-50">
       <div className="w-full px-5 flex flex-wrap justify-between items-center">
@@ -19,51 +21,12 @@ export default function HeaderMain({ menuActive, toggleMenu }) {
           </a>
         </div>
         <nav className="w-full md:w-auto order-3 md:order-none">
-          <ul
-            className={`${
-              menuActive ? "flex" : "hidden"
-            } md:flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10 mt-5 md:mt-0 items-center`}
-          >
-            <li>
-              <a
-                href="/about"
-                className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full"
-              >
-                About Us
-              </a>
-            </li>
-            <li>
-              <a
-                href="/#courses"
-                className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full"
-              >
-                Courses
-              </a>
-            </li>
-            <li>
-              <a
-                href="/#projects"
-                className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full"
-              >
-                Projects
-              </a>
-            </li>
-            <li>
-              <a
-                href="/#internships"
-                className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full"
-              >
-                Internships
-              </a>
-            </li>
-            <li>
-              <a
-                href="/#contact"
-                className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full"
-              >
-                Contact
-              </a>
-            </li>
+          <ul className={`${menuActive ? 'flex' : 'hidden'} md:flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-10 mt-5 md:mt-0 items-center`}>
+            <li><a href="/about" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">About Us</a></li>
+            <li><a href="/courses" target="_blank" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Courses</a></li>
+            <li><a href="/ProjectsDash" target="_blank" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Projects</a></li>
+            <li><a href="/InternshipsDash" target="_blank" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Internships</a></li>
+            <li><a href="/#contact" className="text-gray-600 font-semibold text-lg hover:text-[#6C5CE7] relative pb-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#6C5CE7] after:transition-all hover:after:w-full">Contact</a></li>
           </ul>
         </nav>
         <div className="hidden md:flex gap-4">

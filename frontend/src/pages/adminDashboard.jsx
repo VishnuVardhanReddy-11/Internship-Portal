@@ -1357,7 +1357,6 @@ useEffect(() => {
         onConfirm={handleConfirmDelete}
         message={`Are you sure you want to delete this ${itemToDelete?.type || 'item'}? This action cannot be undone.`}
       />
-
     </div>
   );
 };
