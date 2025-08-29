@@ -14,6 +14,9 @@ import HairCoaction from './pages/HairCoaction';
 import AboutUs from './pages/AboutUs';
 import InternshipDetail from './pages/InternshipDetail';
 import CourseDetail from './pages/CourseDetail';
+import ProjectDash from "./pages/ProjectsDash"; 
+import InternshipsDash from "./pages/InternshipsDash";
+
 function App() {
   return (
     <Router>
@@ -33,7 +36,9 @@ function App() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/course/:courseId" element={<CourseDetail />} />
         <Route path="/internship/:internshipId" element={<InternshipDetail />} />
-
+        <Route path="/ProjectsDash" element={<ProjectDash />} />
+        <Route path="/InternshipsDash" element={<InternshipsDash />} />
+        {/* <Route path="/InternshipDetail" element={<InternshipDetail />}> */}
       </Routes>
     </Router>
   );
