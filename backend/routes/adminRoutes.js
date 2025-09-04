@@ -9,8 +9,8 @@ const { verifyAdmin } = require('../middlewares/verifyAdminRole');
 router.post('/login', loginAdmin);
 router.get('/get-all-courses', verifyAdminToken, getAllCourses);
 router.post('/create-course', verifyAdminToken, upload.any(), createCourse);
-// router.get('/get-course/:id', verifyToken, verifyAdmin, adminController.getCourseById);
-// router.put('/update-course/:id', verifyToken, verifyAdmin, adminController.updateCourse);
-// router.post('/delete-course/:id', verifyAdminToken, verifyAdminRole, deleteCourse);
+router.get('/course/:id', verifyAdminToken, getCourseById);
+router.put('/edit/:id', verifyAdminToken, upload.any(), updateCourse);
+router.post('/delete/:id', verifyAdminToken, deleteCourse);
 
 module.exports=router
