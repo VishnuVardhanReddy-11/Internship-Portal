@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const NewCourse = ({ onSave }) => {
+const NewCourse = () => {
   const [courseData, setCourseData] = useState({
     title: '',
     description: '',
@@ -58,7 +58,8 @@ const NewCourse = ({ onSave }) => {
 
   const extractYouTubeID = (url) => {
     try {
-      const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+      const regExp =
+        /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
       const match = url.match(regExp);
       return match && match[1].length === 11 ? match[1] : null;
     } catch {
@@ -71,7 +72,6 @@ const NewCourse = ({ onSave }) => {
     try {
       const formData = new FormData();
 
-      // Add basic fields
       formData.append('title', courseData.title);
       formData.append('description', courseData.description);
       formData.append('instructor', courseData.instructor);
@@ -123,7 +123,8 @@ const NewCourse = ({ onSave }) => {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h1 className="text-3xl font-bold text-white">
             {editCourse ? 'Edit Course' : 'Add New Course'}
-            </h1>
+          </h1>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -204,7 +205,9 @@ const NewCourse = ({ onSave }) => {
               <div key={index} className="bg-gray-700 p-4 rounded">
                 <select
                   value={block.type}
-                  onChange={(e) => updateContentBlock(index, 'type', e.target.value)}
+                  onChange={(e) =>
+                    updateContentBlock(index, 'type', e.target.value)
+                  }
                   className="w-full p-2 mb-2 bg-gray-800 rounded"
                 >
                   <option value="text">Text</option>
@@ -217,7 +220,9 @@ const NewCourse = ({ onSave }) => {
                   <textarea
                     placeholder="Enter text content"
                     value={block.value}
-                    onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
+                    onChange={(e) =>
+                      updateContentBlock(index, 'value', e.target.value)
+                    }
                     className="w-full p-2 bg-gray-800 rounded"
                     required
                   />
@@ -241,7 +246,11 @@ const NewCourse = ({ onSave }) => {
                       required
                     />
                     {block.value && (
-                      <video controls src={block.value} className="w-full mt-2 rounded" />
+                      <video
+                        controls
+                        src={block.value}
+                        className="w-full mt-2 rounded"
+                      />
                     )}
                   </>
                 )}
@@ -275,23 +284,30 @@ const NewCourse = ({ onSave }) => {
                       type="url"
                       placeholder="Paste video URL"
                       value={block.value}
-                      onChange={(e) => updateContentBlock(index, 'value', e.target.value)}
+                      onChange={(e) =>
+                        updateContentBlock(index, 'value', e.target.value)
+                      }
                       className="w-full p-2 bg-gray-800 rounded"
                       required
                     />
-                    {block.value && (
-                      extractYouTubeID(block.value) ? (
+                    {block.value &&
+                      (extractYouTubeID(block.value) ? (
                         <iframe
                           className="w-full mt-2 rounded"
                           height="300"
-                          src={`https://www.youtube.com/embed/${extractYouTubeID(block.value)}`}
+                          src={`https://www.youtube.com/embed/${extractYouTubeID(
+                            block.value
+                          )}`}
                           frameBorder="0"
                           allowFullScreen
                         />
                       ) : (
-                        <video controls src={block.value} className="w-full mt-2 rounded" />
-                      )
-                    )}
+                        <video
+                          controls
+                          src={block.value}
+                          className="w-full mt-2 rounded"
+                        />
+                      ))}
                   </>
                 )}
 
@@ -333,7 +349,7 @@ const NewCourse = ({ onSave }) => {
         </form>
       </div>
     </div>
-    </div>
+  
   );
 };
 
